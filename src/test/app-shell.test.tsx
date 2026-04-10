@@ -20,8 +20,8 @@ describe('app shell', () => {
     expect(container.textContent).toContain('BemsZzz')
     expect(container.textContent).toContain('Projects')
     expect(container.textContent).toContain('Journal')
-    expect(container.textContent).toContain('AI Agent 产品与工作流设计')
-    expect(container.textContent).toContain('研究者视角，产品化表达')
+    expect(container.textContent).toContain('AI 产品与信息系统设计')
+    expect(container.textContent).toContain('研究驱动，产品落地')
   })
 
   it('renders a not found state for unknown routes', () => {

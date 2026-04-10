@@ -1,15 +1,51 @@
+/**
+ * Editorial image map — all images stored locally under /public/editorial/
+ * Directions per materials-guide.md: brushed metal, paper texture,
+ * minimal architectural surfaces, warm glass/light reflections.
+ * Forbidden: night cityscape, programmer desk, space/chip, neon HUD.
+ */
 export const editorialMedia = {
-  hero:
-    'https://images.pexels.com/photos/16068775/pexels-photo-16068775.jpeg?cs=srgb&dl=pexels-sasi-tha-16068775.jpg&fm=jpg',
-  architecture:
-    'https://images.pexels.com/photos/7078719/pexels-photo-7078719.jpeg?cs=srgb&dl=pexels-laura-tancredi-7078719.jpg&fm=jpg',
-  goldTexture:
-    'https://images.pexels.com/photos/21031387/pexels-photo-21031387.jpeg?cs=srgb&dl=pexels-robert-clark-504241532-21031387.jpg&fm=jpg',
+  // Hero right-panel texture (dark fluid abstract painting)
+  hero: '/editorial/dark-fluid.jpg',
+
+  // Minimal concrete / architectural surfaces
+  architecture: '/editorial/concrete-arch.jpg',
+  concreteMinimal: '/editorial/concrete-minimal.jpg',
+
+  // Warm interior — light and material surfaces
+  warmInterior: '/editorial/warm-interior.jpg',
+
+  // Warm paper / parchment texture
+  paper: '/editorial/paper-texture.jpg',
+
+  // Gold textile close-up (warm metallic)
+  goldTexture: '/editorial/gold-texture.jpg',
+
+  // Brushed metal surface
+  brushedMetal: '/editorial/brushed-metal.jpg',
+
+  // Soft warm bokeh / light reflections
+  warmBokeh: '/editorial/warm-bokeh.jpg',
+  lightBokeh: '/editorial/light-bokeh.jpg',
+
+  // Dark abstract (secondary hero option / deep panel background)
+  darkAbstract: '/editorial/dark-abstract.jpg',
 }
 
+// Ordered project screenshots for About gallery and Home about section
+export const showcaseImages = [
+  '/project-images/ainews/1.png',
+  '/project-images/ainews/4.png',
+  '/project-images/ainews/7.png',
+  '/project-images/learningbydoing/1.png',
+  '/project-images/learningbydoing/4.png',
+  '/project-images/learningbydoing/8.png',
+]
+
 export const projectMediaBySlug: Record<string, string> = {
-  'signal-ops-agent': editorialMedia.hero,
-  'studio-publishing-loop': editorialMedia.architecture,
-  'partner-brief-agent': editorialMedia.goldTexture,
-  'research-memory-index': editorialMedia.architecture,
+  'ainews-platform': '/project-images/ainews/1.png',
+  'learningbydoing-ai-studio': '/project-images/learningbydoing/8.png',
+  'studio-publishing-loop': '/editorial/concrete-arch.jpg',
+  'partner-brief-agent': '/editorial/gold-texture.jpg',
+  'research-memory-index': '/editorial/brushed-metal.jpg',
 }

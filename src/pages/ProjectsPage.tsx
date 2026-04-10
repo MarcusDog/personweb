@@ -20,11 +20,11 @@ export function ProjectsPage() {
     <>
       <PageHero
         eyebrow="Projects"
-        title={language === 'zh' ? '以结果为导向的 AI Agent 项目展示。' : 'AI agent projects framed around outcomes.'}
-        description={language === 'zh' ? '这里展示的不是技术清单，而是项目如何被定义、如何进入真实场景，以及最终留下了什么能力与结果。' : 'This archive focuses less on tool lists and more on how projects are framed, deployed into real contexts, and what outcomes they produce.'}
+        title={language === 'zh' ? '做过的东西，发出去的东西。' : 'Things I built. Things I shipped.'}
+        description={language === 'zh' ? '从 AI 工具到自动化流程，做完就发，能用就行，然后继续迭代。' : 'From AI tools to automation workflows. Ship it, use it, keep iterating.'}
         aside={
           <div className="space-y-4 text-sm leading-7 text-[var(--text-soft)]">
-            <p>{language === 'zh' ? '重点关注：AI Agent 工作流、内容与研究系统、合作与业务入口。' : 'Focus areas: AI agent workflows, publishing and research systems, and business-facing interfaces.'}</p>
+            <p>{language === 'zh' ? '重点关注：AI 产品、资讯与研究工具、内容系统，以及项目展示类前端。' : 'Focus areas: AI products, research and intelligence tools, publishing systems, and portfolio-facing frontend work.'}</p>
             <p>{language === 'zh' ? `当前收录 ${projects.length} 个项目样例。` : `${projects.length} project examples currently included.`}</p>
           </div>
         }

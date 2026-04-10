@@ -12,8 +12,8 @@ export function SiteFooter() {
           <p className="brand-display text-2xl text-[var(--text-strong)]">小天Aya｜BemsZzz</p>
           <p className="max-w-xl text-sm leading-7 text-[var(--text-soft)]">
             {language === 'zh'
-              ? '为 AI Agent、产品流程与长期内容系统构建更稳的结构。'
-              : 'Building steadier structures for AI agents, product workflows, and long-term publishing systems.'}
+              ? '用 AI 做有意思的事，把无聊的留给机器。你有 idea，欢迎来找我聊。'
+              : 'Building things with AI. Leaving the boring parts to the machine. Got an idea? Let\'s talk.'}
           </p>
         </div>
         <div className="flex flex-wrap gap-4 text-sm text-[var(--text-muted)]">

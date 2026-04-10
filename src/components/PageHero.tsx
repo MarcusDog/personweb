@@ -13,15 +13,19 @@ interface PageHeroProps {
 export function PageHero({ eyebrow, title, description, aside }: PageHeroProps) {
   const { language } = useLanguage()
   const isChinese = language === 'zh'
+  const shellClassName = aside
+    ? 'grid gap-8 border-b border-[var(--border-subtle)] pb-10 md:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)] md:gap-10 md:pb-14'
+    : 'border-b border-[var(--border-subtle)] pb-10 md:pb-14'
 
   return (
     <section className="page-shell pt-28 md:pt-34">
-      <div className="grid gap-8 border-b border-[var(--border-subtle)] pb-10 md:grid-cols-[minmax(0,1.35fr)_minmax(18rem,0.65fr)] md:gap-10 md:pb-14">
+      <div className={shellClassName}>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className={aside ? undefined : 'max-w-4xl'}
         >
           {eyebrow ? (
             <p

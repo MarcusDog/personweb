@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Manrope:wght@400..800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -26,9 +27,9 @@
 
   --shadow-soft: 0 26px 80px rgba(18, 14, 10, 0.08);
 
-  --font-display: "Cormorant Garamond", "Noto Serif SC", serif;
+  --font-display: "Bodoni Moda", "Noto Serif SC", serif;
   --font-body: "Noto Serif SC", "Songti SC", "Source Han Serif SC", serif;
-  --font-ui: "Manrope", "Helvetica Neue", sans-serif;
+  --font-ui: "Cabinet Grotesk", "Helvetica Neue", sans-serif;
 
   --radius-panel: 1.75rem;
   --radius-pill: 999px;
@@ -159,20 +160,21 @@ svg {
 
 .theme-home {
   background:
-    radial-gradient(circle at top, rgba(187, 152, 94, 0.15), transparent 28%),
+    radial-gradient(ellipse at 26% 0%, rgba(200, 158, 80, 0.22), transparent 32%),
+    radial-gradient(circle at 82% 22%, rgba(140, 90, 32, 0.18), transparent 28%),
     linear-gradient(180deg, var(--home-bg) 0%, var(--home-bg-deep) 100%);
 }
 
 .home-story-wrap {
   position: relative;
-  margin-top: -1.6rem;
-  border-top-left-radius: 3rem;
-  border-top-right-radius: 3rem;
+  margin-top: -3rem;
+  border-top-left-radius: 3.5rem;
+  border-top-right-radius: 3.5rem;
   background:
-    linear-gradient(180deg, rgba(248, 243, 234, 0.98) 0%, rgba(245, 239, 229, 0.98) 100%);
+    linear-gradient(180deg, rgba(250, 246, 238, 0.99) 0%, rgba(245, 239, 229, 0.99) 100%);
   box-shadow:
-    0 -18px 60px rgba(0, 0, 0, 0.12),
-    0 26px 80px rgba(18, 14, 10, 0.12);
+    0 -24px 80px rgba(0, 0, 0, 0.18),
+    0 30px 90px rgba(18, 14, 10, 0.12);
   color: var(--text-strong);
 }
 
@@ -187,6 +189,130 @@ svg {
     radial-gradient(circle at top left, rgba(214, 183, 120, 0.22), transparent 36%),
     linear-gradient(180deg, rgba(246, 241, 232, 0.96), rgba(246, 241, 232, 0));
   pointer-events: none;
+}
+
+.home-scroll-section {
+  transform-origin: center top;
+}
+
+.home-scroll-frame {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(78, 58, 33, 0.12);
+  border-radius: 2.4rem;
+  padding: 1.35rem;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.68), rgba(248, 241, 231, 0.78)),
+    radial-gradient(circle at top left, rgba(214, 183, 120, 0.08), transparent 38%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 20px 56px rgba(22, 16, 11, 0.08);
+}
+
+@media (min-width: 768px) {
+  .home-scroll-frame {
+    padding: 1.9rem;
+  }
+}
+
+.home-scroll-frame::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.26), transparent 14%),
+    radial-gradient(circle at top right, rgba(215, 187, 132, 0.08), transparent 24%);
+}
+
+.home-scroll-scaffold {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.home-scroll-scaffold-line {
+  position: absolute;
+  display: block;
+  opacity: 0.78;
+}
+
+.home-scroll-scaffold-line-top,
+.home-scroll-scaffold-line-bottom {
+  left: 1.5rem;
+  right: 1.5rem;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(164, 129, 74, 0.04), rgba(164, 129, 74, 0.22), rgba(164, 129, 74, 0.04));
+}
+
+.home-scroll-scaffold-line-top {
+  top: 1.35rem;
+}
+
+.home-scroll-scaffold-line-bottom {
+  bottom: 1.35rem;
+}
+
+.home-scroll-scaffold-line-vertical {
+  top: 1.5rem;
+  bottom: 1.5rem;
+  width: 1px;
+  left: 50%;
+  opacity: 0;
+  background: linear-gradient(180deg, rgba(164, 129, 74, 0.04), rgba(164, 129, 74, 0.2), rgba(164, 129, 74, 0.04));
+}
+
+.home-scroll-frame-split-left .home-scroll-scaffold-line-vertical,
+.home-scroll-frame-split-right .home-scroll-scaffold-line-vertical {
+  opacity: 0.85;
+}
+
+.home-scroll-frame-split-left .home-scroll-scaffold-line-vertical {
+  left: 35.5%;
+}
+
+.home-scroll-frame-split-right .home-scroll-scaffold-line-vertical {
+  left: 42.5%;
+}
+
+.home-scroll-frame-stack .home-scroll-scaffold-line-vertical {
+  display: none;
+}
+
+.home-scroll-frame-dark .home-scroll-scaffold-line-top,
+.home-scroll-frame-dark .home-scroll-scaffold-line-bottom {
+  background: linear-gradient(90deg, rgba(228, 203, 152, 0.04), rgba(228, 203, 152, 0.18), rgba(228, 203, 152, 0.04));
+}
+
+.home-scroll-frame-dark .home-scroll-scaffold-line-vertical {
+  background: linear-gradient(180deg, rgba(228, 203, 152, 0.04), rgba(228, 203, 152, 0.18), rgba(228, 203, 152, 0.04));
+}
+
+.home-scroll-glow {
+  position: absolute;
+  inset: 1.5rem 4% auto;
+  height: 22rem;
+  pointer-events: none;
+  border-radius: 999px;
+  filter: blur(52px);
+  opacity: 0;
+}
+
+.home-scroll-glow-warm {
+  background: radial-gradient(circle, rgba(218, 180, 108, 0.32), transparent 66%);
+}
+
+.home-scroll-glow-paper {
+  background: radial-gradient(circle, rgba(220, 196, 148, 0.24), transparent 70%);
+}
+
+.home-scroll-glow-bronze {
+  background: radial-gradient(circle, rgba(172, 122, 56, 0.28), transparent 66%);
+}
+
+.home-scroll-glow-dark {
+  background: radial-gradient(circle, rgba(90, 62, 28, 0.32), transparent 64%);
 }
 
 .theme-paper {
@@ -210,9 +336,9 @@ svg {
 
 .hero-veil {
   background:
-    radial-gradient(circle at 18% 20%, rgba(224, 192, 134, 0.18), transparent 24%),
-    radial-gradient(circle at 82% 82%, rgba(106, 76, 39, 0.18), transparent 28%),
-    linear-gradient(180deg, rgba(9, 8, 6, 0) 0%, rgba(9, 8, 6, 0.34) 100%);
+    radial-gradient(circle at 18% 20%, rgba(224, 192, 134, 0.2), transparent 24%),
+    radial-gradient(circle at 82% 82%, rgba(106, 76, 39, 0.22), transparent 28%),
+    linear-gradient(180deg, rgba(9, 8, 6, 0) 0%, rgba(9, 8, 6, 0.42) 100%);
 }
 
 .hero-grid {
@@ -380,6 +506,42 @@ svg {
   color: var(--text-strong);
 }
 
+.project-shot-frame {
+  overflow: hidden;
+  border: 1px solid rgba(63, 46, 25, 0.12);
+  border-radius: 2rem;
+  padding: 0.85rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 246, 0.94), rgba(245, 237, 225, 0.92)),
+    radial-gradient(circle at top left, rgba(214, 183, 120, 0.1), transparent 40%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    0 26px 80px rgba(18, 14, 10, 0.09);
+}
+
+.project-shot-frame-featured {
+  padding: 1rem;
+  border-radius: 2.2rem;
+}
+
+.project-shot-image {
+  width: 100%;
+  height: auto;
+  border-radius: 1.25rem;
+  object-fit: contain;
+  box-shadow: 0 16px 44px rgba(14, 10, 6, 0.12);
+}
+
+@media (min-width: 768px) {
+  .project-shot-frame {
+    padding: 1rem;
+  }
+
+  .project-shot-frame-featured {
+    padding: 1.15rem;
+  }
+}
+
 .project-visual {
   position: relative;
   overflow: hidden;
@@ -523,7 +685,7 @@ svg {
   line-height: 1;
 }
 
-.project-visual--signal-ops-agent {
+.project-visual--ainews-platform {
   background:
     radial-gradient(circle at 20% 22%, rgba(214, 183, 120, 0.2), transparent 24%),
     radial-gradient(circle at 74% 78%, rgba(103, 73, 39, 0.26), transparent 24%),
@@ -674,18 +836,18 @@ svg {
 }
 
 .brand-mark-roman {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(3.8rem, 8.8vw, 6.9rem);
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8.2vw, 6.35rem);
   line-height: 0.9;
-  letter-spacing: -0.06em;
-  transform: translateY(-0.08em);
+  letter-spacing: -0.055em;
+  transform: translateY(-0.04em);
 }
 
 .brand-mark-secondary {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(4.4rem, 10.2vw, 8rem);
-  line-height: 0.88;
-  letter-spacing: -0.065em;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 9.6vw, 7.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.05em;
   margin-left: clamp(1.9rem, 7vw, 8rem);
 }
 
@@ -731,7 +893,7 @@ html[lang='zh-CN'] button {
 html[lang='zh-CN'] .brand-display {
   font-family: var(--font-body);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.04em;
   line-height: 1.08;
 }
 
@@ -768,9 +930,9 @@ html[lang='zh-CN'] .editorial-figure-caption {
 
 @media (max-width: 767px) {
   .home-story-wrap {
-    margin-top: -1.2rem;
-    border-top-left-radius: 2rem;
-    border-top-right-radius: 2rem;
+    margin-top: -1.6rem;
+    border-top-left-radius: 2.5rem;
+    border-top-right-radius: 2.5rem;
   }
 
   .brand-mark-line {
@@ -793,6 +955,34 @@ html[lang='zh-CN'] .editorial-figure-caption {
 
   .project-visual-full {
     min-height: 16rem;
+  }
+
+  .home-scroll-glow {
+    inset: 1.5rem 2% auto;
+    height: 10rem;
+  }
+
+  .home-scroll-frame {
+    border-radius: 1.8rem;
+    padding: 1rem;
+  }
+
+  .home-scroll-scaffold-line-top,
+  .home-scroll-scaffold-line-bottom {
+    left: 1rem;
+    right: 1rem;
+  }
+
+  .home-scroll-scaffold-line-top {
+    top: 1rem;
+  }
+
+  .home-scroll-scaffold-line-bottom {
+    bottom: 1rem;
+  }
+
+  .home-scroll-scaffold-line-vertical {
+    display: none;
   }
 
   .project-visual-window-left,
@@ -835,6 +1025,163 @@ html[lang='zh-CN'] .editorial-figure-caption {
     right: 1.2rem;
     bottom: 1.8rem;
   }
+}
+
+/* ===================================================
+   CSS Art Panels — generated abstract visuals
+   replacing generic stock imagery
+   =================================================== */
+
+.art-panel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Journal section — warm paper with ruled lines */
+.art-panel-journal {
+  aspect-ratio: 4 / 3;
+  min-height: 10rem;
+  background:
+    radial-gradient(ellipse at 16% 30%, rgba(120, 180, 230, 0.07), transparent 48%),
+    radial-gradient(ellipse at 84% 68%, rgba(200, 160, 88, 0.09), transparent 48%),
+    linear-gradient(158deg, #faf8f2 0%, #efe5d3 100%);
+}
+
+.art-panel-journal::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 30px,
+    rgba(155, 126, 82, 0.07) 31px
+  );
+}
+
+.art-panel-journal::after {
+  content: '';
+  position: absolute;
+  left: 2.5rem;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 8%,
+    rgba(180, 140, 78, 0.18) 20%,
+    rgba(180, 140, 78, 0.18) 80%,
+    transparent 92%
+  );
+}
+
+/* Capabilities section — dark tech grid */
+.art-panel-tech {
+  aspect-ratio: 4 / 3;
+  min-height: 10rem;
+  border-color: rgba(214, 183, 120, 0.12);
+  background:
+    radial-gradient(ellipse at 24% 28%, rgba(130, 88, 210, 0.26), transparent 44%),
+    radial-gradient(ellipse at 76% 74%, rgba(200, 136, 52, 0.22), transparent 44%),
+    linear-gradient(145deg, #100e1e 0%, #09080f 100%);
+}
+
+.art-panel-tech::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.65), transparent 90%);
+}
+
+.art-panel-tech::after {
+  content: '';
+  position: absolute;
+  left: 15%;
+  right: 15%;
+  bottom: 24%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(220, 184, 120, 0.4), transparent);
+}
+
+/* About section wide banner */
+.art-panel-identity {
+  min-height: 11rem;
+  aspect-ratio: 16 / 7;
+  border-color: rgba(214, 183, 120, 0.1);
+  background:
+    radial-gradient(ellipse at 10% 50%, rgba(192, 140, 56, 0.2), transparent 40%),
+    radial-gradient(ellipse at 90% 50%, rgba(100, 64, 188, 0.16), transparent 42%),
+    radial-gradient(ellipse at 50% 10%, rgba(255, 224, 152, 0.06), transparent 40%),
+    linear-gradient(135deg, #1c1610 0%, #0e0b09 100%);
+}
+
+.art-panel-identity::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 84%);
+}
+
+.art-panel-identity::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 30%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(230, 200, 136, 0.24), transparent);
+}
+
+/* Shared text decorations inside art panels */
+.art-panel-eyebrow {
+  position: absolute;
+  top: 1.4rem;
+  left: 1.6rem;
+  font-family: var(--font-ui);
+  font-size: 0.76rem;
+  font-weight: 520;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.art-panel-eyebrow-dark {
+  color: rgba(242, 231, 212, 0.44);
+}
+
+.art-panel-caption {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 1.6rem;
+  right: 1.6rem;
+  font-size: 0.94rem;
+  line-height: 1.82;
+  color: var(--text-soft);
+}
+
+.art-panel-caption-dark {
+  color: rgba(242, 231, 212, 0.68);
+}
+
+html[lang='zh-CN'] .art-panel-eyebrow {
+  letter-spacing: 0.08em;
+  text-transform: none;
+  font-size: 0.82rem;
+}
+
+html[lang='zh-CN'] .art-panel-caption {
+  font-size: 1rem;
+  line-height: 1.9;
 }
 
 @keyframes orbitShift {

@@ -43,8 +43,8 @@ export function JournalPage() {
     <>
       <PageHero
         eyebrow="Journal"
-        title={language === 'zh' ? '写作，是研究过程的一部分。' : 'Writing is part of the research process.'}
-        description={language === 'zh' ? '这里保留方法笔记、系统观察、项目后记与 AI 学习过程中的结构化判断。' : 'This archive collects practice notes, system observations, project reflections, and structured judgment from ongoing AI study.'}
+        title={language === 'zh' ? '做了什么，想了什么，踩了什么坑。' : 'What I built, what I thought, what broke.'}
+        description={language === 'zh' ? '记录 AI 实验过程、工具观察、项目复盘，还有各种随手想到的东西。不追求完整，只求真实。' : 'Notes on AI experiments, tool observations, project post-mortems, and whatever else comes up. Not polished — just honest.'}
         aside={
           <div className="space-y-4 text-sm leading-7 text-[var(--text-soft)]">
             <p>{language === 'zh' ? '支持分类筛选、站内搜索、文章目录与复制链接。' : 'Includes category filtering, local search, article outlines, and share links.'}</p>

@@ -39,7 +39,7 @@ export function Prelude() {
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[radial-gradient(circle_at_top,rgba(220,191,137,0.22),transparent_28%),linear-gradient(180deg,#0a0907_0%,#16120e_100%)]"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-[radial-gradient(ellipse_at_26%_0%,rgba(200,158,80,0.24),transparent_32%),radial-gradient(circle_at_82%_22%,rgba(140,90,32,0.18),transparent_28%),linear-gradient(180deg,#090806_0%,#16120e_100%)]"
           aria-hidden="true"
         >
           <div className="absolute inset-0 overflow-hidden">
@@ -58,10 +58,10 @@ export function Prelude() {
             className="relative z-10 px-6 text-center"
           >
             <p className="brand-display balance text-4xl leading-tight text-[var(--home-text)] md:text-6xl">
-              欢迎来到小天Aya｜BemsZzz的数字空间
+              嗨，这里是小天 Aya。
             </p>
             <p className="mt-6 brand-ui text-xs uppercase tracking-[0.34em] text-[rgba(242,231,212,0.72)] md:text-sm">
-              Welcome to the digital space of XiaoTian Aya | BemsZzz
+              Hey — I'm Tian. Welcome.
             </p>
           </motion.div>
         </motion.div>

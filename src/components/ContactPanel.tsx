@@ -16,7 +16,7 @@ export function ContactPanel({ language }: ContactPanelProps) {
             : 'text-xs uppercase tracking-[0.28em]'
         }`}
       >
-        {language === 'zh' ? '商务合作' : 'Business Contact'}
+        {language === 'zh' ? '来聊' : 'Get in touch'}
       </p>
       <h2
         className={`brand-display mt-5 text-[var(--text-strong)] ${
@@ -25,12 +25,12 @@ export function ContactPanel({ language }: ContactPanelProps) {
             : 'text-4xl leading-[0.96] md:text-5xl'
         }`}
       >
-        {language === 'zh' ? '让合作从一个清晰的入口开始。' : 'Start the collaboration from a clear first brief.'}
+        {language === 'zh' ? '把你的想法发过来。' : 'Send me your idea.'}
       </h2>
       <p className={`mt-5 max-w-2xl text-[var(--text-soft)] ${isChinese ? 'text-[1.08rem] leading-[1.95]' : 'text-lg leading-8'}`}>
         {language === 'zh'
-          ? '适合发来的内容包括：AI Agent 产品构思、现有流程重构、内容系统设计、研究驱动的前端体验与合作探索。'
-          : 'Good inquiries include AI agent product framing, workflow redesign, content systems, research-led frontend work, and collaboration exploration.'}
+          ? 'AI 产品想法、想自动化的流程、觉得有意思但不知道怎么做的事 —— 都可以。我来判断能不能做、怎么做，然后把它做出来。'
+          : 'AI product concepts, workflows you want automated, things that seem interesting but you\'re not sure are buildable — all good. I\'ll figure out the approach and make it happen.'}
       </p>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
         <div>

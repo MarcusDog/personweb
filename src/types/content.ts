@@ -10,6 +10,27 @@ export interface ProjectSection {
 export interface ProjectGalleryItem {
   label: LocalizedText
   description: LocalizedText
+  image?: string
+}
+
+export interface ProjectShowcaseItem {
+  image: string
+  title: LocalizedText
+  description: LocalizedText
+}
+
+export interface ProjectShowcaseGroup {
+  afterSection: 'summary' | 'outcome' | number
+  eyebrow?: LocalizedText
+  title: LocalizedText
+  description: LocalizedText
+  layout?: 'single' | 'two-up' | 'feature-grid'
+  items: ProjectShowcaseItem[]
+}
+
+export interface ProjectExternalLink {
+  label: LocalizedText
+  url: string
 }
 
 export interface ProjectEntry {
@@ -29,6 +50,8 @@ export interface ProjectEntry {
   accent: string
   detailSections: ProjectSection[]
   gallery: ProjectGalleryItem[]
+  showcaseGroups?: ProjectShowcaseGroup[]
+  externalLinks?: ProjectExternalLink[]
 }
 
 export interface JournalEntryFrontmatter {
