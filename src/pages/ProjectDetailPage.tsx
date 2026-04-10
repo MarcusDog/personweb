@@ -146,6 +146,32 @@ export function ProjectDetailPage() {
         description={copyFor(language, project.subtitle)}
       />
 
+      {project.externalLinks && project.externalLinks.length > 0 && (
+        <section className="page-shell pt-8 pb-4">
+          <div className="flex flex-wrap gap-6">
+            {project.externalLinks.map((link) => (
+              <a
+                key={link.url}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group inline-flex items-center gap-4 rounded-2xl bg-gradient-to-r from-[var(--accent)] to-[var(--accent-secondary)] px-10 py-5 text-[var(--text-on-accent)] shadow-lg shadow-[var(--accent)]/25 transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-[var(--accent)]/40"
+                style={{
+                  background: 'linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%)',
+                }}
+              >
+                <span className={`font-semibold ${isChinese ? 'text-2xl leading-relaxed' : 'text-2xl leading-relaxed'}`}>
+                  {copyFor(language, link.label)}
+                </span>
+                <svg className="h-8 w-8 transition-transform duration-300 group-hover:translate-x-1.5 group-hover:-translate-y-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="page-shell py-12 md:py-16">
         <div className="space-y-8">
           {projectHeroImage ? (
@@ -279,30 +305,6 @@ export function ProjectDetailPage() {
                 </div>
               </section>
               {showcaseGroups.map((group, index) => (group.afterSection === 'outcome' ? renderShowcaseGroup(index) : null))}
-              
-              {project.externalLinks && project.externalLinks.length > 0 && (
-                <section className="grid gap-8 xl:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]">
-                  <div className="pt-1" />
-                  <div className="flex flex-wrap gap-4">
-                    {project.externalLinks.map((link) => (
-                      <a
-                        key={link.url}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3 text-[var(--text-on-accent)] transition duration-200 hover:opacity-90"
-                      >
-                        <span className={isChinese ? 'text-[1.02rem] leading-[1.88]' : 'text-base leading-8'}>
-                          {copyFor(language, link.label)}
-                        </span>
-                        <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              )}
             </div>
           </article>
         </div>
