@@ -50,7 +50,7 @@ function RouteFallback() {
 
   return (
     <div className="page-shell pt-36 pb-20">
-      <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+      <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
         {language === 'zh' ? '载入中' : 'Loading'}
       </p>
     </div>

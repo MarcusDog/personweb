@@ -12,7 +12,7 @@ export function ReadingToc({ headings, language }: ReadingTocProps) {
 
   return (
     <aside className="paper-panel sticky top-28">
-      <p className={`brand-ui mb-5 text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+      <p className={`brand-ui mb-5 text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
         {copyFor(language, { zh: '目录', en: 'Outline' })}
       </p>
       <nav aria-label={language === 'zh' ? '目录' : 'Table of contents'}>

@@ -36,10 +36,10 @@ export function SiteHeader() {
           to="/"
           className={cn(
             'safe-touch brand-ui inline-flex items-center text-current',
-            isChinese ? 'text-[0.96rem] tracking-[0.04em]' : 'text-sm tracking-[0.22em]',
+            isChinese ? 'text-[0.96rem] tracking-[0.04em]' : 'text-sm font-semibold',
           )}
         >
-          小天Aya | BemsZzz
+          小天Aya
         </Link>
         <nav className="hidden items-center gap-6 md:flex" aria-label="Primary">
           {navItems.map((item) => (
@@ -51,7 +51,7 @@ export function SiteHeader() {
                   'safe-touch brand-ui inline-flex items-center transition duration-[240ms]',
                   isChinese
                     ? 'text-[0.92rem] tracking-[0.08em]'
-                    : 'text-[0.74rem] uppercase tracking-[0.24em]',
+                    : 'text-[0.78rem] font-semibold uppercase tracking-[0.12em]',
                   isActive ? 'text-current' : 'text-current opacity-70 hover:opacity-100',
                 )
               }
@@ -94,7 +94,7 @@ export function SiteHeader() {
                   to={item.href}
                   className={cn(
                     'safe-touch rounded-2xl px-4 py-3',
-                    isChinese ? 'text-[0.98rem]' : 'text-sm uppercase tracking-[0.2em]',
+                    isChinese ? 'text-[0.98rem]' : 'text-sm font-semibold uppercase tracking-[0.12em]',
                   )}
                   onClick={() => setOpen(false)}
                 >

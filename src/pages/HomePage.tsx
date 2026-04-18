@@ -45,8 +45,8 @@ export function HomePage() {
   const isChinese = language === 'zh'
   usePageTitle(
     language === 'zh'
-      ? '小天Aya｜BemsZzz'
-      : 'XiaoTian Aya | BemsZzz',
+      ? '小天Aya'
+      : 'XiaoTian Aya',
   )
   const projects = getProjects()
   const featured = projects.find((item) => item.featured) ?? projects[0]
@@ -106,14 +106,14 @@ export function HomePage() {
             <motion.div
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 2.6 }}
+              transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
               className="relative z-10 max-w-3xl pt-6 md:pt-10"
             >
               <p
                 className={`brand-ui mb-5 text-[rgba(242,231,212,0.72)] ${
                   isChinese
                     ? 'text-[0.82rem] tracking-[0.08em]'
-                    : 'text-xs uppercase tracking-[0.34em]'
+                    : 'text-sm font-medium'
                 }`}
               >
                 {language === 'zh'
@@ -121,24 +121,28 @@ export function HomePage() {
                   : 'AI Systems / Agent Development / Automation'}
               </p>
               <div
-                aria-label="小天Aya｜BemsZzz"
+                aria-label="小天Aya"
                 className="brand-mark text-[var(--home-text)]"
               >
                 <div className="brand-mark-line">
                   <span className="brand-mark-cjk">小天</span>
                   <span className="brand-mark-roman">Aya</span>
                 </div>
-                <div className="brand-mark-line brand-mark-secondary">BemsZzz</div>
               </div>
-              <p className={`mt-8 max-w-2xl text-[var(--home-soft)] ${isChinese ? 'text-[1.1rem] leading-[1.95] md:text-[1.24rem]' : 'text-lg leading-8 md:text-xl'}`}>
+              <h1 className={`mt-8 max-w-3xl brand-display text-[var(--home-text)] ${isChinese ? 'text-[2.35rem] leading-[1.14] md:text-[4.6rem] md:leading-[1.02]' : 'text-5xl leading-[0.98] md:text-7xl'}`}>
                 {language === 'zh'
-                  ? '独立开发者，专注 AI Agent 系统设计与落地实现。让 AI 处理那些重复、机械、不值得人亲自做的部分——把时间还给真正有意义的事。'
-                  : 'Independent developer focused on AI agent systems and real-world implementation. Letting AI handle the repetitive, mechanical parts — so the time that matters goes to what actually matters.'}
+                  ? '我帮你把重复的工作自动化。'
+                  : 'I turn repetitive work into running AI systems.'}
+              </h1>
+              <p className={`mt-6 max-w-2xl text-[var(--home-soft)] ${isChinese ? 'text-[1.1rem] leading-[1.95] md:text-[1.24rem]' : 'text-lg leading-8 md:text-xl'}`}>
+                {language === 'zh'
+                  ? '从想法到真实运行，一个人推进到底。真正改变日常生活的，不是单一技术突破，而是把现有工具连接成别人真正用得上的系统。'
+                  : 'From idea to working product, I design and ship the system end to end. The useful work is connecting existing tools into something people actually use.'}
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
                   className={`safe-touch inline-flex items-center gap-2 rounded-full border border-[rgba(226,199,145,0.4)] bg-[rgba(215,189,135,0.12)] px-6 py-4 text-sm text-[var(--home-text)] transition duration-[240ms] hover:bg-[rgba(215,189,135,0.2)] ${
-                    isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.24em]'
+                    isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
                   }`}
                   to="/projects"
                 >
@@ -147,7 +151,7 @@ export function HomePage() {
                 </Link>
                 <Link
                   className={`safe-touch inline-flex items-center gap-2 px-4 py-4 text-sm text-[rgba(242,231,212,0.8)] transition duration-[240ms] hover:text-[var(--home-text)] ${
-                    isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.24em]'
+                    isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
                   }`}
                   to="/about"
                 >
@@ -160,7 +164,7 @@ export function HomePage() {
               <motion.div
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 2.72 }}
+                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.24 }}
                 className="hero-visual-panel"
               >
                 <motion.img
@@ -187,14 +191,14 @@ export function HomePage() {
               <motion.aside
                 initial={{ opacity: 0, y: 28 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 2.82 }}
+                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
                 className="relative h-fit rounded-[2rem] border border-[rgba(214,183,120,0.18)] bg-[rgba(11,10,8,0.42)] p-7 backdrop-blur-xl"
               >
                 <p
                   className={`brand-ui text-[rgba(242,231,212,0.62)] ${
                     isChinese
                       ? 'text-[0.82rem] tracking-[0.08em]'
-                      : 'text-xs uppercase tracking-[0.28em]'
+                      : 'text-xs uppercase tracking-[0.12em]'
                   }`}
                 >
                   {language === 'zh' ? '正在做的事' : 'Current work'}
@@ -236,11 +240,11 @@ export function HomePage() {
           frameClassName="home-scroll-frame-stack"
         >
           <SectionHeading
-            eyebrow={language === 'zh' ? '精选项目' : 'Selected Projects'}
+            eyebrow={language === 'zh' ? '代表作品' : 'Recent Work'}
             title={language === 'zh' ? '不只是做出来，还要能讲清楚。' : 'Built to work. Presented with precision.'}
             description={language === 'zh'
-              ? '从 AI 资讯平台到学习工作室，每个项目都有完整的设计判断、系统实现与结果呈现。'
-              : 'From AI intelligence platforms to learning studios — each project has a clear problem, a real system, and a result worth presenting.'}
+              ? '把最能代表工作方式的项目放在这里：有问题背景、有系统实现，也有可继续迭代的结果。'
+              : 'A small set of representative projects: clear problem framing, real system work, and outcomes that can keep evolving.'}
           />
           <div className="mt-12">
             <FeaturedProject project={featured} language={language} />
@@ -260,7 +264,7 @@ export function HomePage() {
                   strength={0.25 + idx * 0.08}
                   className="w-full h-32 md:h-40"
                 />
-                <figcaption className={`px-3 py-2 text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.06em]' : 'text-xs uppercase tracking-[0.22em]'}`}>
+                <figcaption className={`px-3 py-2 text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.06em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {copyFor(language, img.label)}
                 </figcaption>
               </figure>
@@ -393,7 +397,7 @@ export function HomePage() {
                 className={`brand-ui text-[rgba(242,231,212,0.7)] ${
                   isChinese
                     ? 'text-[0.82rem] tracking-[0.08em]'
-                    : 'text-xs uppercase tracking-[0.28em]'
+                    : 'text-xs uppercase tracking-[0.12em]'
                 }`}
               >
                 {language === 'zh' ? '关于' : 'About'}
@@ -407,7 +411,7 @@ export function HomePage() {
                   : 'Focused on AI agent system design and real-world deployment. When AI handles the repetitive and mechanical, what actually needs human judgment becomes clearer — that\'s the core logic I work from.'}
               </p>
               <Link
-                className={`safe-touch mt-8 inline-flex items-center gap-2 text-sm ${isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.24em]'}`}
+                className={`safe-touch mt-8 inline-flex items-center gap-2 text-sm ${isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'}`}
                 to="/about"
               >
                 {language === 'zh' ? '了解更多' : 'Read more'}
@@ -476,7 +480,7 @@ export function HomePage() {
                   className="paper-panel"
                   style={{ opacity: aboutCardOpacity[idx], y: aboutCardY[idx] }}
                 >
-                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                     {copyFor(language, item.label)}
                   </p>
                   <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-8'}`}>

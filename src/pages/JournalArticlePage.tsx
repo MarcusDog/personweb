@@ -32,10 +32,10 @@ export function JournalArticlePage() {
 
   usePageTitle(
     entry
-      ? `${copyFor(language, entry.title)} | 小天Aya｜BemsZzz`
+      ? `${copyFor(language, entry.title)} | 小天Aya`
       : language === 'zh'
-        ? '文章不存在 | 小天Aya｜BemsZzz'
-        : 'Article Not Found | XiaoTian Aya | BemsZzz',
+        ? '文章不存在 | 小天Aya'
+        : 'Article Not Found | XiaoTian Aya',
   )
 
   if (!entry) {
@@ -92,7 +92,7 @@ export function JournalArticlePage() {
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                h2: ({ node, ...props }) => (
+                h2: ({ ...props }) => (
                   <h2
                     id={makeHeadingId(getNodeText(props.children))}
                     className={`brand-display mt-16 text-[var(--text-strong)] ${
@@ -101,7 +101,7 @@ export function JournalArticlePage() {
                     {...props}
                   />
                 ),
-                h3: ({ node, ...props }) => (
+                h3: ({ ...props }) => (
                   <h3
                     id={makeHeadingId(getNodeText(props.children))}
                     className={`brand-display mt-10 text-[var(--text-strong)] ${

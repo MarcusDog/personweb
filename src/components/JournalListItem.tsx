@@ -16,7 +16,7 @@ export function JournalListItem({ entry, language }: JournalListItemProps) {
     <article className="grid gap-4 border-t border-[var(--border-subtle)] py-6 md:grid-cols-[12rem_minmax(0,1fr)] md:gap-8 md:py-8">
       <div className="space-y-2 text-sm text-[var(--text-muted)]">
         <p>{formatDate(entry.date, language)}</p>
-        <p className={`brand-ui ${isChinese ? 'tracking-[0.06em]' : 'uppercase tracking-[0.24em]'}`}>
+        <p className={`brand-ui ${isChinese ? 'tracking-[0.06em]' : 'uppercase tracking-[0.12em]'}`}>
           {copyFor(language, entry.category)}
         </p>
       </div>

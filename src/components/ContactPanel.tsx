@@ -13,7 +13,7 @@ export function ContactPanel({ language }: ContactPanelProps) {
         className={`brand-ui text-[var(--text-muted)] ${
           isChinese
             ? 'text-[0.82rem] tracking-[0.08em]'
-            : 'text-xs uppercase tracking-[0.28em]'
+            : 'text-xs uppercase tracking-[0.12em]'
         }`}
       >
         {language === 'zh' ? '来聊' : 'Get in touch'}
@@ -34,15 +34,15 @@ export function ContactPanel({ language }: ContactPanelProps) {
       </p>
       <div className="mt-10 grid gap-6 md:grid-cols-4">
         <div>
-          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
             Email
           </p>
-          <a className="safe-touch mt-3 inline-block text-[var(--text-strong)]" href="mailto:marcustian96@gmail.com">
-            marcustian96@gmail.com
+          <a className="safe-touch mt-3 inline-block text-[var(--text-strong)]" href="mailto:hi@xiaotianaya.com">
+            hi@xiaotianaya.com
           </a>
         </div>
         <div>
-          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
             GitHub
           </p>
           <a
@@ -55,13 +55,15 @@ export function ContactPanel({ language }: ContactPanelProps) {
           </a>
         </div>
         <div>
-          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
             WeChat
           </p>
-          <p className="mt-3 text-[var(--text-strong)]">TT_Bems</p>
+          <p className="mt-3 text-[var(--text-strong)]">
+            {language === 'zh' ? '邮件联系后提供' : 'Shared after email contact'}
+          </p>
         </div>
         <div>
-          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
             {language === 'zh' ? '回复预期' : 'Response window'}
           </p>
           <p className="mt-3 text-[var(--text-strong)]">

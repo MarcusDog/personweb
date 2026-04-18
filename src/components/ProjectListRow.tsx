@@ -18,7 +18,7 @@ export function ProjectListRow({ project, language }: ProjectListRowProps) {
         className={`brand-ui text-[var(--text-muted)] ${
           isChinese
             ? 'text-[0.82rem] tracking-[0.08em]'
-            : 'text-xs uppercase tracking-[0.28em]'
+            : 'text-xs uppercase tracking-[0.12em]'
         }`}
       >
         {project.year} / {copyFor(language, project.category)}
@@ -33,7 +33,7 @@ export function ProjectListRow({ project, language }: ProjectListRowProps) {
       </div>
       <Link
         className={`safe-touch inline-flex items-center gap-2 text-sm text-[var(--text-strong)] ${
-          isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.2em]'
+          isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
         }`}
         to={`/projects/${project.slug}`}
       >

@@ -1,4 +1,30 @@
-import type { ProjectEntry } from '../types/content'
+import type { LocalizedText, ProjectEntry, ProjectSection } from '../types/content'
+
+function compactCaseSections(
+  problem: LocalizedText,
+  solution: LocalizedText,
+  implementation: LocalizedText,
+  result: LocalizedText,
+): ProjectSection[] {
+  return [
+    {
+      title: { zh: '问题背景', en: 'Problem Context' },
+      paragraphs: [problem],
+    },
+    {
+      title: { zh: '解决方案', en: 'Solution' },
+      paragraphs: [solution],
+    },
+    {
+      title: { zh: '技术实现', en: 'Implementation' },
+      paragraphs: [implementation],
+    },
+    {
+      title: { zh: '结果与指标', en: 'Result and Signals' },
+      paragraphs: [result],
+    },
+  ]
+}
 
 export const projects: ProjectEntry[] = [
   {
@@ -621,7 +647,24 @@ export const projects: ProjectEntry[] = [
       en: 'Next: strengthen multilingual publishing and graph-based indexing.',
     },
     accent: 'from-[rgba(201,154,87,0.22)] via-[rgba(120,84,39,0.14)] to-transparent',
-    detailSections: [],
+    detailSections: compactCaseSections(
+      {
+        zh: '长期写作最容易断在“研究、草稿、发布、复用”之间。每个平台都能存一点内容，但没有一条稳定路径把线索变成可发布、可回看、可再次调用的资产。',
+        en: 'Long-term writing tends to break between research, drafting, publishing, and reuse. Each tool can store a fragment, but the full path from signal to reusable asset is rarely stable.',
+      },
+      {
+        zh: '这个项目把内容先建模为对象，再把研究线索、草稿状态、发布渠道和后续复用放进同一个操作回路，让内容不再只是一篇篇孤立文章。',
+        en: 'The solution modeled content as reusable objects first, then connected research signals, draft status, publishing channels, and later reuse into one editorial loop.',
+      },
+      {
+        zh: '前端以阅读和操作两种状态组织，后台流程用自动摘要、标签建议和发布检查减少人工整理成本。重点不是生成更多文字，而是缩短从研究到成稿的路径。',
+        en: 'The interface separates reading and operating states, while automation handles summarization, tag suggestions, and publishing checks to reduce manual editorial overhead.',
+      },
+      {
+        zh: '结果是内容从“写完就结束”变成“写完还能继续被调用”。衡量标准不是文章数量，而是旧研究能否在新项目里再次发挥作用。',
+        en: 'The result shifts content from one-off output into reusable context. The key signal is not volume, but whether old research can become useful again in new work.',
+      },
+    ),
     gallery: [],
   },
   {
@@ -663,7 +706,24 @@ export const projects: ProjectEntry[] = [
       en: 'Next: add case matching and proposal guidance.',
     },
     accent: 'from-[rgba(175,135,77,0.18)] via-[rgba(74,51,26,0.14)] to-transparent',
-    detailSections: [],
+    detailSections: compactCaseSections(
+      {
+        zh: '合作入口的问题不是没有人联系，而是信息常常不完整：需求、预算、时间、目标用户和技术约束散落在几句话里，第一轮判断成本很高。',
+        en: 'Inbound collaboration requests often arrive incomplete, with goals, constraints, timeline, budget, and user context scattered across a few vague sentences.',
+      },
+      {
+        zh: '系统通过结构化收集和 Agent 摘要，把模糊请求整理成可判断的 brief，并给出优先级、缺失信息和下一步回复建议。',
+        en: 'The system combines structured intake with agent-generated briefs, turning vague requests into evaluation-ready summaries with priority, missing information, and reply suggestions.',
+      },
+      {
+        zh: '实现上把表单字段、自由描述和历史案例拆成独立输入，再由摘要层压缩成商务判断视图。前端强调快速扫读，避免把合作入口做成复杂 CRM。',
+        en: 'Implementation separates form fields, free-text context, and case references before compressing them into a business-facing review surface designed for quick scanning.',
+      },
+      {
+        zh: '结果是第一轮判断从“重新追问一遍”变成“先看结构化摘要再回复”。核心指标是回复质量和判断速度，而不是自动化炫技。',
+        en: 'The result turns first-round triage from repeated clarification into structured review before reply. The important signals are response quality and evaluation speed.',
+      },
+    ),
     gallery: [],
   },
   {
@@ -705,7 +765,24 @@ export const projects: ProjectEntry[] = [
       en: 'Next: test cross-project linking and long-term memory compression.',
     },
     accent: 'from-[rgba(155,123,76,0.18)] via-[rgba(58,45,30,0.12)] to-transparent',
-    detailSections: [],
+    detailSections: compactCaseSections(
+      {
+        zh: '研究型项目最容易丢失的是上下文：为什么记录这条线索、它和哪个问题相关、后续 Agent 应该如何调用，单纯时间线笔记很快会失效。',
+        en: 'Research projects lose context quickly: why a signal mattered, which question it connects to, and how a later agent should reuse it are not preserved by timeline notes alone.',
+      },
+      {
+        zh: '这个原型把研究记录改成对象化索引：线索、问题、来源、结论和下一步动作彼此连接，后续检索时可以按问题而不是按时间回到上下文。',
+        en: 'The prototype turns research notes into object-based indexes linking signals, questions, sources, conclusions, and next actions so retrieval can happen by problem rather than date.',
+      },
+      {
+        zh: '实现重点是信息模型和检索界面：先定义对象关系，再用摘要和标签作为 Agent 上下文压缩层，减少每次重新阅读历史材料的成本。',
+        en: 'The implementation focuses on the information model and retrieval surface, using summaries and tags as a context-compression layer for later agent work.',
+      },
+      {
+        zh: '结果是长期研究更容易保持连续性。衡量标准是再次进入项目时能否快速恢复判断，而不是笔记库里堆了多少条记录。',
+        en: 'The result is stronger continuity for long-running research. The useful metric is how quickly judgment can be restored when returning to a project.',
+      },
+    ),
     gallery: [],
   },
 ]

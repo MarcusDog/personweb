@@ -15,10 +15,10 @@ export function ProjectDetailPage() {
   const project = getProject(slug ?? '')
   usePageTitle(
     project
-      ? `${copyFor(language, project.title)} | 小天Aya｜BemsZzz`
+      ? `${copyFor(language, project.title)} | 小天Aya`
       : language === 'zh'
-        ? '项目不存在 | 小天Aya｜BemsZzz'
-        : 'Project Not Found | XiaoTian Aya | BemsZzz',
+        ? '项目不存在 | 小天Aya'
+        : 'Project Not Found | XiaoTian Aya',
   )
   const related = getProjects()
     .filter((entry) => entry.slug !== slug)
@@ -56,7 +56,7 @@ export function ProjectDetailPage() {
       <section key={`${group.title.en}-${groupIndex}`} className="space-y-8">
         <div className="max-w-4xl space-y-4">
           {group.eyebrow ? (
-            <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+            <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
               {copyFor(language, group.eyebrow)}
             </p>
           ) : null}
@@ -74,7 +74,7 @@ export function ProjectDetailPage() {
               <article key={item.image} className="space-y-5">
                 {renderShot(item.image, copyFor(language, item.title), true)}
                 <div className="paper-panel max-w-3xl">
-                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                     {copyFor(language, item.title)}
                   </p>
                   <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[0.98rem] leading-[1.82]' : 'text-sm leading-7'}`}>
@@ -92,7 +92,7 @@ export function ProjectDetailPage() {
               <article key={item.image} className="space-y-5">
                 {renderShot(item.image, copyFor(language, item.title))}
                 <div className="paper-panel">
-                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                     {copyFor(language, item.title)}
                   </p>
                   <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[0.98rem] leading-[1.82]' : 'text-sm leading-7'}`}>
@@ -109,7 +109,7 @@ export function ProjectDetailPage() {
             <article className="space-y-5">
               {renderShot(items[0].image, copyFor(language, items[0].title), true)}
               <div className="paper-panel max-w-3xl">
-                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {copyFor(language, items[0].title)}
                 </p>
                 <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[0.98rem] leading-[1.82]' : 'text-sm leading-7'}`}>
@@ -122,7 +122,7 @@ export function ProjectDetailPage() {
                 <article key={item.image} className="space-y-5">
                   {renderShot(item.image, copyFor(language, item.title))}
                   <div className="paper-panel">
-                    <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                    <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                       {copyFor(language, item.title)}
                     </p>
                     <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[0.98rem] leading-[1.82]' : 'text-sm leading-7'}`}>
@@ -181,14 +181,14 @@ export function ProjectDetailPage() {
           )}
           <div className="grid gap-5 xl:grid-cols-[minmax(0,1.24fr)_minmax(0,0.92fr)] xl:items-start">
             <div className="paper-panel">
-              <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+              <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                 {language === 'zh' ? '项目概述' : 'Project Summary'}
               </p>
               <p className={`mt-4 text-[var(--text-strong)] ${isChinese ? 'text-[1.36rem] leading-[1.78]' : 'text-xl leading-9'}`}>
                 {copyFor(language, project.summary)}
               </p>
               <div className="mt-8 border-t border-[var(--border-subtle)] pt-6">
-                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {language === 'zh' ? '角色职责' : 'Role'}
                 </p>
                 <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[1rem] leading-[1.86]' : 'text-base leading-8'}`}>
@@ -196,7 +196,7 @@ export function ProjectDetailPage() {
                 </p>
               </div>
               <div className="mt-8 border-t border-[var(--border-subtle)] pt-6">
-                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {language === 'zh' ? '能力范围' : 'Capabilities'}
                 </p>
                 <ul className="mt-4 flex flex-wrap gap-3">
@@ -213,7 +213,7 @@ export function ProjectDetailPage() {
             </div>
             <div className="space-y-5">
               <div className="paper-panel">
-                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {language === 'zh' ? '关键问题' : 'Challenge'}
                 </p>
                 <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.88]' : 'text-base leading-8'}`}>
@@ -221,7 +221,7 @@ export function ProjectDetailPage() {
                 </p>
               </div>
               <div className="paper-panel">
-                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {language === 'zh' ? '方案结构' : 'Approach'}
                 </p>
                 <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.88]' : 'text-base leading-8'}`}>
@@ -233,14 +233,14 @@ export function ProjectDetailPage() {
 
           {showcaseGroups.length > 0 || project.gallery.length > 0 ? (
             <div className="paper-panel">
-              <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+              <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                 {language === 'zh' ? '案例结构' : 'Case Structure'}
               </p>
               <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
                 {showcaseGroups.length > 0
                   ? showcaseGroups.map((group) => (
                       <div key={group.title.en} className="rounded-[1.2rem] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
-                        <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                        <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                           {group.eyebrow ? copyFor(language, group.eyebrow) : language === 'zh' ? '模块' : 'Section'}
                         </p>
                         <p className={`mt-3 text-[var(--text-strong)] ${isChinese ? 'text-[1rem] leading-[1.72]' : 'text-sm leading-6'}`}>
@@ -250,7 +250,7 @@ export function ProjectDetailPage() {
                     ))
                   : project.gallery.map((item) => (
                       <div key={item.label.en} className="rounded-[1.2rem] border border-[var(--border-subtle)] bg-[var(--surface-muted)] px-4 py-4">
-                        <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+                        <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                           {copyFor(language, item.label)}
                         </p>
                         <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[0.98rem] leading-[1.82]' : 'text-sm leading-7'}`}>
@@ -268,7 +268,7 @@ export function ProjectDetailPage() {
               <div key={section.title.en} className="space-y-10">
                 <section className="grid gap-8 xl:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]">
                   <div className="pt-1">
-                    <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+                    <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                       {language === 'zh' ? `章节 ${sectionIndex + 1}` : `Section ${sectionIndex + 1}`}
                     </p>
                   </div>
@@ -290,7 +290,7 @@ export function ProjectDetailPage() {
             <div className="space-y-10">
               <section className="grid gap-8 xl:grid-cols-[minmax(0,0.36fr)_minmax(0,1fr)]">
                 <div className="pt-1">
-                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                     {language === 'zh' ? '收束' : 'Outcome'}
                   </p>
                 </div>
@@ -311,7 +311,7 @@ export function ProjectDetailPage() {
       </section>
 
       <section className="page-shell pb-20 md:pb-28">
-        <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.28em]'}`}>
+        <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
           {language === 'zh' ? '相关项目' : 'Related'}
         </p>
         <div className="mt-6 grid gap-6 md:grid-cols-2">
@@ -324,7 +324,7 @@ export function ProjectDetailPage() {
               <div className="mb-5">
                 <ProjectVisual project={entry} language={language} compact />
               </div>
-              <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+              <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                 {entry.year}
               </p>
               <h3 className={`brand-display mt-4 text-[var(--text-strong)] ${isChinese ? 'text-[2rem] leading-[1.14]' : 'text-3xl'}`}>

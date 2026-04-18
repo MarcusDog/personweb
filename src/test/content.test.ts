@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import html from '../../index.html?raw'
 
 import {
   extractMarkdownHeadings,
@@ -49,3 +50,13 @@ English body
   })
 })
 
+describe('document metadata', () => {
+  it('ships shareable social metadata in the initial document', () => {
+    expect(html).toMatch(/<meta\s+property="og:title"/)
+    expect(html).toMatch(/<meta\s+property="og:description"/)
+    expect(html).toMatch(/<meta\s+property="og:image"/)
+    expect(html).toContain('<meta name="twitter:card" content="summary_large_image"')
+    expect(html).toMatch(/<link\s+rel="canonical"/)
+    expect(html).toContain('application/ld+json')
+  })
+})

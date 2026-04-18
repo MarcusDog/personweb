@@ -7,8 +7,8 @@ export function ContactPage() {
   const { language } = useLanguage()
   usePageTitle(
     language === 'zh'
-      ? '联系 | 小天Aya｜BemsZzz'
-      : 'Contact | XiaoTian Aya | BemsZzz',
+      ? '联系 | 小天Aya'
+      : 'Contact | XiaoTian Aya',
   )
 
   return (

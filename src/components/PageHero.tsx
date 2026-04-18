@@ -32,7 +32,7 @@ export function PageHero({ eyebrow, title, description, aside }: PageHeroProps) 
               className={`brand-ui mb-5 text-[var(--text-muted)] ${
                 isChinese
                   ? 'text-[0.82rem] tracking-[0.08em]'
-                  : 'text-xs uppercase tracking-[0.32em]'
+                  : 'text-sm font-semibold uppercase tracking-[0.12em]'
               }`}
             >
               {eyebrow}

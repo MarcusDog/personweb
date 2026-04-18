@@ -1,5 +1,5 @@
 @import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..800&family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -23,12 +23,12 @@
   --accent-strong: #8c6633;
   --accent-wash: rgba(201, 164, 108, 0.12);
   --accent-secondary: #a67c42;
-  --border-subtle: rgba(39, 30, 20, 0.12);
+  --border-subtle: rgba(39, 30, 20, 0.18);
   --border-strong: rgba(198, 167, 115, 0.32);
 
   --shadow-soft: 0 26px 80px rgba(18, 14, 10, 0.08);
 
-  --font-display: "Bodoni Moda", "Noto Serif SC", serif;
+  --font-display: "Cabinet Grotesk", "Noto Serif SC", serif;
   --font-body: "Noto Serif SC", "Songti SC", "Source Han Serif SC", serif;
   --font-ui: "Cabinet Grotesk", "Helvetica Neue", sans-serif;
 

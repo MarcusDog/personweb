@@ -7,33 +7,33 @@ import { editorialMedia, showcaseImages } from '../data/media'
 import { useLanguage } from '../hooks/useLanguage'
 import { usePageTitle } from '../hooks/usePageTitle'
 
-const workAreas = [
+const methodNotes = [
   {
-    title: { zh: 'AI Agent 系统', en: 'AI Agent Systems' },
+    title: { zh: '先确认问题是不是真的', en: 'Validate the problem first' },
     body: {
-      zh: '设计多个 AI agent 协同工作的系统，处理复杂的自动化任务链。关注稳定性、可恢复性与真实场景下的实际可用性——而不是 demo 级别的技术展示。',
-      en: 'Designing systems where multiple AI agents work together on complex automation chains. Focus on reliability, recovery, and real-world usability — not demo-level technical showcase.',
+      zh: '我不会一上来就堆功能。先把场景、重复动作、判断成本和真实使用者说清楚，再决定 AI 应该接管哪一段。',
+      en: 'I do not start by stacking features. I first clarify the scene, repetitive action, judgment cost, and real user before deciding where AI should take over.',
     },
   },
   {
-    title: { zh: '日常自动化工具', en: 'Daily Automation Tools' },
+    title: { zh: '先让它跑起来', en: 'Make it run first' },
     body: {
-      zh: '找出工作流中最机械、最耗时的部分，用 AI 把它们处理掉。最好的结果是：用户感觉不到工具的存在——它只是在后台安静地跑。',
-      en: 'Finding the most mechanical, time-consuming parts of a workflow and building AI systems to absorb them. The best outcome is invisible: the tool just quietly runs in the background.',
+      zh: '原型不是幻灯片，也不是静态页面。它必须能真实输入、真实处理、真实产出，哪怕第一版很粗糙。',
+      en: 'A prototype is not a slide deck or a static screen. It needs real input, real processing, and real output, even if the first version is rough.',
     },
   },
   {
-    title: { zh: '产品原型快速验证', en: 'Rapid Product Prototyping' },
+    title: { zh: '再决定要不要打磨', en: 'Then decide whether to polish' },
     body: {
-      zh: '从一句话描述到真实运行的原型，完成最快路径的验证。帮助有想法但不确定能否落地的人，快速看到一个可以使用的版本——而不是停留在讨论阶段。',
-      en: 'From a one-sentence description to a working prototype — the fastest path to validation. Helping people with ideas see a real, usable version before getting stuck in discussion.',
+      zh: '能跑不等于值得继续。只有当它真的节省时间、降低判断成本、或者让人更愿意继续使用时，才进入下一轮设计。',
+      en: 'Running is not the same as worth continuing. I only deepen a system when it saves time, lowers judgment cost, or makes someone want to return.',
     },
   },
   {
-    title: { zh: 'AI 工具整合与连接', en: 'AI Tool Integration' },
+    title: { zh: '把复杂留在系统里', en: 'Keep complexity inside the system' },
     body: {
-      zh: '把现有的 AI 工具和 API 连接成对特定场景真正有用的系统。不是堆技术，是找到那个让各部分协同工作、解决真实问题的组合方式。',
-      en: 'Connecting existing AI tools and APIs into systems that actually work for specific scenarios. Not stacking technology — finding the combination that makes the parts work together on a real problem.',
+      zh: '好的 AI 工具不应该把复杂度转嫁给用户。模型、提示词、检索、失败恢复和边界条件都应该被系统吸收。',
+      en: 'A good AI tool should not push complexity onto the user. Models, prompts, retrieval, recovery, and edge cases should be absorbed by the system.',
     },
   },
 ]
@@ -58,8 +58,8 @@ export function AboutPage() {
   const isChinese = language === 'zh'
   usePageTitle(
     language === 'zh'
-      ? '关于 | 小天Aya｜BemsZzz'
-      : 'About | XiaoTian Aya | BemsZzz',
+      ? '关于 | 小天Aya'
+      : 'About | XiaoTian Aya',
   )
 
   return (
@@ -89,7 +89,7 @@ export function AboutPage() {
 
       {/* ─── Work gallery ──────────────────────────────── */}
       <section className="page-shell py-10 md:py-14">
-        <p className={`brand-ui mb-6 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.32em]'}`}>
+        <p className={`brand-ui mb-6 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
           {language === 'zh' ? '近期作品' : 'Recent work'}
         </p>
         <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
@@ -119,7 +119,7 @@ export function AboutPage() {
                     loading="lazy"
                   />
                 </div>
-                <figcaption className={`px-4 py-2.5 text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.05em]' : 'text-xs uppercase tracking-[0.2em]'}`}>
+                <figcaption className={`px-4 py-2.5 text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.05em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {isChinese ? labels[i].zh : labels[i].en}
                 </figcaption>
               </motion.figure>
@@ -129,7 +129,7 @@ export function AboutPage() {
         <div className="mt-6 text-right">
           <Link
             to="/projects"
-            className={`inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)] ${isChinese ? 'tracking-[0.06em]' : 'uppercase tracking-[0.22em]'}`}
+            className={`inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)] ${isChinese ? 'tracking-[0.06em]' : 'uppercase tracking-[0.12em]'}`}
           >
             {language === 'zh' ? '查看所有项目' : 'View all projects'}
             <ArrowRight size={14} />
@@ -141,7 +141,7 @@ export function AboutPage() {
       <section className="page-shell py-10 md:py-14">
         <div className="grid gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,0.88fr)] md:items-start">
           <div className="paper-panel">
-            <p className={`brand-ui mb-5 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.3em]'}`}>
+            <p className={`brand-ui mb-5 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
               {language === 'zh' ? '我是谁' : 'Who I am'}
             </p>
             <div className="reading-copy space-y-4">
@@ -190,13 +190,13 @@ export function AboutPage() {
         </div>
       </section>
 
-      {/* ─── What I build ──────────────────────────────── */}
+      {/* ─── Working method ─────────────────────────────── */}
       <section className="page-shell py-10 md:py-14">
-        <p className={`brand-ui mb-8 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.32em]'}`}>
-          {language === 'zh' ? '专注方向' : 'Focus areas'}
+        <p className={`brand-ui mb-8 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+          {language === 'zh' ? '工作方法' : 'Working Method'}
         </p>
         <div className="grid gap-5 md:grid-cols-2">
-          {workAreas.map((area, i) => (
+          {methodNotes.map((area, i) => (
             <motion.article
               key={area.title.en}
               initial={{ opacity: 0, y: 16 }}
@@ -286,7 +286,7 @@ export function AboutPage() {
       <section className="page-shell py-10 md:py-14">
         <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-start">
           <div>
-            <p className={`brand-ui mb-5 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.3em]'}`}>
+            <p className={`brand-ui mb-5 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
               {language === 'zh' ? '适合找我聊的事' : 'When to reach out'}
             </p>
             <h2 className={`brand-display text-[var(--text-strong)] ${isChinese ? 'text-[2.6rem] leading-[1.06]' : 'text-4xl leading-tight'}`}>

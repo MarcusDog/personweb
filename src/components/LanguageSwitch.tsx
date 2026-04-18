@@ -6,7 +6,7 @@ export function LanguageSwitch() {
 
   return (
     <div
-      className="safe-touch inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--surface-soft)] p-1 text-[0.72rem] uppercase tracking-[0.28em] text-[var(--text-muted)]"
+      className="safe-touch inline-flex items-center gap-1 rounded-full border border-[var(--border-subtle)] bg-[var(--surface-soft)] p-1 text-[0.72rem] uppercase tracking-[0.12em] text-[var(--text-muted)]"
       aria-label="Language switch"
     >
       {(['zh', 'en'] as const).map((option) => (

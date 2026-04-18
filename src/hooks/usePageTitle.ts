@@ -4,8 +4,7 @@ export function usePageTitle(title: string) {
   useEffect(() => {
     document.title = title
     return () => {
-      document.title = '小天Aya｜BemsZzz'
+      document.title = '小天Aya'
     }
   }, [title])
 }
-

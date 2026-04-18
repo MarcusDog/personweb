@@ -41,7 +41,7 @@ export function FeaturedProject({ project, language }: FeaturedProjectProps) {
               className={`brand-ui text-[rgba(245,236,220,0.72)] ${
                 isChinese
                   ? 'text-[0.82rem] tracking-[0.08em]'
-                  : 'text-xs uppercase tracking-[0.28em]'
+                  : 'text-xs uppercase tracking-[0.12em]'
               }`}
             >
               {project.year} / {copyFor(language, project.category)}
@@ -80,7 +80,7 @@ export function FeaturedProject({ project, language }: FeaturedProjectProps) {
           </div>
           <Link
             className={`safe-touch mt-10 inline-flex items-center gap-2 text-sm text-[var(--text-strong)] ${
-              isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.24em]'
+              isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
             }`}
             to={`/projects/${project.slug}`}
           >
