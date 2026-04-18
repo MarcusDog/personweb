@@ -32,13 +32,13 @@ export function ContactPanel({ language }: ContactPanelProps) {
           ? 'AI 产品想法、想自动化的流程、觉得有意思但不知道怎么做的事 —— 都可以。我来判断能不能做、怎么做，然后把它做出来。'
           : 'AI product concepts, workflows you want automated, things that seem interesting but you\'re not sure are buildable — all good. I\'ll figure out the approach and make it happen.'}
       </p>
-      <div className="mt-10 grid gap-6 md:grid-cols-3">
+      <div className="mt-10 grid gap-6 md:grid-cols-4">
         <div>
           <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
             Email
           </p>
-          <a className="safe-touch mt-3 inline-block text-[var(--text-strong)]" href="mailto:hello@replace-me.com">
-            hello@replace-me.com
+          <a className="safe-touch mt-3 inline-block text-[var(--text-strong)]" href="mailto:marcustian96@gmail.com">
+            marcustian96@gmail.com
           </a>
         </div>
         <div>
@@ -47,12 +47,18 @@ export function ContactPanel({ language }: ContactPanelProps) {
           </p>
           <a
             className="safe-touch mt-3 inline-block text-[var(--text-strong)]"
-            href="https://github.com/replace-me"
+            href="https://github.com/MarcusDog"
             target="_blank"
             rel="noreferrer"
           >
-            github.com/replace-me
+            github.com/MarcusDog
           </a>
+        </div>
+        <div>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
+            WeChat
+          </p>
+          <p className="mt-3 text-[var(--text-strong)]">TT_Bems</p>
         </div>
         <div>
           <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>

@@ -1,11 +1,13 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useRef } from 'react'
 
 import { ContactPanel } from '../components/ContactPanel'
 import { FeaturedProject } from '../components/FeaturedProject'
 import { HomeScrollSection } from '../components/HomeScrollSection'
 import { JournalListItem } from '../components/JournalListItem'
+import { ParallaxImage } from '../components/ParallaxSection'
 import { ProjectListRow } from '../components/ProjectListRow'
 import { SectionHeading } from '../components/SectionHeading'
 import { editorialMedia, showcaseImages } from '../data/media'
@@ -51,13 +53,55 @@ export function HomePage() {
   const secondary = projects.filter((item) => item.slug !== featured.slug).slice(0, 3)
   const journal = getJournalEntries().slice(0, 3)
 
+  const heroRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
+  const heroBgY = useTransform(heroScroll, [0, 1], [0, 120])
+  const heroGridY = useTransform(heroScroll, [0, 1], [0, 80])
+  const heroContentY = useTransform(heroScroll, [0, 1], [0, -40])
+  const heroImageY = useTransform(heroScroll, [0, 1], [0, -30])
+
+  // 为 Capabilities 区域的每个服务项创建独立的滚动视差
+  const capabilitiesRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: capScroll } = useScroll({ target: capabilitiesRef, offset: ['start end', 'end start'] })
+  const serviceItemOpacity = [
+    useTransform(capScroll, [0, 0.15, 0.85, 1], [0, 1, 1, 0]),
+    useTransform(capScroll, [0.08, 0.2, 0.8, 1], [0, 1, 1, 0]),
+    useTransform(capScroll, [0.16, 0.25, 0.75, 1], [0, 1, 1, 0]),
+  ]
+  const serviceItemY = [
+    useTransform(capScroll, [0, 0.15, 0.85, 1], [60, 0, 0, -40]),
+    useTransform(capScroll, [0.08, 0.2, 0.8, 1], [80, 0, 0, -50]),
+    useTransform(capScroll, [0.16, 0.25, 0.75, 1], [100, 0, 0, -60]),
+  ]
+  const serviceItemScale = [
+    useTransform(capScroll, [0, 0.15, 0.85, 1], [0.96, 1, 1, 0.98]),
+    useTransform(capScroll, [0.08, 0.2, 0.8, 1], [0.94, 1, 1, 0.96]),
+    useTransform(capScroll, [0.16, 0.25, 0.75, 1], [0.92, 1, 1, 0.94]),
+  ]
+
+  // 为 About 区域右侧的信息卡片创建视差
+  const aboutRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress: aboutScroll } = useScroll({ target: aboutRef, offset: ['start end', 'end start'] })
+  const aboutCardOpacity = [
+    useTransform(aboutScroll, [0, 0.12, 0.88, 1], [0, 1, 1, 0]),
+    useTransform(aboutScroll, [0.06, 0.18, 0.82, 1], [0, 1, 1, 0]),
+    useTransform(aboutScroll, [0.12, 0.24, 0.76, 1], [0, 1, 1, 0]),
+    useTransform(aboutScroll, [0.18, 0.3, 0.7, 1], [0, 1, 1, 0]),
+  ]
+  const aboutCardY = [
+    useTransform(aboutScroll, [0, 0.12, 0.88, 1], [50, 0, 0, -30]),
+    useTransform(aboutScroll, [0.06, 0.18, 0.82, 1], [65, 0, 0, -40]),
+    useTransform(aboutScroll, [0.12, 0.24, 0.76, 1], [80, 0, 0, -50]),
+    useTransform(aboutScroll, [0.18, 0.3, 0.7, 1], [95, 0, 0, -60]),
+  ]
+
   return (
     <>
       {/* ─── Hero ──────────────────────────────────────────── */}
-      <section className="relative overflow-hidden px-4 pt-28 pb-14 md:px-8 md:pt-32 md:pb-[4.5rem]">
-        <div className="hero-veil absolute inset-0" />
-        <div className="hero-grid absolute inset-0 opacity-60" />
-        <div className="mx-auto max-w-7xl">
+      <section ref={heroRef} className="relative overflow-hidden px-4 pt-28 pb-14 md:px-8 md:pt-32 md:pb-[4.5rem]">
+        <motion.div style={{ y: heroBgY }} className="hero-veil absolute inset-0" />
+        <motion.div style={{ y: heroGridY }} className="hero-grid absolute inset-0 opacity-60" />
+        <motion.div style={{ y: heroContentY }} className="mx-auto max-w-7xl">
           <div className="grid gap-10 xl:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)] xl:items-end">
             <motion.div
               initial={{ opacity: 0, y: 28 }}
@@ -119,12 +163,13 @@ export function HomePage() {
                 transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 2.72 }}
                 className="hero-visual-panel"
               >
-                <img
+                <motion.img
                   src={editorialMedia.hero}
                   alt=""
                   aria-hidden="true"
                   className="hero-visual-image"
                   fetchPriority="high"
+                  style={{ y: heroImageY }}
                 />
                 <div className="hero-visual-orbit" />
                 <div className="hero-visual-copy">
@@ -179,7 +224,7 @@ export function HomePage() {
               </motion.aside>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <div className="home-story-wrap">
@@ -201,19 +246,19 @@ export function HomePage() {
             <FeaturedProject project={featured} language={language} />
           </div>
 
-          {/* Secondary project screenshots strip */}
+          {/* Secondary project screenshots strip with parallax */}
           <div className="mt-8 grid grid-cols-3 gap-3">
             {[
               { src: '/project-images/ainews/4.png', label: { zh: '趋势分析', en: 'Trend analysis' } },
               { src: '/project-images/ainews/7.png', label: { zh: '实时资讯流', en: 'Real-time feed' } },
               { src: '/project-images/learningbydoing/1.png', label: { zh: '学习工作台', en: 'Learning studio' } },
-            ].map((img) => (
+            ].map((img, idx) => (
               <figure key={img.src} className="group overflow-hidden rounded-[1.4rem] border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
-                <img
+                <ParallaxImage
                   src={img.src}
                   alt={copyFor(language, img.label)}
-                  className="w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-                  loading="lazy"
+                  strength={0.25 + idx * 0.08}
+                  className="w-full h-32 md:h-40"
                 />
                 <figcaption className={`px-3 py-2 text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.06em]' : 'text-xs uppercase tracking-[0.22em]'}`}>
                   {copyFor(language, img.label)}
@@ -308,16 +353,25 @@ export function HomePage() {
                 </figcaption>
               </figure>
             </div>
-            <div className="space-y-5">
-              {serviceItems.map((item) => (
-                <article key={item.title.en} className="paper-panel">
+            <div ref={capabilitiesRef} className="space-y-5">
+              {serviceItems.map((item, idx) => (
+                <motion.article
+                  key={item.title.en}
+                  className="paper-panel"
+                  style={{
+                    opacity: serviceItemOpacity[idx],
+                    y: serviceItemY[idx],
+                    scale: serviceItemScale[idx],
+                    transformOrigin: 'right center',
+                  }}
+                >
                   <h3 className={`brand-display text-[var(--text-strong)] ${isChinese ? 'text-[2.15rem] leading-[1.12]' : 'text-3xl leading-tight'}`}>
                     {copyFor(language, item.title)}
                   </h3>
                   <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-8'}`}>
                     {copyFor(language, item.description)}
                   </p>
-                </article>
+                </motion.article>
               ))}
             </div>
           </div>
@@ -362,24 +416,30 @@ export function HomePage() {
             </div>
 
             {/* Right: project screenshot grid + info cards */}
-            <div className="grid gap-4 md:grid-cols-2">
+            <div ref={aboutRef} className="grid gap-4 md:grid-cols-2">
               {/* Project screenshots row */}
-              <div className="project-shot-frame">
+              <motion.div
+                className="project-shot-frame"
+                style={{ opacity: useTransform(aboutScroll, [0, 0.1, 0.9, 1], [0, 1, 1, 0]), y: useTransform(aboutScroll, [0, 0.1, 0.9, 1], [40, 0, 0, -20]) }}
+              >
                 <img
                   src={showcaseImages[0]}
                   alt={language === 'zh' ? 'Ainews 平台' : 'Ainews platform'}
                   className="project-shot-image"
                   loading="lazy"
                 />
-              </div>
-              <div className="project-shot-frame">
+              </motion.div>
+              <motion.div
+                className="project-shot-frame"
+                style={{ opacity: useTransform(aboutScroll, [0.05, 0.15, 0.85, 1], [0, 1, 1, 0]), y: useTransform(aboutScroll, [0.05, 0.15, 0.85, 1], [55, 0, 0, -30]) }}
+              >
                 <img
                   src={showcaseImages[3]}
                   alt={language === 'zh' ? 'LearningByDoing Studio' : 'LearningByDoing Studio'}
                   className="project-shot-image"
                   loading="lazy"
                 />
-              </div>
+              </motion.div>
               {/* Info cards row */}
               {[
                 {
@@ -410,15 +470,19 @@ export function HomePage() {
                     en: 'My own real frustrations, a friend\'s offhand remark, or that moment of "this should be automated" during someone\'s workflow.',
                   },
                 },
-              ].map((item) => (
-                <article key={item.label.en} className="paper-panel">
+              ].map((item, idx) => (
+                <motion.article
+                  key={item.label.en}
+                  className="paper-panel"
+                  style={{ opacity: aboutCardOpacity[idx], y: aboutCardY[idx] }}
+                >
                   <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.24em]'}`}>
                     {copyFor(language, item.label)}
                   </p>
                   <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-8'}`}>
                     {copyFor(language, item.body)}
                   </p>
-                </article>
+                </motion.article>
               ))}
             </div>
           </div>
