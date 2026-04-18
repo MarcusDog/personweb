@@ -1,6 +1,7 @@
 import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+import { trackEvent } from '../lib/analytics'
 import { copyFor } from '../lib/copy'
 import type { Language, ProjectEntry } from '../types/content'
 
@@ -30,12 +31,18 @@ export function ProjectListRow({ project, language }: ProjectListRowProps) {
         <p className={`mt-3 max-w-2xl text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.88]' : 'text-base leading-7'}`}>
           {copyFor(language, project.summary)}
         </p>
+        <p className={`mt-4 max-w-2xl rounded-xl border border-[var(--accent-soft)] bg-[var(--accent-wash)] px-4 py-3 text-[var(--text-strong)] ${isChinese ? 'text-[0.94rem] leading-7' : 'text-sm leading-6'}`}>
+          {language === 'zh' ? '结果：' : 'Result: '}
+          {copyFor(language, project.result)}
+        </p>
       </div>
       <Link
         className={`safe-touch inline-flex items-center gap-2 text-sm text-[var(--text-strong)] ${
           isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
         }`}
         to={`/projects/${project.slug}`}
+        data-analytics-event="project_detail_click"
+        onClick={() => trackEvent('project_detail_click', { slug: project.slug, placement: 'list' })}
       >
         <span>{language === 'zh' ? '详情' : 'Details'}</span>
         <ArrowUpRight size={16} />

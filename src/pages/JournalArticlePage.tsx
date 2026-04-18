@@ -3,14 +3,15 @@ import { useState } from 'react'
 import type { ReactNode } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import { PageHero } from '../components/PageHero'
 import { ReadingToc } from '../components/ReadingToc'
 import { useLanguage } from '../hooks/useLanguage'
 import { usePageTitle } from '../hooks/usePageTitle'
+import { trackEvent } from '../lib/analytics'
 import { copyFor } from '../lib/copy'
-import { formatDate, getJournalEntry } from '../lib/content'
+import { formatDate, getJournalEntries, getJournalEntry } from '../lib/content'
 import { makeHeadingId } from '../lib/markdown'
 
 function getNodeText(children: ReactNode): string {
@@ -28,6 +29,9 @@ export function JournalArticlePage() {
   const { language } = useLanguage()
   const isChinese = language === 'zh'
   const entry = getJournalEntry(slug ?? '')
+  const relatedEntries = getJournalEntries()
+    .filter((item) => item.slug !== entry?.slug)
+    .slice(0, 2)
   const [copied, setCopied] = useState(false)
 
   usePageTitle(
@@ -116,6 +120,45 @@ export function JournalArticlePage() {
             </ReactMarkdown>
           </article>
           <ReadingToc headings={entry.headings[language]} language={language} />
+        </div>
+        <div className="mt-14 grid gap-6 md:grid-cols-[minmax(0,1fr)_minmax(18rem,0.8fr)]">
+          <section className="paper-panel">
+            <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+              {language === 'zh' ? '需求拆解' : 'Architecture Review'}
+            </p>
+            <h2 className={`brand-display mt-4 text-[var(--text-strong)] ${isChinese ? 'text-[2.2rem] leading-[1.1]' : 'text-3xl leading-tight'}`}>
+              {language === 'zh'
+                ? '如果你在做类似系统，我可以帮你做一次架构评估。'
+                : 'If you are building a similar system, I can review the architecture with you.'}
+            </h2>
+            <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1rem] leading-[1.86]' : 'text-base leading-7'}`}>
+              {language === 'zh'
+                ? '把当前问题、想自动化的流程和预期交付发来，我会先判断边界、风险和最短可用路径。'
+                : 'Send the current problem, workflow, and target delivery. I will assess boundaries, risks, and the shortest usable path.'}
+            </p>
+            <Link
+              className="safe-touch mt-6 inline-flex rounded-xl bg-[var(--text-strong)] px-5 py-3 text-sm text-[var(--page-bg)]"
+              to="/contact"
+              data-analytics-event="article_cta_click"
+              onClick={() => trackEvent('article_cta_click', { slug: entry.slug })}
+            >
+              {language === 'zh' ? '预约需求拆解' : 'Book a brief'}
+            </Link>
+          </section>
+          <section className="paper-panel">
+            <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+              {language === 'zh' ? '相关文章' : 'Related Articles'}
+            </p>
+            <div className="mt-4 space-y-4">
+              {relatedEntries.map((item) => (
+                <Link key={item.slug} className="block border-t border-[var(--border-subtle)] pt-4 first:border-t-0 first:pt-0" to={`/journal/${item.slug}`}>
+                  <p className={`text-[var(--text-strong)] ${isChinese ? 'text-[1rem] leading-7' : 'text-sm leading-6'}`}>
+                    {copyFor(language, item.title)}
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
         </div>
       </section>
     </>

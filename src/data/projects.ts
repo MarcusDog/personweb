@@ -63,6 +63,10 @@ export const projects: ProjectEntry[] = [
       zh: '最终交付的不只是一个 AI 新闻站，而是一套可持续更新的情报工作台。它把分散信源压缩成统一入口，也把“看新闻”升级成“追踪主题、比较信源、辅助判断、回看历史脉络”的连续动作。',
       en: 'The result is not just a news site, but a durable intelligence workspace for tracking themes, comparing sources, and making faster judgments over time.',
     },
+    result: {
+      zh: '50+ 信源统一聚合，信息检索时间从多站点跳转压缩到单一搜索入口。',
+      en: '50+ sources consolidated into one workspace, reducing research lookup from multi-site switching to a single searchable surface.',
+    },
     nextStep: {
       zh: '下一步会继续补强个性化订阅、信源权重机制、主题追踪订阅和正式部署后的子域名产品化包装，让它更接近一个可长期运营的独立产品。',
       en: 'Next: add personalized subscriptions, source weighting, and a cleaner production-ready packaging layer for subdomain deployment.',
@@ -361,6 +365,10 @@ export const projects: ProjectEntry[] = [
       zh: '最终做出来的不是一个普通课程站，而是一个更接近学习操作系统的交互式产品。它把章节学习、代码运行、可视化理解、论文扩展和个性化设置接进同一条使用路径里，产品完整度明显高于单点型 demo。',
       en: 'The result is closer to an interactive learning operating system than a standard course site, with study, execution, explanation, paper extension, and personalization connected into one path.',
     },
+    result: {
+      zh: '5 条课程主线接入同一学习工作台，学习、练习、论文和 AI 辅导不再分散。',
+      en: '5 curriculum tracks connected into one learning workspace, bringing lessons, practice, papers, and AI tutoring together.',
+    },
     nextStep: {
       zh: '下一步会继续补强更多课程主线、真实 PDF 提取、学习进度分析和正式部署后的课程子域名包装，让它更接近一款可以长期运营的学习产品。',
       en: 'Next: expand the curriculum catalog, strengthen real PDF extraction, add learning analytics, and package it as a production-ready course product.',
@@ -642,6 +650,10 @@ export const projects: ProjectEntry[] = [
       zh: '形成从研究到成稿的更短路径，也让历史内容可以被再次调用。',
       en: 'It shortened the path from research to publishable draft and made historical content reusable.',
     },
+    result: {
+      zh: '把研究、草稿、发布、复用收进 1 条内容回路，减少重复整理成本。',
+      en: 'Research, drafting, publishing, and reuse moved into one editorial loop, reducing repeated cleanup work.',
+    },
     nextStep: {
       zh: '补强多语言发布与知识图谱索引。',
       en: 'Next: strengthen multilingual publishing and graph-based indexing.',
@@ -701,6 +713,10 @@ export const projects: ProjectEntry[] = [
       zh: '显著提高了合作请求的判断效率与回复质量。',
       en: 'It improved both evaluation speed and response quality for inbound collaboration.',
     },
+    result: {
+      zh: '把模糊咨询压缩成结构化 brief，第一轮判断从追问信息变成直接评估。',
+      en: 'Vague inquiries become structured briefs, moving first-round triage from clarification to evaluation.',
+    },
     nextStep: {
       zh: '加入案例匹配与报价建议层。',
       en: 'Next: add case matching and proposal guidance.',
@@ -759,6 +775,10 @@ export const projects: ProjectEntry[] = [
     outcome: {
       zh: '让长期研究项目具备更稳定的上下文连续性。',
       en: 'It created stronger continuity for long-running research work.',
+    },
+    result: {
+      zh: '用对象化索引保留研究上下文，再次进入项目时能更快恢复判断。',
+      en: 'Object-based indexes preserve research context so judgment can be restored faster when returning to a project.',
     },
     nextStep: {
       zh: '继续测试跨项目引用与长期记忆压缩。',

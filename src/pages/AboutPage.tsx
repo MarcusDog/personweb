@@ -87,6 +87,68 @@ export function AboutPage() {
         }
       />
 
+      <section className="page-shell py-10 md:py-14">
+        <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,0.82fr)]">
+          <div className="paper-panel">
+            <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+              {language === 'zh' ? '快速摘要' : 'Quick Summary'}
+            </p>
+            <div className="mt-6 grid gap-5 md:grid-cols-2">
+              {[
+                {
+                  title: { zh: '我是谁', en: 'Who I am' },
+                  body: { zh: '深度依赖 AI 协作的独立开发者。', en: 'An independent developer working deeply with AI.' },
+                },
+                {
+                  title: { zh: '我做什么', en: 'What I build' },
+                  body: { zh: 'AI Agent 系统、自动化流程、从 0 到可用原型。', en: 'AI agent systems, automation workflows, and usable prototypes.' },
+                },
+                {
+                  title: { zh: '如何合作', en: 'How collaboration works' },
+                  body: { zh: '先做需求拆解，再确认边界、路径和首个可运行版本。', en: 'Start with a brief, then define scope, path, and first working version.' },
+                },
+                {
+                  title: { zh: '交付类型', en: 'Delivery types' },
+                  body: { zh: '架构评估、原型落地、工作流自动化、案例型产品页。', en: 'Architecture review, prototype delivery, workflow automation, and product-facing pages.' },
+                },
+              ].map((item) => (
+                <article key={item.title.en} className="border-t border-[var(--border-subtle)] pt-4 first:border-t-0 first:pt-0 md:first:border-t md:first:pt-4">
+                  <h2 className={`text-[var(--text-strong)] ${isChinese ? 'text-[1.1rem] leading-7' : 'text-base font-semibold'}`}>
+                    {language === 'zh' ? item.title.zh : item.title.en}
+                  </h2>
+                  <p className={`mt-2 text-[var(--text-soft)] ${isChinese ? 'text-[0.98rem] leading-7' : 'text-sm leading-6'}`}>
+                    {language === 'zh' ? item.body.zh : item.body.en}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </div>
+          <div className="paper-panel">
+            <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+              {language === 'zh' ? '不适合合作的情况' : 'Not a good fit'}
+            </p>
+            <ul className={`mt-5 space-y-3 text-[var(--text-soft)] ${isChinese ? 'text-[1rem] leading-8' : 'text-sm leading-6'}`}>
+              {(language === 'zh'
+                ? [
+                    '只想要一个无法验证的概念包装，但不打算让它真实运行。',
+                    '希望跳过需求边界，直接堆功能或追逐最新模型名词。',
+                    '无法提供基本业务背景、使用场景或后续反馈。',
+                  ]
+                : [
+                    'You only want concept packaging with no intent to make it run.',
+                    'You want to skip boundaries and stack features or model names.',
+                    'You cannot provide basic context, usage scenarios, or feedback.',
+                  ]
+              ).map((item) => (
+                <li key={item} className="border-t border-[var(--border-subtle)] pt-3 first:border-t-0 first:pt-0">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
       {/* ─── Work gallery ──────────────────────────────── */}
       <section className="page-shell py-10 md:py-14">
         <p className={`brand-ui mb-6 text-[var(--text-muted)] ${isChinese ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>

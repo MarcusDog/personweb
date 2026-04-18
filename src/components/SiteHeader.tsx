@@ -12,7 +12,7 @@ const navItems = [
   { href: '/projects', label: { zh: '项目', en: 'Projects' } },
   { href: '/journal', label: { zh: 'Journal', en: 'Journal' } },
   { href: '/about', label: { zh: '关于', en: 'About' } },
-  { href: '/contact', label: { zh: '联系', en: 'Contact' } },
+  { href: '/contact', label: { zh: '预约需求拆解', en: 'Book a brief' } },
 ]
 
 export function SiteHeader() {

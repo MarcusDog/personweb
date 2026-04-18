@@ -13,6 +13,7 @@ import { SectionHeading } from '../components/SectionHeading'
 import { editorialMedia, showcaseImages } from '../data/media'
 import { useLanguage } from '../hooks/useLanguage'
 import { usePageTitle } from '../hooks/usePageTitle'
+import { trackEvent } from '../lib/analytics'
 import { copyFor } from '../lib/copy'
 import { getJournalEntries, getProjects } from '../lib/content'
 
@@ -131,31 +132,40 @@ export function HomePage() {
               </div>
               <h1 className={`mt-8 max-w-3xl brand-display text-[var(--home-text)] ${isChinese ? 'text-[2.35rem] leading-[1.14] md:text-[4.6rem] md:leading-[1.02]' : 'text-5xl leading-[0.98] md:text-7xl'}`}>
                 {language === 'zh'
-                  ? '我帮你把重复的工作自动化。'
-                  : 'I turn repetitive work into running AI systems.'}
+                  ? '把 AI 想法做成可用系统，而不只是 Demo。'
+                  : 'Turn AI ideas into usable systems, not just demos.'}
               </h1>
               <p className={`mt-6 max-w-2xl text-[var(--home-soft)] ${isChinese ? 'text-[1.1rem] leading-[1.95] md:text-[1.24rem]' : 'text-lg leading-8 md:text-xl'}`}>
                 {language === 'zh'
-                  ? '从想法到真实运行，一个人推进到底。真正改变日常生活的，不是单一技术突破，而是把现有工具连接成别人真正用得上的系统。'
-                  : 'From idea to working product, I design and ship the system end to end. The useful work is connecting existing tools into something people actually use.'}
+                  ? '面向独立开发者与小团队，提供 AI Agent 系统设计、自动化流程落地与从 0 到可用原型。真正改变日常生活的，是把现有工具连接成别人真正用得上的系统。'
+                  : 'For independent builders and small teams: AI agent system design, workflow automation, and zero-to-usable prototypes that connect tools into something people actually use.'}
+              </p>
+              <p className={`mt-5 brand-ui text-[rgba(242,231,212,0.72)] ${isChinese ? 'text-[0.86rem] tracking-[0.08em]' : 'text-sm font-medium'}`}>
+                {language === 'zh'
+                  ? 'Agent 系统 / 自动化工具 / 产品原型'
+                  : 'Agent systems / Automation tools / Product prototypes'}
               </p>
               <div className="mt-10 flex flex-wrap gap-4">
                 <Link
                   className={`safe-touch inline-flex items-center gap-2 rounded-full border border-[rgba(226,199,145,0.4)] bg-[rgba(215,189,135,0.12)] px-6 py-4 text-sm text-[var(--home-text)] transition duration-[240ms] hover:bg-[rgba(215,189,135,0.2)] ${
                     isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
                   }`}
-                  to="/projects"
+                  to="/contact"
+                  data-analytics-event="hero_cta_click"
+                  onClick={() => trackEvent('hero_cta_click', { target: 'contact' })}
                 >
-                  {language === 'zh' ? '查看项目' : 'View projects'}
+                  {language === 'zh' ? '预约需求拆解' : 'Book a brief'}
                   <ArrowRight size={16} />
                 </Link>
                 <Link
                   className={`safe-touch inline-flex items-center gap-2 px-4 py-4 text-sm text-[rgba(242,231,212,0.8)] transition duration-[240ms] hover:text-[var(--home-text)] ${
                     isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
                   }`}
-                  to="/about"
+                  to="/projects"
+                  data-analytics-event="hero_secondary_cta_click"
+                  onClick={() => trackEvent('hero_secondary_cta_click', { target: 'projects' })}
                 >
-                  {language === 'zh' ? '了解我' : 'About me'}
+                  {language === 'zh' ? '查看代表案例' : 'View case studies'}
                 </Link>
               </div>
             </motion.div>

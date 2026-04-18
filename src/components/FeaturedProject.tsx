@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 import { projectMediaBySlug } from '../data/media'
+import { trackEvent } from '../lib/analytics'
 import { copyFor } from '../lib/copy'
 import type { Language, ProjectEntry } from '../types/content'
 
@@ -68,6 +69,10 @@ export function FeaturedProject({ project, language }: FeaturedProjectProps) {
               {copyFor(language, project.summary)}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
+              <span className="rounded-full border border-[var(--accent-soft)] bg-[var(--accent-wash)] px-4 py-2 text-sm text-[var(--text-strong)]">
+                {language === 'zh' ? '结果：' : 'Result: '}
+                {copyFor(language, project.result)}
+              </span>
               {project.capabilities.map((capability) => (
                 <span
                   key={capability.en}
@@ -83,6 +88,8 @@ export function FeaturedProject({ project, language }: FeaturedProjectProps) {
               isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
             }`}
             to={`/projects/${project.slug}`}
+            data-analytics-event="project_detail_click"
+            onClick={() => trackEvent('project_detail_click', { slug: project.slug, placement: 'featured' })}
           >
             {language === 'zh' ? '查看项目' : 'View project'}
             <ArrowUpRight size={16} />

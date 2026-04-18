@@ -46,6 +46,7 @@ export interface ProjectEntry {
   challenge: LocalizedText
   approach: LocalizedText
   outcome: LocalizedText
+  result: LocalizedText
   nextStep: LocalizedText
   accent: string
   detailSections: ProjectSection[]

@@ -189,6 +189,14 @@ export function ProjectDetailPage() {
               </p>
               <div className="mt-8 border-t border-[var(--border-subtle)] pt-6">
                 <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+                  {language === 'zh' ? '结果指标' : 'Result'}
+                </p>
+                <p className={`mt-3 rounded-xl border border-[var(--accent-soft)] bg-[var(--accent-wash)] px-4 py-3 text-[var(--text-strong)] ${isChinese ? 'text-[1rem] leading-[1.86]' : 'text-base leading-8'}`}>
+                  {copyFor(language, project.result)}
+                </p>
+              </div>
+              <div className="mt-8 border-t border-[var(--border-subtle)] pt-6">
+                <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
                   {language === 'zh' ? '角色职责' : 'Role'}
                 </p>
                 <p className={`mt-3 text-[var(--text-soft)] ${isChinese ? 'text-[1rem] leading-[1.86]' : 'text-base leading-8'}`}>
