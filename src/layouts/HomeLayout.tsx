@@ -10,7 +10,7 @@ interface HomeLayoutProps extends PropsWithChildren {
 
 export function HomeLayout({ children, header, footer }: HomeLayoutProps) {
   return (
-    <div className="theme-home min-h-screen bg-[var(--home-bg)] text-[var(--home-text)]">
+    <div className="min-h-screen bg-[var(--bloom-bg)] text-[var(--bloom-text)]">
       <a className="skip-link" href="#main-content">
         Skip to content
       </a>

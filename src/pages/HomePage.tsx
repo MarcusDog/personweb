@@ -1,28 +1,34 @@
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { useRef } from 'react'
 
-import { ContactPanel } from '../components/ContactPanel'
-import { FeaturedProject } from '../components/FeaturedProject'
-import { HomeScrollSection } from '../components/HomeScrollSection'
-import { JournalListItem } from '../components/JournalListItem'
-import { ParallaxImage } from '../components/ParallaxSection'
-import { ProjectListRow } from '../components/ProjectListRow'
-import { SectionHeading } from '../components/SectionHeading'
-import { editorialMedia, showcaseImages } from '../data/media'
 import { useLanguage } from '../hooks/useLanguage'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { trackEvent } from '../lib/analytics'
 import { copyFor } from '../lib/copy'
-import { getJournalEntries, getProjects } from '../lib/content'
+import { formatDate, getJournalEntries, getProjects } from '../lib/content'
 
-const serviceItems = [
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const fadeUp = (delay = 0) => ({
+  initial: { opacity: 0, y: 18 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.9, ease: EASE, delay },
+})
+
+const inView = {
+  initial: { opacity: 0, y: 28 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-8%' },
+  transition: { duration: 0.85, ease: EASE },
+}
+
+const capabilities = [
   {
     title: { zh: 'AI Agent 系统设计与实现', en: 'AI Agent System Design' },
     description: {
       zh: '设计多个 AI agent 协同工作的系统，处理复杂的自动化任务链。关注系统的稳定性、可恢复性与真实使用场景下的实际可用性。',
-      en: 'Designing multi-agent systems where AI components work together on complex automation chains — with real emphasis on reliability, recovery, and actual usability over demo appeal.',
+      en: 'Multi-agent systems where AI components work together on complex automation chains — with real emphasis on reliability, recovery, and actual usability over demo appeal.',
     },
   },
   {
@@ -44,472 +50,241 @@ const serviceItems = [
 export function HomePage() {
   const { language } = useLanguage()
   const isChinese = language === 'zh'
-  usePageTitle(
-    language === 'zh'
-      ? '小天Aya'
-      : 'XiaoTian Aya',
-  )
+  usePageTitle(isChinese ? '小天Aya' : 'XiaoTian Aya')
+
   const projects = getProjects()
-  const featured = projects.find((item) => item.featured) ?? projects[0]
-  const secondary = projects.filter((item) => item.slug !== featured.slug).slice(0, 3)
-  const journal = getJournalEntries().slice(0, 3)
-
-  const heroRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress: heroScroll } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  const heroBgY = useTransform(heroScroll, [0, 1], [0, 120])
-  const heroGridY = useTransform(heroScroll, [0, 1], [0, 80])
-  const heroContentY = useTransform(heroScroll, [0, 1], [0, -40])
-  const heroImageY = useTransform(heroScroll, [0, 1], [0, -30])
-
-  // 为 Capabilities 区域的每个服务项创建独立的滚动视差
-  const capabilitiesRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress: capScroll } = useScroll({ target: capabilitiesRef, offset: ['start end', 'end start'] })
-  const serviceItemOpacity = [
-    useTransform(capScroll, [0, 0.15, 0.85, 1], [0, 1, 1, 0]),
-    useTransform(capScroll, [0.08, 0.2, 0.8, 1], [0, 1, 1, 0]),
-    useTransform(capScroll, [0.16, 0.25, 0.75, 1], [0, 1, 1, 0]),
-  ]
-  const serviceItemY = [
-    useTransform(capScroll, [0, 0.15, 0.85, 1], [60, 0, 0, -40]),
-    useTransform(capScroll, [0.08, 0.2, 0.8, 1], [80, 0, 0, -50]),
-    useTransform(capScroll, [0.16, 0.25, 0.75, 1], [100, 0, 0, -60]),
-  ]
-  const serviceItemScale = [
-    useTransform(capScroll, [0, 0.15, 0.85, 1], [0.96, 1, 1, 0.98]),
-    useTransform(capScroll, [0.08, 0.2, 0.8, 1], [0.94, 1, 1, 0.96]),
-    useTransform(capScroll, [0.16, 0.25, 0.75, 1], [0.92, 1, 1, 0.94]),
-  ]
-
-  // 为 About 区域右侧的信息卡片创建视差
-  const aboutRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress: aboutScroll } = useScroll({ target: aboutRef, offset: ['start end', 'end start'] })
-  const aboutCardOpacity = [
-    useTransform(aboutScroll, [0, 0.12, 0.88, 1], [0, 1, 1, 0]),
-    useTransform(aboutScroll, [0.06, 0.18, 0.82, 1], [0, 1, 1, 0]),
-    useTransform(aboutScroll, [0.12, 0.24, 0.76, 1], [0, 1, 1, 0]),
-    useTransform(aboutScroll, [0.18, 0.3, 0.7, 1], [0, 1, 1, 0]),
-  ]
-  const aboutCardY = [
-    useTransform(aboutScroll, [0, 0.12, 0.88, 1], [50, 0, 0, -30]),
-    useTransform(aboutScroll, [0.06, 0.18, 0.82, 1], [65, 0, 0, -40]),
-    useTransform(aboutScroll, [0.12, 0.24, 0.76, 1], [80, 0, 0, -50]),
-    useTransform(aboutScroll, [0.18, 0.3, 0.7, 1], [95, 0, 0, -60]),
-  ]
+  const journal = getJournalEntries().slice(0, 4)
 
   return (
     <>
       {/* ─── Hero ──────────────────────────────────────────── */}
-      <section ref={heroRef} className="relative overflow-hidden px-4 pt-28 pb-14 md:px-8 md:pt-32 md:pb-[4.5rem]">
-        <motion.div style={{ y: heroBgY }} className="hero-veil absolute inset-0" />
-        <motion.div style={{ y: heroGridY }} className="hero-grid absolute inset-0 opacity-60" />
-        <motion.div style={{ y: heroContentY }} className="mx-auto max-w-7xl">
-          <div className="grid gap-10 xl:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)] xl:items-end">
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.16 }}
-              className="relative z-10 max-w-3xl pt-6 md:pt-10"
+      <section className="bloom-hero">
+        <div className="bloom-watermark" aria-hidden="true">天</div>
+
+        <motion.div
+          className="bloom-hero-content"
+          initial={{ opacity: 0, filter: 'blur(18px)', scale: 0.97 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          transition={{ duration: 1.5, ease: EASE }}
+        >
+          <motion.p
+            className="bloom-eyebrow"
+            {...fadeUp(0.1)}
+          >
+            {isChinese
+              ? 'AI 系统设计 · Agent 开发 · 独立开发者'
+              : 'AI Systems · Agent Development · Independent Developer'}
+          </motion.p>
+
+          <motion.h1
+            className="bloom-h1"
+            {...fadeUp(0.05)}
+          >
+            {isChinese
+              ? <>把 AI 想法<br />做成可用系统</>
+              : <>Turn AI ideas into<br />usable systems.</>}
+          </motion.h1>
+
+          <motion.div
+            className="bloom-rule"
+            {...fadeUp(0.2)}
+          />
+
+          <motion.p
+            className="bloom-sub"
+            {...fadeUp(0.28)}
+          >
+            {isChinese
+              ? '面向独立开发者与小团队，提供 AI Agent 系统设计、自动化流程落地与从 0 到可用原型。真正改变日常生活的，是把现有工具连接成别人真正用得上的系统。'
+              : 'For independent builders and small teams: AI agent system design, workflow automation, and zero-to-usable prototypes that connect tools into something people actually use.'}
+          </motion.p>
+
+          <motion.div
+            className="bloom-ctas"
+            {...fadeUp(0.4)}
+          >
+            <Link
+              className="bloom-btn-fill safe-touch"
+              to="/contact"
+              data-analytics-event="hero_cta_click"
+              onClick={() => trackEvent('hero_cta_click', { target: 'contact' })}
             >
-              <p
-                className={`brand-ui mb-5 text-[rgba(242,231,212,0.72)] ${
-                  isChinese
-                    ? 'text-[0.82rem] tracking-[0.08em]'
-                    : 'text-sm font-medium'
-                }`}
-              >
-                {language === 'zh'
-                  ? 'AI 系统设计 / Agent 开发 / 自动化工具'
-                  : 'AI Systems / Agent Development / Automation'}
-              </p>
-              <div
-                aria-label="小天Aya"
-                className="brand-mark text-[var(--home-text)]"
-              >
-                <div className="brand-mark-line">
-                  <span className="brand-mark-cjk">小天</span>
-                  <span className="brand-mark-roman">Aya</span>
-                </div>
-              </div>
-              <h1 className={`mt-8 max-w-3xl brand-display text-[var(--home-text)] ${isChinese ? 'text-[2.35rem] leading-[1.14] md:text-[4.6rem] md:leading-[1.02]' : 'text-5xl leading-[0.98] md:text-7xl'}`}>
-                {language === 'zh'
-                  ? '把 AI 想法做成可用系统，而不只是 Demo。'
-                  : 'Turn AI ideas into usable systems, not just demos.'}
-              </h1>
-              <p className={`mt-6 max-w-2xl text-[var(--home-soft)] ${isChinese ? 'text-[1.1rem] leading-[1.95] md:text-[1.24rem]' : 'text-lg leading-8 md:text-xl'}`}>
-                {language === 'zh'
-                  ? '面向独立开发者与小团队，提供 AI Agent 系统设计、自动化流程落地与从 0 到可用原型。真正改变日常生活的，是把现有工具连接成别人真正用得上的系统。'
-                  : 'For independent builders and small teams: AI agent system design, workflow automation, and zero-to-usable prototypes that connect tools into something people actually use.'}
-              </p>
-              <p className={`mt-5 brand-ui text-[rgba(242,231,212,0.72)] ${isChinese ? 'text-[0.86rem] tracking-[0.08em]' : 'text-sm font-medium'}`}>
-                {language === 'zh'
-                  ? 'Agent 系统 / 自动化工具 / 产品原型'
-                  : 'Agent systems / Automation tools / Product prototypes'}
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <Link
-                  className={`safe-touch inline-flex items-center gap-2 rounded-full border border-[rgba(226,199,145,0.4)] bg-[rgba(215,189,135,0.12)] px-6 py-4 text-sm text-[var(--home-text)] transition duration-[240ms] hover:bg-[rgba(215,189,135,0.2)] ${
-                    isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
-                  }`}
-                  to="/contact"
-                  data-analytics-event="hero_cta_click"
-                  onClick={() => trackEvent('hero_cta_click', { target: 'contact' })}
-                >
-                  {language === 'zh' ? '预约需求拆解' : 'Book a brief'}
-                  <ArrowRight size={16} />
-                </Link>
-                <Link
-                  className={`safe-touch inline-flex items-center gap-2 px-4 py-4 text-sm text-[rgba(242,231,212,0.8)] transition duration-[240ms] hover:text-[var(--home-text)] ${
-                    isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'
-                  }`}
-                  to="/projects"
-                  data-analytics-event="hero_secondary_cta_click"
-                  onClick={() => trackEvent('hero_secondary_cta_click', { target: 'projects' })}
-                >
-                  {language === 'zh' ? '查看代表案例' : 'View case studies'}
-                </Link>
-              </div>
-            </motion.div>
-
-            <div className="relative z-10 space-y-6">
-              <motion.div
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.24 }}
-                className="hero-visual-panel"
-              >
-                <motion.img
-                  src={editorialMedia.hero}
-                  alt=""
-                  aria-hidden="true"
-                  className="hero-visual-image"
-                  fetchPriority="high"
-                  style={{ y: heroImageY }}
-                />
-                <div className="hero-visual-orbit" />
-                <div className="hero-visual-copy">
-                  <p className={isChinese ? 'hero-visual-label hero-visual-label-zh' : 'hero-visual-label'}>
-                    {language === 'zh' ? '从想法到真实运行的系统' : 'From idea to working system'}
-                  </p>
-                  <p className="hero-visual-caption">
-                    {language === 'zh'
-                      ? 'AI 处理枯燥的部分，人负责判断方向。一个人，一套工具，一个能跑起来的结果。'
-                      : 'AI handles the tedious. I handle direction. One person, one toolchain, one result that actually runs.'}
-                  </p>
-                </div>
-              </motion.div>
-
-              <motion.aside
-                initial={{ opacity: 0, y: 28 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-                className="relative h-fit rounded-[2rem] border border-[rgba(214,183,120,0.18)] bg-[rgba(11,10,8,0.42)] p-7 backdrop-blur-xl"
-              >
-                <p
-                  className={`brand-ui text-[rgba(242,231,212,0.62)] ${
-                    isChinese
-                      ? 'text-[0.82rem] tracking-[0.08em]'
-                      : 'text-xs uppercase tracking-[0.12em]'
-                  }`}
-                >
-                  {language === 'zh' ? '正在做的事' : 'Current work'}
-                </p>
-                <ul className="mt-6 space-y-6">
-                  {[
-                    {
-                      zh: '多 Agent 协作系统的设计与稳定性优化',
-                      en: 'Multi-agent collaboration systems — design and reliability',
-                    },
-                    {
-                      zh: '把重复工作流交给 AI 自动处理的工具链',
-                      en: 'Tool chains that hand repetitive workflows to AI',
-                    },
-                    {
-                      zh: '你有 idea——我来评估、路径规划、然后做出来',
-                      en: 'You bring the idea — I assess, plan the path, then build it',
-                    },
-                  ].map((item) => (
-                    <li key={item.en} className="border-t border-[rgba(214,183,120,0.12)] pt-5 first:border-t-0 first:pt-0">
-                      <p className={`text-[var(--home-soft)] ${isChinese ? 'text-[1rem] leading-[1.9]' : 'text-base leading-7'}`}>
-                        {copyFor(language, item)}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-              </motion.aside>
-            </div>
-          </div>
+              {isChinese ? '预约需求拆解' : 'Book a brief'}
+            </Link>
+            <Link
+              className="bloom-btn-ghost safe-touch"
+              to="/projects"
+              data-analytics-event="hero_secondary_cta_click"
+              onClick={() => trackEvent('hero_secondary_cta_click', { target: 'projects' })}
+            >
+              {isChinese ? '查看代表案例' : 'View case studies'}
+            </Link>
+          </motion.div>
         </motion.div>
       </section>
 
-      <div className="home-story-wrap">
+      <div className="page-shell">
 
-        {/* ─── Selected Projects ─────────────────────────── */}
-        <HomeScrollSection
-          className="page-shell pt-14 pb-[4.5rem] md:pt-[4.5rem] md:pb-20"
-          glowClassName="home-scroll-glow-warm"
-          frameClassName="home-scroll-frame-stack"
-        >
-          <SectionHeading
-            eyebrow={language === 'zh' ? '代表作品' : 'Recent Work'}
-            title={language === 'zh' ? '不只是做出来，还要能讲清楚。' : 'Built to work. Presented with precision.'}
-            description={language === 'zh'
-              ? '把最能代表工作方式的项目放在这里：有问题背景、有系统实现，也有可继续迭代的结果。'
-              : 'A small set of representative projects: clear problem framing, real system work, and outcomes that can keep evolving.'}
-          />
-          <div className="mt-12">
-            <FeaturedProject project={featured} language={language} />
-          </div>
-
-          {/* Secondary project screenshots strip with parallax */}
-          <div className="mt-8 grid grid-cols-3 gap-3">
-            {[
-              { src: '/project-images/ainews/4.png', label: { zh: '趋势分析', en: 'Trend analysis' } },
-              { src: '/project-images/ainews/7.png', label: { zh: '实时资讯流', en: 'Real-time feed' } },
-              { src: '/project-images/learningbydoing/1.png', label: { zh: '学习工作台', en: 'Learning studio' } },
-            ].map((img, idx) => (
-              <figure key={img.src} className="group overflow-hidden rounded-[1.4rem] border border-[var(--border-subtle)] bg-[var(--surface-muted)]">
-                <ParallaxImage
-                  src={img.src}
-                  alt={copyFor(language, img.label)}
-                  strength={0.25 + idx * 0.08}
-                  className="w-full h-32 md:h-40"
-                />
-                <figcaption className={`px-3 py-2 text-[var(--text-muted)] ${isChinese ? 'text-[0.78rem] tracking-[0.06em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
-                  {copyFor(language, img.label)}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-
-          <div className="mt-6">
-            {secondary.map((project) => (
-              <ProjectListRow key={project.slug} project={project} language={language} />
-            ))}
-          </div>
-        </HomeScrollSection>
-
-        {/* ─── Journal ───────────────────────────────────── */}
-        <HomeScrollSection
-          className="page-shell py-[4.5rem] md:py-20"
-          glowClassName="home-scroll-glow-paper"
-          frameClassName="home-scroll-frame-split-left"
-        >
-          <div className="grid gap-10 xl:grid-cols-[minmax(0,0.86fr)_minmax(0,1.14fr)] xl:items-start">
-            <div className="space-y-6">
-              <SectionHeading
-                eyebrow={language === 'zh' ? '写作' : 'Journal'}
-                title={language === 'zh' ? '做了什么，想了什么，踩了什么坑。' : 'What I built, thought, and broke.'}
-                description={language === 'zh'
-                  ? '记录 AI 实验过程、工具观察与项目复盘。不追求完整——只求诚实和有用。'
-                  : 'Notes on AI experiments, tool observations, and project post-mortems. Not polished — just honest and useful.'}
-              />
-              {/* Editorial image */}
-              <figure className="editorial-figure editorial-figure-compact overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] shadow-[var(--shadow-soft)]">
-                <img
-                  src={editorialMedia.paper}
-                  alt={language === 'zh' ? '记录与整理' : 'Research and notes'}
-                  className="editorial-figure-image"
-                  loading="lazy"
-                />
-                <figcaption className="editorial-figure-caption">
-                  {language === 'zh'
-                    ? '想法转瞬即逝。先记下来，整理是之后的事。'
-                    : 'Ideas are fleeting. Write them down first. Organize later.'}
-                </figcaption>
-              </figure>
-            </div>
+        {/* ─── Projects ──────────────────────────────────────── */}
+        <motion.section className="ma-section" {...inView}>
+          <div className="ma-section-header">
             <div>
-              {journal.map((entry) => (
-                <JournalListItem key={entry.slug} entry={entry} language={language} />
-              ))}
-            </div>
-          </div>
-        </HomeScrollSection>
-
-        {/* ─── Capabilities ──────────────────────────────── */}
-        <HomeScrollSection
-          className="page-shell py-[4.5rem] md:py-20"
-          glowClassName="home-scroll-glow-bronze"
-          frameClassName="home-scroll-frame-split-left"
-        >
-          <div className="grid gap-10 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] xl:items-start">
-            <div className="space-y-6">
-              <SectionHeading
-                eyebrow={language === 'zh' ? '能做什么' : 'Capabilities'}
-                title={language === 'zh' ? '从想法到能用，一个人推进。' : 'From idea to usable. One person, full stack.'}
-                description={language === 'zh'
-                  ? '涵盖系统架构、AI 集成、前端实现与产品表达，适合需要快速验证和完整交付的项目。'
-                  : 'Covers system architecture, AI integration, frontend implementation, and product presentation — suited for projects that need fast validation and complete delivery.'}
-              />
-              {/* Project screenshot as capability showcase */}
-              <figure className="overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] shadow-[var(--shadow-soft)]">
-                <img
-                  src="/project-images/ainews/7.png"
-                  alt={language === 'zh' ? 'AI 资讯平台界面' : 'AI platform interface'}
-                  className="w-full object-cover"
-                  loading="lazy"
-                />
-                <figcaption className="border-t border-[var(--border-subtle)] px-5 py-3 text-[var(--text-muted)] text-sm">
-                  {language === 'zh'
-                    ? 'Ainews — 实时 AI 资讯工作台，多源聚合 + 趋势分析'
-                    : 'Ainews — Real-time AI intelligence workspace, multi-source + trend analysis'}
-                </figcaption>
-              </figure>
-              <figure className="overflow-hidden rounded-[1.5rem] border border-[var(--border-subtle)] shadow-[var(--shadow-soft)]">
-                <img
-                  src={editorialMedia.warmInterior}
-                  alt={language === 'zh' ? '专注工作环境' : 'Focused work environment'}
-                  className="w-full object-cover"
-                  loading="lazy"
-                />
-                <figcaption className="border-t border-[var(--border-subtle)] px-5 py-3 text-[var(--text-muted)] text-sm">
-                  {language === 'zh' ? '专注于真正值得人来做的决策' : 'Focus on decisions that genuinely need a human'}
-                </figcaption>
-              </figure>
-            </div>
-            <div ref={capabilitiesRef} className="space-y-5">
-              {serviceItems.map((item, idx) => (
-                <motion.article
-                  key={item.title.en}
-                  className="paper-panel"
-                  style={{
-                    opacity: serviceItemOpacity[idx],
-                    y: serviceItemY[idx],
-                    scale: serviceItemScale[idx],
-                    transformOrigin: 'right center',
-                  }}
-                >
-                  <h3 className={`brand-display text-[var(--text-strong)] ${isChinese ? 'text-[2.15rem] leading-[1.12]' : 'text-3xl leading-tight'}`}>
-                    {copyFor(language, item.title)}
-                  </h3>
-                  <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-8'}`}>
-                    {copyFor(language, item.description)}
-                  </p>
-                </motion.article>
-              ))}
-            </div>
-          </div>
-        </HomeScrollSection>
-
-        {/* ─── About ─────────────────────────────────────── */}
-        <HomeScrollSection
-          className="page-shell py-[4.5rem] md:py-20"
-          glowClassName="home-scroll-glow-dark"
-          frameClassName="home-scroll-frame-split-right home-scroll-frame-dark"
-        >
-          <div className="grid gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-            {/* Left: identity panel */}
-            <div className="paper-panel home-about-panel text-[var(--home-text)]">
-              <div className="home-identity-mark">
-                <span>AYA</span>
-              </div>
-              <p
-                className={`brand-ui text-[rgba(242,231,212,0.7)] ${
-                  isChinese
-                    ? 'text-[0.82rem] tracking-[0.08em]'
-                    : 'text-xs uppercase tracking-[0.12em]'
-                }`}
-              >
-                {language === 'zh' ? '关于' : 'About'}
+              <p className="ma-section-label">
+                {isChinese ? '代表作品' : 'Selected Work'}
               </p>
-              <h2 className={`brand-display mt-5 ${isChinese ? 'text-[2.8rem] leading-[1.04] md:text-[4rem]' : 'text-4xl leading-[0.94] md:text-5xl'}`}>
-                {language === 'zh' ? '独立开发者，深度 vibe coder。' : 'Independent developer. Deep vibe-coder.'}
+              <h2 className="ma-section-title">
+                {isChinese ? '不只是做出来，还要能讲清楚。' : 'Built to work. Presented with precision.'}
               </h2>
-              <p className={`mt-5 max-w-xl text-[rgba(242,231,212,0.82)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-8'}`}>
-                {language === 'zh'
+            </div>
+            <Link className="ma-section-link safe-touch" to="/projects">
+              {isChinese ? '全部项目' : 'All projects'} →
+            </Link>
+          </div>
+
+          <div>
+            {projects.slice(0, 4).map((project, i) => (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-5%' }}
+                transition={{ duration: 0.72, ease: EASE, delay: i * 0.06 }}
+              >
+                <Link
+                  to={`/projects/${project.slug}`}
+                  className="ma-project-row block"
+                  data-analytics-event="project_detail_click"
+                  onClick={() => trackEvent('project_detail_click', { slug: project.slug, placement: 'home' })}
+                >
+                  <h3 className="ma-project-name">{copyFor(language, project.title)}</h3>
+                  <div className="ma-project-meta">
+                    <span className="ma-project-tag">
+                      {project.year} / {copyFor(language, project.category)}
+                    </span>
+                    <div className="ma-project-dash" />
+                    <span className="ma-project-arrow">
+                      {isChinese ? '查看详情 →' : 'View →'}
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* ─── Journal ───────────────────────────────────────── */}
+        <motion.section className="ma-section" {...inView}>
+          <div className="ma-section-header">
+            <div>
+              <p className="ma-section-label">
+                {isChinese ? '写作' : 'Journal'}
+              </p>
+              <h2 className="ma-section-title">
+                {isChinese ? '做了什么，想了什么，踩了什么坑。' : 'What I built, thought, and broke.'}
+              </h2>
+            </div>
+            <Link className="ma-section-link safe-touch" to="/journal">
+              {isChinese ? '全部文章' : 'All posts'} →
+            </Link>
+          </div>
+
+          <div>
+            {journal.map((entry, i) => (
+              <motion.div
+                key={entry.slug}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-5%' }}
+                transition={{ duration: 0.72, ease: EASE, delay: i * 0.07 }}
+              >
+                <Link
+                  to={`/journal/${entry.slug}`}
+                  className="bloom-entry"
+                >
+                  <div className="bloom-entry-date">
+                    {formatDate(entry.date, language).split(' ').map((part, idx) => (
+                      <span key={idx} style={{ display: 'block' }}>{part}</span>
+                    ))}
+                  </div>
+                  <div>
+                    <div className="bloom-entry-title">{copyFor(language, entry.title)}</div>
+                    <div className="bloom-entry-desc">{copyFor(language, entry.standfirst)}</div>
+                  </div>
+                  <div className="bloom-entry-arrow">→</div>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+        </motion.section>
+
+        {/* ─── About + Capabilities ──────────────────────────── */}
+        <motion.section className="ma-about-section" {...inView}>
+          <div className="ma-about-grid">
+            {/* Identity */}
+            <div>
+              <div className="ma-about-mark" aria-hidden="true">AYA</div>
+              <h2 className="ma-about-heading">
+                {isChinese
+                  ? '独立开发者，深度 vibe coder。'
+                  : 'Independent developer. Deep vibe-coder.'}
+              </h2>
+              <p className="ma-about-body">
+                {isChinese
                   ? '专注 AI Agent 系统设计与落地。当 AI 处理重复和机械的部分时，真正需要人的判断就变得更清晰了——这是我工作的核心逻辑。'
                   : 'Focused on AI agent system design and real-world deployment. When AI handles the repetitive and mechanical, what actually needs human judgment becomes clearer — that\'s the core logic I work from.'}
               </p>
-              <Link
-                className={`safe-touch mt-8 inline-flex items-center gap-2 text-sm ${isChinese ? 'tracking-[0.08em]' : 'uppercase tracking-[0.12em]'}`}
-                to="/about"
-              >
-                {language === 'zh' ? '了解更多' : 'Read more'}
-                <ArrowRight size={16} />
+              <Link className="ma-about-link safe-touch" to="/about">
+                {isChinese ? '了解更多' : 'Read more'} <ArrowRight size={12} />
               </Link>
             </div>
 
-            {/* Right: project screenshot grid + info cards */}
-            <div ref={aboutRef} className="grid gap-4 md:grid-cols-2">
-              {/* Project screenshots row */}
-              <motion.div
-                className="project-shot-frame"
-                style={{ opacity: useTransform(aboutScroll, [0, 0.1, 0.9, 1], [0, 1, 1, 0]), y: useTransform(aboutScroll, [0, 0.1, 0.9, 1], [40, 0, 0, -20]) }}
-              >
-                <img
-                  src={showcaseImages[0]}
-                  alt={language === 'zh' ? 'Ainews 平台' : 'Ainews platform'}
-                  className="project-shot-image"
-                  loading="lazy"
-                />
-              </motion.div>
-              <motion.div
-                className="project-shot-frame"
-                style={{ opacity: useTransform(aboutScroll, [0.05, 0.15, 0.85, 1], [0, 1, 1, 0]), y: useTransform(aboutScroll, [0.05, 0.15, 0.85, 1], [55, 0, 0, -30]) }}
-              >
-                <img
-                  src={showcaseImages[3]}
-                  alt={language === 'zh' ? 'LearningByDoing Studio' : 'LearningByDoing Studio'}
-                  className="project-shot-image"
-                  loading="lazy"
-                />
-              </motion.div>
-              {/* Info cards row */}
-              {[
-                {
-                  label: { zh: '工作方式', en: 'Working mode' },
-                  body: {
-                    zh: '快速提出想法，最短路径让它运转，在真实场景观察，然后决定深化还是放弃。失败成本低，迭代速度快。',
-                    en: 'Fast hypothesis, shortest path to running, observe in real conditions, then deepen or abandon. Low failure cost, fast iteration.',
-                  },
-                },
-                {
-                  label: { zh: '长期关注', en: 'Long-term focus' },
-                  body: {
-                    zh: 'AI 如何真正服务于人的日常——不是替代，是替代那些不值得人来做的部分，把时间还给有价值的判断。',
-                    en: 'How AI can genuinely serve daily life — replacing the parts that shouldn\'t require a human, returning time to judgment that actually matters.',
-                  },
-                },
-                {
-                  label: { zh: '合作方式', en: 'Collaboration' },
-                  body: {
-                    zh: '想法成型或不成型都可以来聊。你只需要有一个问题，或者一个让你烦恼了很久的重复工作。',
-                    en: 'Doesn\'t matter how formed your idea is. Bring a problem, or that repetitive task that\'s been annoying you for months.',
-                  },
-                },
-                {
-                  label: { zh: '项目来源', en: 'Where projects start' },
-                  body: {
-                    zh: '自己的真实烦恼、朋友随口提到的需求，或者看到某个东西觉得"这应该可以用 AI 搞定"的瞬间。',
-                    en: 'My own real frustrations, a friend\'s offhand remark, or that moment of "this should be automated" during someone\'s workflow.',
-                  },
-                },
-              ].map((item, idx) => (
-                <motion.article
-                  key={item.label.en}
-                  className="paper-panel"
-                  style={{ opacity: aboutCardOpacity[idx], y: aboutCardY[idx] }}
+            {/* Capabilities list */}
+            <div>
+              <p className="ma-section-label" style={{ marginBottom: '0' }}>
+                {isChinese ? '能做什么' : 'Capabilities'}
+              </p>
+              {capabilities.map((item, i) => (
+                <motion.div
+                  key={item.title.en}
+                  className="ma-capability-item"
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.7, ease: EASE, delay: i * 0.08 }}
                 >
-                  <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
-                    {copyFor(language, item.label)}
-                  </p>
-                  <p className={`mt-4 text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-8'}`}>
-                    {copyFor(language, item.body)}
-                  </p>
-                </motion.article>
+                  <p className="ma-capability-title">{copyFor(language, item.title)}</p>
+                  <p className="ma-capability-desc">{copyFor(language, item.description)}</p>
+                </motion.div>
               ))}
             </div>
           </div>
-        </HomeScrollSection>
+        </motion.section>
 
-        {/* ─── Contact bridge ────────────────────────────── */}
-        <HomeScrollSection
-          className="page-shell pb-20 md:pb-28"
-          glowClassName="home-scroll-glow-paper"
-          frameClassName="home-scroll-frame-stack"
-        >
-          <ContactPanel language={language} />
-        </HomeScrollSection>
+        {/* ─── Contact ───────────────────────────────────────── */}
+        <motion.section className="bloom-contact" {...inView}>
+          <p className="bloom-contact-label">
+            {isChinese ? '开始合作' : 'Get in touch'}
+          </p>
+          <h2 className="bloom-contact-heading">
+            {isChinese ? '有个想法？\n一起拆解一下。' : 'Have an idea?\nLet\'s break it down.'}
+          </h2>
+          <p className="bloom-contact-sub">
+            {isChinese
+              ? '想法成型或不成型都可以来聊。你只需要有一个问题，或者一个让你烦恼了很久的重复工作。'
+              : 'Doesn\'t matter how formed your idea is. Bring a problem, or that repetitive task that\'s been annoying you for months.'}
+          </p>
+          <div className="bloom-ctas">
+            <Link
+              className="bloom-btn-fill safe-touch"
+              to="/contact"
+              data-analytics-event="contact_cta_click"
+              onClick={() => trackEvent('contact_cta_click', { placement: 'home_footer' })}
+            >
+              {isChinese ? '预约需求拆解' : 'Book a brief'}
+            </Link>
+          </div>
+        </motion.section>
+
       </div>
     </>
   )
