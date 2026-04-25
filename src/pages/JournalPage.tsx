@@ -43,12 +43,11 @@ export function JournalPage() {
     <>
       <PageHero
         eyebrow="Journal"
-        title={language === 'zh' ? '做了什么，想了什么，踩了什么坑。' : 'What I built, what I thought, what broke.'}
-        description={language === 'zh' ? '记录 AI 实验过程、工具观察、项目复盘，还有各种随手想到的东西。不追求完整，只求真实。' : 'Notes on AI experiments, tool observations, project post-mortems, and whatever else comes up. Not polished — just honest.'}
+        title={language === 'zh' ? '做了什么，想了什么，踩了什么坑。' : 'What I built, thought about, and got wrong.'}
+        description={language === 'zh' ? 'AI 实验、工具的真实感受、项目做完之后回头看——还有那些做到一半突然想到的事。不追求完整，只要是真的。' : 'AI experiments, honest tool impressions, project retrospectives — and thoughts that surface mid-build. Not comprehensive. Just real.'}
         aside={
-          <div className="space-y-4 text-sm leading-7 text-[var(--text-soft)]">
-            <p>{language === 'zh' ? '现在更像一组选集：少量文章，但每篇都有明确观点、双语内容和文章目录。' : 'Currently closer to a selected archive: a small set of bilingual essays with clear viewpoints and article outlines.'}</p>
-            <p>{language === 'zh' ? `当前收录 ${entries.length} 篇文章样例。` : `${entries.length} article samples currently included.`}</p>
+          <div className="text-sm leading-7 text-[var(--text-soft)]">
+            <p>{language === 'zh' ? '每篇都是真实做过的事，或者真实想过的问题。写完才放出来，不凑数。' : 'Every piece is about something I actually did or a question I genuinely wrestled with. No filler.'}</p>
           </div>
         }
       />

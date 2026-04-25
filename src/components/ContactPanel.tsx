@@ -21,7 +21,7 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
             : 'text-xs uppercase tracking-[0.12em]'
         }`}
       >
-        {language === 'zh' ? '来聊' : 'Get in touch'}
+        {language === 'zh' ? '来聊聊' : 'Get in touch'}
       </p>
       <h2
         className={`brand-display mt-5 text-[var(--text-strong)] ${
@@ -30,12 +30,12 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
             : 'text-4xl leading-[0.96] md:text-5xl'
         }`}
       >
-        {language === 'zh' ? '把你的想法发过来。' : 'Send me your idea.'}
+        {language === 'zh' ? '把你的想法发过来。' : 'Tell me what\'s on your mind.'}
       </h2>
       <p className={`mt-5 max-w-2xl text-[var(--text-soft)] ${isChinese ? 'text-[1.08rem] leading-[1.95]' : 'text-lg leading-8'}`}>
         {language === 'zh'
-          ? 'AI 产品想法、想自动化的流程、觉得有意思但不知道怎么做的事 —— 都可以。先提交一份简短需求，我会判断能不能做、怎么做。'
-          : 'AI product concepts, workflows you want automated, things that seem interesting but you\'re not sure are buildable — all good. Send a short brief and I will assess the path.'}
+          ? 'AI 自动化想法、想解决的重复流程、不确定能不能做的事——都行。成不成型都可以先说，我来判断能不能做、该怎么做。'
+          : 'AI automation ideas, repetitive workflows you want out of your life, things you\'re not sure are buildable — all fine. Formed or not, just say it. I\'ll figure out if it\'s doable and how.'}
       </p>
       {showForm ? (
         <form
@@ -50,9 +50,13 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
             <label className="grid gap-2 text-sm text-[var(--text-soft)]">
               <span>{language === 'zh' ? '你是谁' : 'Who are you?'}</span>
               <select className="rounded-xl border border-[var(--border-subtle)] bg-[var(--surface-strong)] px-4 py-3 text-[var(--text-strong)]" required>
-                <option>{language === 'zh' ? '个人开发者' : 'Independent builder'}</option>
+                <option>{language === 'zh' ? '独立开发者/创业者' : 'Independent builder / founder'}</option>
                 <option>{language === 'zh' ? '小团队' : 'Small team'}</option>
-                <option>{language === 'zh' ? '公司/组织' : 'Company / organization'}</option>
+                <option>{language === 'zh' ? '产品经理/运营' : 'Product manager / operator'}</option>
+                <option>{language === 'zh' ? '内容创作者' : 'Content creator'}</option>
+                <option>{language === 'zh' ? '公司/企业' : 'Company / enterprise'}</option>
+                <option>{language === 'zh' ? '学生/研究者' : 'Student / researcher'}</option>
+                <option>{language === 'zh' ? '就是想聊聊' : 'Just want to chat'}</option>
               </select>
             </label>
             <label className="grid gap-2 text-sm text-[var(--text-soft)]">
@@ -115,7 +119,7 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
           ) : null}
         </form>
       ) : null}
-      <div className="mt-10 grid gap-6 md:grid-cols-4">
+      <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3">
         <div>
           <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
             Email
@@ -139,6 +143,34 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
             rel="noreferrer"
           >
             github.com/MarcusDog
+          </a>
+        </div>
+        <div>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+            X (Twitter)
+          </p>
+          <a
+            className="safe-touch mt-3 inline-block text-[var(--text-strong)]"
+            href="https://x.com/Marcusdoggggg"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackEvent('contact_x_click')}
+          >
+            @Marcusdoggggg
+          </a>
+        </div>
+        <div>
+          <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+            Instagram
+          </p>
+          <a
+            className="safe-touch mt-3 inline-block text-[var(--text-strong)]"
+            href="https://instagram.com/bemsdoggg"
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackEvent('contact_instagram_click')}
+          >
+            @bemsdoggg
           </a>
         </div>
         <div>

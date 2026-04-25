@@ -16,15 +16,18 @@ export function SiteFooter() {
           </p>
           <p className="max-w-sm text-sm leading-7 text-[rgba(17,17,17,0.4)] font-[family-name:var(--font-ui)]">
             {language === 'zh'
-              ? '把重复的工作交给 AI，把判断和创造留给人。'
-              : 'Turning repetitive work into AI systems, so humans keep the judgment and creativity.'}
+              ? '重复的事交给机器。判断和创造，留给人。'
+              : 'Repetitive work for machines. Judgment and creativity for people.'}
           </p>
         </div>
         <div className="flex flex-wrap gap-6 font-[family-name:var(--font-ui)] text-xs uppercase tracking-[0.14em] text-[rgba(17,17,17,0.32)]">
           <Link className="safe-touch transition hover:text-[#111]" to="/projects">Projects</Link>
           <Link className="safe-touch transition hover:text-[#111]" to="/journal">Journal</Link>
+          <Link className="safe-touch transition hover:text-[#111]" to="/commercial">Commercial</Link>
           <Link className="safe-touch transition hover:text-[#111]" to="/about">About</Link>
           <Link className="safe-touch transition hover:text-[#111]" to="/contact">Contact</Link>
+          <a className="safe-touch transition hover:text-[#111]" href="https://x.com/Marcusdoggggg" target="_blank" rel="noreferrer">X</a>
+          <a className="safe-touch transition hover:text-[#111]" href="https://instagram.com/bemsdoggg" target="_blank" rel="noreferrer">Instagram</a>
         </div>
       </div>
     </footer>

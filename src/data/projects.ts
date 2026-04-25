@@ -1,30 +1,4 @@
-import type { LocalizedText, ProjectEntry, ProjectSection } from '../types/content'
-
-function compactCaseSections(
-  problem: LocalizedText,
-  solution: LocalizedText,
-  implementation: LocalizedText,
-  result: LocalizedText,
-): ProjectSection[] {
-  return [
-    {
-      title: { zh: '问题背景', en: 'Problem Context' },
-      paragraphs: [problem],
-    },
-    {
-      title: { zh: '解决方案', en: 'Solution' },
-      paragraphs: [solution],
-    },
-    {
-      title: { zh: '技术实现', en: 'Implementation' },
-      paragraphs: [implementation],
-    },
-    {
-      title: { zh: '结果与指标', en: 'Result and Signals' },
-      paragraphs: [result],
-    },
-  ]
-}
+import type { ProjectEntry } from '../types/content'
 
 export const projects: ProjectEntry[] = [
   {
@@ -617,192 +591,213 @@ export const projects: ProjectEntry[] = [
     ],
   },
   {
-    slug: 'studio-publishing-loop',
+    slug: 'codex-switch',
     year: '2025',
-    category: { zh: 'Content System', en: 'Content System' },
-    title: { zh: 'Studio Publishing Loop', en: 'Studio Publishing Loop' },
+    category: { zh: '桌面工具 / AI 账号管理', en: 'Desktop Tool / AI Account Manager' },
+    title: { zh: 'Codex Switch', en: 'Codex Switch' },
     subtitle: {
-      zh: '把研究、写作、发布和再利用连接成一个内容回路',
-      en: 'Connecting research, writing, publishing, and reuse into a single editorial loop',
+      zh: '在 macOS 上管理多个 Codex / GPT 账号，一键切换，查看额度',
+      en: 'Manage multiple Codex and GPT accounts on macOS — switch in one click, monitor quota',
     },
     summary: {
-      zh: '围绕长期写作与知识沉淀打造的内容操作界面与自动化流程。',
-      en: 'An editorial operating interface and automation loop for long-term writing and knowledge retention.',
+      zh: '一个轻量 macOS 桌面应用，专门为重度使用 Codex CLI 的开发者做的。你可以保存多个账号、查看每个账号的 5h / 1week 额度剩余和重置时间、一键把选中的账号写回 ~/.codex/auth.json 让 CLI 直接用。用 React + Vite + Tauri 做的，本地运行，数据存在本机。',
+      en: 'A lightweight macOS desktop app for developers who run multiple Codex accounts. Save accounts, check quota remaining on 5h and 1-week windows, see reset times, and write the selected account back to ~/.codex/auth.json with one click. Built with React, Vite, and Tauri — local-only, data stays on device.',
     },
     role: {
-      zh: '内容架构、前端设计、工作流编排',
-      en: 'Content architecture, frontend design, workflow orchestration',
+      zh: '产品设计、前端开发、Tauri 集成、账号状态管理与本地数据方案',
+      en: 'Product design, frontend development, Tauri integration, account state management, local data storage',
     },
     capabilities: [
-      { zh: '知识结构设计', en: 'Knowledge structuring' },
-      { zh: '内容自动化', en: 'Content automation' },
-      { zh: '前端阅读体验', en: 'Reading-focused frontend' },
+      { zh: '多账号保存与一键切换', en: 'Multi-account storage and one-click switching' },
+      { zh: '额度可见性：5h / 1周 / 重置时间', en: 'Quota visibility: 5h, 1-week, and reset time' },
+      { zh: 'OAuth 登录与 auth.json 导入', en: 'OAuth login and auth.json import' },
+      { zh: '本地数据，不依赖云服务', en: 'Local-only data, no cloud dependency' },
     ],
     challenge: {
-      zh: '内容在多个笔记、草稿和发布渠道之间断裂，难以形成真正可复用的知识资产。',
-      en: 'Content was fragmented across notes, drafts, and publishing channels, making it hard to build reusable knowledge assets.',
+      zh: '用多个 Codex 账号轮换用的开发者，每次切换都要手动改 auth.json，还要自己记住哪个账号还有额度。没有合适的工具，全靠脑子记。',
+      en: 'Developers rotating through multiple Codex accounts had to manually edit auth.json each time and mentally track which account had quota left. No good tool existed.',
     },
     approach: {
-      zh: '先定义内容对象，再定义产出路径，最后用 Agent 补全整理与再利用环节。',
-      en: 'The system defined content objects first, output paths second, and used agents to support refinement and reuse last.',
+      zh: '用 Tauri 把 React 前端打成原生 macOS app，账号池保存在本机应用数据目录。OAuth 登录通过系统浏览器完成，登录态直接写入本地文件。额度数据通过 API 定时刷新，失败时保留上次成功的结果并标注。切换账号只是把选中账号的 auth.json 写到 ~/.codex/ 下。',
+      en: 'Tauri wraps the React frontend into a native macOS app. Account pool is saved in the local app data directory. OAuth login goes through the system browser and writes state to local files. Quota data refreshes via API; on failure, it shows the last successful result with a note. Switching accounts writes the chosen account\'s auth.json to ~/.codex/.',
     },
     outcome: {
-      zh: '形成从研究到成稿的更短路径，也让历史内容可以被再次调用。',
-      en: 'It shortened the path from research to publishable draft and made historical content reusable.',
+      zh: '不用再手动改文件、不用记哪个账号有额度，打开 app 扫一眼就知道用哪个。也不需要联网或者服务端，只要本机跑 macOS。',
+      en: "No more manual file edits, no more mental quota tracking. Open the app, scan the list, pick the right account. No server needed — just macOS.",
     },
     result: {
-      zh: '把研究、草稿、发布、复用收进 1 条内容回路，减少重复整理成本。',
-      en: 'Research, drafting, publishing, and reuse moved into one editorial loop, reducing repeated cleanup work.',
+      zh: '账号切换时间从"手动改文件 + 回忆额度"压缩到一次点击。',
+      en: 'Account switching reduced from manual file editing and mental recall to a single click.',
     },
     nextStep: {
-      zh: '补强多语言发布与知识图谱索引。',
-      en: 'Next: strengthen multilingual publishing and graph-based indexing.',
+      zh: '后续可以加托盘菜单快速切换、以及在 Codex 额度刷新时自动通知。',
+      en: 'Next: tray menu for quick switching without opening the app, and notifications when quota resets.',
     },
-    accent: 'from-[rgba(201,154,87,0.22)] via-[rgba(120,84,39,0.14)] to-transparent',
-    detailSections: compactCaseSections(
+    accent: 'from-[rgba(80,80,100,0.22)] via-[rgba(50,50,80,0.08)] to-transparent',
+    externalLinks: [
       {
-        zh: '长期写作最容易断在“研究、草稿、发布、复用”之间。每个平台都能存一点内容，但没有一条稳定路径把线索变成可发布、可回看、可再次调用的资产。',
-        en: 'Long-term writing tends to break between research, drafting, publishing, and reuse. Each tool can store a fragment, but the full path from signal to reusable asset is rarely stable.',
+        label: { zh: '查看源码', en: 'View on GitHub' },
+        url: 'https://github.com/MarcusDog/codex-switch',
+      },
+    ],
+    detailSections: [
+      {
+        title: { zh: '为什么做这个', en: 'Why this exists' },
+        paragraphs: [
+          {
+            zh: '我自己就是目标用户。用 Codex CLI 写代码时，一个账号的额度用完了就得换另一个，每次都要 vi ~/.codex/auth.json 手动粘贴内容，还要自己回忆哪个账号是今天早上刚重置的、哪个还有几小时。烦了就自己做了一个。',
+            en: "I'm the target user. Writing code with Codex CLI, I'd burn through one account's quota and have to switch — which meant opening a terminal, hand-editing auth.json, and trying to remember which account reset this morning. Got tired of it and built this.",
+          },
+        ],
       },
       {
-        zh: '这个项目把内容先建模为对象，再把研究线索、草稿状态、发布渠道和后续复用放进同一个操作回路，让内容不再只是一篇篇孤立文章。',
-        en: 'The solution modeled content as reusable objects first, then connected research signals, draft status, publishing channels, and later reuse into one editorial loop.',
+        title: { zh: '技术选型', en: 'Technical Choices' },
+        paragraphs: [
+          {
+            zh: 'Tauri 让 React 应用打成本地 macOS 桌面应用，体积小、启动快、不需要 Electron 的重量。账号数据只存在本机，没有服务端，不需要联网登录（除了刷新额度和 OAuth）。',
+            en: "Tauri wraps React into a native macOS app — smaller binary, fast startup, none of Electron's weight. Account data is local-only. No server, no cloud login except for quota refresh and OAuth.",
+          },
+        ],
       },
-      {
-        zh: '前端以阅读和操作两种状态组织，后台流程用自动摘要、标签建议和发布检查减少人工整理成本。重点不是生成更多文字，而是缩短从研究到成稿的路径。',
-        en: 'The interface separates reading and operating states, while automation handles summarization, tag suggestions, and publishing checks to reduce manual editorial overhead.',
-      },
-      {
-        zh: '结果是内容从“写完就结束”变成“写完还能继续被调用”。衡量标准不是文章数量，而是旧研究能否在新项目里再次发挥作用。',
-        en: 'The result shifts content from one-off output into reusable context. The key signal is not volume, but whether old research can become useful again in new work.',
-      },
-    ),
+    ],
     gallery: [],
+    showcaseGroups: [],
   },
   {
-    slug: 'partner-brief-agent',
+    slug: 'flow-socket',
     year: '2025',
-    category: { zh: 'Business Interface', en: 'Business Interface' },
-    title: { zh: 'Partner Brief Agent', en: 'Partner Brief Agent' },
+    category: { zh: '实时通信 / 局域网工具', en: 'Real-time Transfer / LAN Tool' },
+    title: { zh: 'Flow Socket', en: 'Flow Socket' },
     subtitle: {
-      zh: '将合作需求快速压缩成可判断、可回复的商务摘要',
-      en: 'Compressing inbound collaboration requests into clear, reply-ready briefs',
+      zh: '局域网里多设备之间传文字、文件、链接，不用微信，不用 QQ，不用邮件',
+      en: 'Transfer text, files, and links between devices on the same network — no WeChat, no email, no middleman',
     },
     summary: {
-      zh: '面向合作入口设计的 Agent 摘要与分流系统。',
-      en: 'An agent-powered summarization and routing layer for inbound partnership requests.',
+      zh: '手机、平板、笔记本、台式机之间临时传东西，一般人的解法是微信发给自己——但这要求所有设备都登了同一个微信，而且内容会留在服务器上。Flow Socket 让一台电脑作主机，其他设备浏览器打开就能用，局域网直连，实时同步。文字和链接走 WebSocket，文件大传走 WebRTC DataChannel。',
+      en: 'Sharing things between phone, tablet, laptop, desktop — the usual answer is WeChat to yourself. But that needs the same account on all devices and leaves data on their servers. Flow Socket puts one machine as host, others join via browser, LAN-direct, real-time. Text and links use WebSocket; large files use WebRTC DataChannel.',
     },
     role: {
-      zh: '信息结构、交互策略、前端实现',
-      en: 'Information architecture, interaction strategy, frontend implementation',
+      zh: '系统设计、全栈实现、实时通信层设计、WebRTC 集成与房间管理逻辑',
+      en: 'System design, full-stack implementation, real-time communication layer, WebRTC integration, and room management',
     },
     capabilities: [
-      { zh: '合作表单策略', en: 'Inquiry design' },
-      { zh: '摘要生成', en: 'Brief generation' },
-      { zh: '商务优先级分流', en: 'Priority routing' },
+      { zh: '局域网设备直连，无需中转服务器', en: 'Direct LAN connection, no external server relay' },
+      { zh: 'WebSocket 实时文字与链接同步', en: 'WebSocket real-time text and link sync' },
+      { zh: 'WebRTC DataChannel 大文件直传', en: 'WebRTC DataChannel for large file transfer' },
+      { zh: '二维码入房，手机扫一下就进', en: 'QR code room join — phone scan, done' },
     ],
     challenge: {
-      zh: '合作请求往往信息不完整，人工前置整理成本高。',
-      en: 'Partnership requests often arrive incomplete, making manual triage expensive.',
+      zh: '在不同操作系统的设备之间快速传东西，现有方案要么需要装 App、要么需要同账号登录、要么走云端绕一圈。想要的是：打开浏览器就能用，局域网直接传，不留数据。',
+      en: "Sharing between mixed OS devices quickly — existing solutions need an app install, shared account login, or cloud relay. The goal: open a browser and go, direct LAN transfer, nothing stored.",
     },
     approach: {
-      zh: '通过结构化收集与 Agent 摘要，把第一轮判断时间压缩到可接受范围。',
-      en: 'Structured intake plus agent briefing reduced the cost of first-round evaluation.',
+      zh: '后端用 Node.js 做 WebSocket 服务器，管理房间、设备、邀请码和消息路由。前端做成 PWA，支持在手机桌面添加图标。文件传输通过协商 WebRTC DataChannel 点对点直传，减少服务器带宽依赖。房间用邀请码或二维码加入，不需要注册账号（也支持注册）。',
+      en: 'Node.js WebSocket server manages rooms, devices, invite codes, and message routing. Frontend is a PWA that can be installed on mobile home screens. File transfer negotiates WebRTC DataChannel for peer-to-peer delivery, reducing server bandwidth. Rooms join via invite code or QR code — no account required (account mode also supported).',
     },
     outcome: {
-      zh: '显著提高了合作请求的判断效率与回复质量。',
-      en: 'It improved both evaluation speed and response quality for inbound collaboration.',
+      zh: '在局域网里传文字和小文件是即时的，大文件走 WebRTC 也不经服务器。手机扫二维码加房间，比发微信给自己快。数据留在局域网里，不上任何云。',
+      en: "Text and small files transfer instantly on LAN. Large files go peer-to-peer via WebRTC without touching the server. Phone scans QR to join — faster than sending to yourself on WeChat. Data stays on your local network.",
     },
     result: {
-      zh: '把模糊咨询压缩成结构化 brief，第一轮判断从追问信息变成直接评估。',
-      en: 'Vague inquiries become structured briefs, moving first-round triage from clarification to evaluation.',
+      zh: '局域网设备之间传文件和消息，不再需要借道微信或邮件。',
+      en: 'Files and messages move between LAN devices without routing through WeChat or email.',
     },
     nextStep: {
-      zh: '加入案例匹配与报价建议层。',
-      en: 'Next: add case matching and proposal guidance.',
+      zh: '后续计划支持离线挂起（断线重连后继续传）和端对端加密，让它在稍微不可信的网络里也能用。',
+      en: 'Next: offline-suspend (resume transfers after reconnect) and end-to-end encryption for use on less-trusted networks.',
     },
-    accent: 'from-[rgba(175,135,77,0.18)] via-[rgba(74,51,26,0.14)] to-transparent',
-    detailSections: compactCaseSections(
+    accent: 'from-[rgba(56,140,220,0.22)] via-[rgba(40,100,180,0.08)] to-transparent',
+    externalLinks: [
       {
-        zh: '合作入口的问题不是没有人联系，而是信息常常不完整：需求、预算、时间、目标用户和技术约束散落在几句话里，第一轮判断成本很高。',
-        en: 'Inbound collaboration requests often arrive incomplete, with goals, constraints, timeline, budget, and user context scattered across a few vague sentences.',
+        label: { zh: '查看源码', en: 'View on GitHub' },
+        url: 'https://github.com/MarcusDog/flow-socket',
+      },
+    ],
+    detailSections: [
+      {
+        title: { zh: '为什么不用现成工具', en: 'Why not use existing tools' },
+        paragraphs: [
+          {
+            zh: '我试过很多方案。AirDrop 只在苹果设备之间用；微信发给自己要求同账号、内容上服务器；局域网共享文件夹配起来麻烦、安全性差。想要的只是：两台设备在同一 WiFi，打开浏览器，直接传，传完拉倒。',
+            en: "I tried the options. AirDrop only works between Apple devices. WeChat self-send requires the same account everywhere and puts data on their servers. Local network folder sharing is annoying to set up and insecure. I just wanted: two devices on the same WiFi, open browser, transfer, done.",
+          },
+        ],
       },
       {
-        zh: '系统通过结构化收集和 Agent 摘要，把模糊请求整理成可判断的 brief，并给出优先级、缺失信息和下一步回复建议。',
-        en: 'The system combines structured intake with agent-generated briefs, turning vague requests into evaluation-ready summaries with priority, missing information, and reply suggestions.',
+        title: { zh: 'WebSocket + WebRTC 的分工', en: 'How WebSocket and WebRTC split the work' },
+        paragraphs: [
+          {
+            zh: '文字和链接用 WebSocket，因为服务器本来就在处理连接，顺手推送就行，延迟极低。文件如果也走 WebSocket 就要经过服务器中转，带宽和速度都差。所以大文件用 WebRTC DataChannel——两端浏览器之间点对点直连，服务器只做信令协商，不碰实际数据。',
+            en: "Text and links use WebSocket — the server is already managing connections, so it can relay these instantly with very low latency. Files via WebSocket would route through the server, which wastes bandwidth and slows things down. So large files use WebRTC DataChannel — peer-to-peer between browsers, server only does signaling, never touches the actual bytes.",
+          },
+        ],
       },
-      {
-        zh: '实现上把表单字段、自由描述和历史案例拆成独立输入，再由摘要层压缩成商务判断视图。前端强调快速扫读，避免把合作入口做成复杂 CRM。',
-        en: 'Implementation separates form fields, free-text context, and case references before compressing them into a business-facing review surface designed for quick scanning.',
-      },
-      {
-        zh: '结果是第一轮判断从“重新追问一遍”变成“先看结构化摘要再回复”。核心指标是回复质量和判断速度，而不是自动化炫技。',
-        en: 'The result turns first-round triage from repeated clarification into structured review before reply. The important signals are response quality and evaluation speed.',
-      },
-    ),
+    ],
     gallery: [],
+    showcaseGroups: [],
   },
   {
-    slug: 'research-memory-index',
-    year: '2024',
-    category: { zh: 'Research Tooling', en: 'Research Tooling' },
-    title: { zh: 'Research Memory Index', en: 'Research Memory Index' },
+    slug: 'openclaw-auto-deploy',
+    year: '2025',
+    category: { zh: '自动化部署 / 开发者工具', en: 'Auto Deploy / Developer Tool' },
+    title: { zh: 'OpenClaw Auto Deploy', en: 'OpenClaw Auto Deploy' },
     subtitle: {
-      zh: '为研究型工作构建更可靠的上下文记忆层',
-      en: 'A more reliable contextual memory layer for research-driven work',
+      zh: 'Windows、WSL2、Linux、macOS 都能一键装好 OpenClaw，出问题自动修',
+      en: 'One-click OpenClaw install on Windows, WSL2, Linux, and macOS — with auto-repair when things go wrong',
     },
     summary: {
-      zh: '围绕研究记录、线索链接与后续调用设计的记忆索引原型。',
-      en: 'A memory indexing prototype for research notes, linked signals, and later retrieval.',
+      zh: '在不同平台装 OpenClaw 是一件麻烦事，特别是 Windows 上的 WSL2 环境。这个工具把安装、诊断、模型配置、渠道接入、服务管理全压到一套脚本流程里，Node.js 22+ 运行，交互式引导，出错了自动尝试修复。',
+      en: "Installing OpenClaw across platforms is annoying, especially on Windows with WSL2. This tool compresses installation, diagnostics, model config, channel setup, and service management into one guided script flow. Runs on Node.js 22+, interactive throughout, auto-repairs on failure.",
     },
     role: {
-      zh: '研究框架、信息模型、原型实现',
-      en: 'Research framing, information modeling, prototype implementation',
+      zh: '工具设计、跨平台脚本开发、诊断与自动修复逻辑、交互式安装引导',
+      en: 'Tool design, cross-platform scripting, diagnostics and auto-repair logic, interactive install guidance',
     },
     capabilities: [
-      { zh: '信息建模', en: 'Information modeling' },
-      { zh: '知识检索界面', en: 'Knowledge retrieval surfaces' },
-      { zh: 'Agent context design', en: 'Agent context design' },
+      { zh: 'Windows / WSL2 / Linux / macOS 全覆盖', en: 'Windows, WSL2, Linux, and macOS support' },
+      { zh: '交互式安装引导，不需要读文档', en: 'Interactive guided install — no documentation needed' },
+      { zh: '出错自动诊断与修复', en: 'Automatic diagnostics and repair on failure' },
+      { zh: '模型配置与渠道接入一并处理', en: 'Model config and channel setup in the same flow' },
     ],
     challenge: {
-      zh: '研究过程中的上下文很容易碎裂，后续调用时缺乏可信结构。',
-      en: 'Research context fragments quickly and becomes hard to reuse with confidence later.',
+      zh: 'OpenClaw 在不同平台的安装路径不一样，Windows 上还需要先配 WSL2，中间容易卡在权限、路径、依赖这些地方。对不熟悉命令行的用户来说，官方文档够用但不够友好。',
+      en: "OpenClaw's installation path varies by platform, and Windows needs WSL2 first — where it's easy to get stuck on permissions, paths, and dependencies. The official docs work, but they're not friendly for users who aren't comfortable in a terminal.",
     },
     approach: {
-      zh: '用对象化结构代替纯时间线笔记，再用检索与摘要帮助后续 Agent 调用。',
-      en: 'Object-based memory replaced timeline notes, with retrieval and summarization supporting later agent use.',
+      zh: '用 Node.js 写交互式安装脚本，按平台检测当前环境、判断缺什么、按顺序引导安装。每一步都有验证，失败时打印具体原因并尝试自动修复。模型配置和渠道接入也做成交互选项，不需要手动改配置文件。',
+      en: 'Node.js interactive installer detects the current platform, identifies what\'s missing, and guides installation in sequence. Each step has verification; on failure, it prints the specific reason and tries auto-repair. Model config and channel setup are interactive options — no manual config file editing.',
     },
     outcome: {
-      zh: '让长期研究项目具备更稳定的上下文连续性。',
-      en: 'It created stronger continuity for long-running research work.',
+      zh: '在测试的几个平台上，从下载到能用平均比照着文档自己装省一半时间。出错时不是直接报错退出，而是告诉你出在哪、自动尝试修，修不了再告诉你具体怎么手动解决。',
+      en: 'Across tested platforms, install time is about half that of following the docs manually. On error, it explains where things broke, tries auto-repair, and only falls back to manual instructions if repair fails.',
     },
     result: {
-      zh: '用对象化索引保留研究上下文，再次进入项目时能更快恢复判断。',
-      en: 'Object-based indexes preserve research context so judgment can be restored faster when returning to a project.',
+      zh: '跨平台 OpenClaw 安装从"看文档一步步来"变成"跑脚本按提示走"。',
+      en: 'Cross-platform OpenClaw install changed from "read docs and figure it out" to "run script and follow prompts."',
     },
     nextStep: {
-      zh: '继续测试跨项目引用与长期记忆压缩。',
-      en: 'Next: test cross-project linking and long-term memory compression.',
+      zh: '后续计划加入更新检测（自动判断当前版本是否需要升级）和更完整的 Windows 原生支持（不依赖 WSL2）。',
+      en: 'Next: version update detection and fuller native Windows support without requiring WSL2.',
     },
-    accent: 'from-[rgba(155,123,76,0.18)] via-[rgba(58,45,30,0.12)] to-transparent',
-    detailSections: compactCaseSections(
+    accent: 'from-[rgba(245,158,11,0.22)] via-[rgba(200,120,20,0.08)] to-transparent',
+    externalLinks: [
       {
-        zh: '研究型项目最容易丢失的是上下文：为什么记录这条线索、它和哪个问题相关、后续 Agent 应该如何调用，单纯时间线笔记很快会失效。',
-        en: 'Research projects lose context quickly: why a signal mattered, which question it connects to, and how a later agent should reuse it are not preserved by timeline notes alone.',
+        label: { zh: '查看源码', en: 'View on GitHub' },
+        url: 'https://github.com/MarcusDog/openclaw-auto-deploy',
       },
+    ],
+    detailSections: [
       {
-        zh: '这个原型把研究记录改成对象化索引：线索、问题、来源、结论和下一步动作彼此连接，后续检索时可以按问题而不是按时间回到上下文。',
-        en: 'The prototype turns research notes into object-based indexes linking signals, questions, sources, conclusions, and next actions so retrieval can happen by problem rather than date.',
+        title: { zh: '为什么做', en: 'Why this exists' },
+        paragraphs: [
+          {
+            zh: 'OpenClaw 的安装在 macOS 上还算顺，但 Windows 上要先搞 WSL2、装对版本的 Node、配路径，每一步都可能在奇怪的地方卡住。身边有人跟着文档装了两个小时没成功，问我，我帮他跑了二十分钟，主要时间花在诊断上。之后就决定把这个诊断+修复的逻辑自动化。',
+            en: "OpenClaw installs cleanly on macOS, but Windows needs WSL2 first, the right Node version, path config — any step can silently break. Someone asked me for help after two hours of trying from the docs. I fixed it in twenty minutes, mostly diagnosing. I automated that diagnosis-and-repair loop afterward.",
+          },
+        ],
       },
-      {
-        zh: '实现重点是信息模型和检索界面：先定义对象关系，再用摘要和标签作为 Agent 上下文压缩层，减少每次重新阅读历史材料的成本。',
-        en: 'The implementation focuses on the information model and retrieval surface, using summaries and tags as a context-compression layer for later agent work.',
-      },
-      {
-        zh: '结果是长期研究更容易保持连续性。衡量标准是再次进入项目时能否快速恢复判断，而不是笔记库里堆了多少条记录。',
-        en: 'The result is stronger continuity for long-running research. The useful metric is how quickly judgment can be restored when returning to a project.',
-      },
-    ),
+    ],
     gallery: [],
+    showcaseGroups: [],
   },
 ]

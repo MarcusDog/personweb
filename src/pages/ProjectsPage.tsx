@@ -20,12 +20,11 @@ export function ProjectsPage() {
     <>
       <PageHero
         eyebrow="Projects"
-        title={language === 'zh' ? '代表作品和正在成型的系统。' : 'Representative work and systems in progress.'}
-        description={language === 'zh' ? '重点展示有完整案例结构的项目；较小的实验保留在归档里，不把全部项目伪装成“精选”。' : 'The page leads with deeper case studies and keeps smaller experiments in the archive instead of pretending everything is selected work.'}
+        title={language === 'zh' ? '代表作品和正在跑着的系统。' : 'Selected work and systems in production.'}
+        description={language === 'zh' ? '做过才放进来。有完整案例的项目放前面，小工具和实验放在后面，不把所有东西都包装成"精选"。' : 'Only things I actually built. Bigger work with full case studies goes up front. Smaller tools and experiments sit in the archive — no pretending everything is curated.'}
         aside={
-          <div className="space-y-4 text-sm leading-7 text-[var(--text-soft)]">
-            <p>{language === 'zh' ? '重点关注：AI 产品、研究工具、学习工作台、内容系统与自动化工作流。' : 'Focus areas: AI products, research tools, learning workspaces, content systems, and automation workflows.'}</p>
-            <p>{language === 'zh' ? `当前收录 ${projects.length} 个项目样例。` : `${projects.length} project examples currently included.`}</p>
+          <div className="text-sm leading-7 text-[var(--text-soft)]">
+            <p>{language === 'zh' ? '做过的事才放进来。大项目有完整案例，小工具在下面归档，不伪装成"精选"。' : 'Only things I actually built. Bigger work gets full case studies; smaller tools go in the archive. No pretending everything is curated.'}</p>
           </div>
         }
       />

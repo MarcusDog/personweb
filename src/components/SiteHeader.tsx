@@ -10,6 +10,7 @@ import { LanguageSwitch } from './LanguageSwitch'
 const navItems = [
   { href: '/projects', label: { zh: '项目', en: 'Projects' } },
   { href: '/journal', label: { zh: 'Journal', en: 'Journal' } },
+  { href: '/commercial', label: { zh: '合作', en: 'Commercial' } },
   { href: '/about', label: { zh: '关于', en: 'About' } },
   { href: '/contact', label: { zh: '预约', en: 'Contact' } },
 ]

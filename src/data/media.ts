@@ -5,31 +5,20 @@
  * Forbidden: night cityscape, programmer desk, space/chip, neon HUD.
  */
 export const editorialMedia = {
-  // Hero right-panel texture (dark fluid abstract painting)
-  hero: '/editorial/dark-fluid.jpg',
+  // Karesansui zen sand garden — sandy cream tones, meditative patterns
+  zenRock: '/editorial/zen-rock.jpg',
 
-  // Minimal concrete / architectural surfaces
-  architecture: '/editorial/concrete-arch.jpg',
-  concreteMinimal: '/editorial/concrete-minimal.jpg',
+  // Warm amber wall with organic cracks — like a Chinese ink landscape
+  inkWall: '/editorial/ink-wall.jpg',
 
-  // Warm interior — light and material surfaces
-  warmInterior: '/editorial/warm-interior.jpg',
-
-  // Warm paper / parchment texture
+  // Warm paper / parchment layers
   paper: '/editorial/paper-texture.jpg',
 
-  // Gold textile close-up (warm metallic)
-  goldTexture: '/editorial/gold-texture.jpg',
-
-  // Brushed metal surface
+  // Brushed industrial mesh with warm backlight
   brushedMetal: '/editorial/brushed-metal.jpg',
 
-  // Soft warm bokeh / light reflections
-  warmBokeh: '/editorial/warm-bokeh.jpg',
-  lightBokeh: '/editorial/light-bokeh.jpg',
-
-  // Dark abstract (secondary hero option / deep panel background)
-  darkAbstract: '/editorial/dark-abstract.jpg',
+  // Tadao Ando minimal concrete wall
+  concreteMinimal: '/editorial/concrete-minimal.jpg',
 }
 
 // Ordered project screenshots for About gallery and Home about section
@@ -45,7 +34,4 @@ export const showcaseImages = [
 export const projectMediaBySlug: Record<string, string> = {
   'ainews-platform': '/project-images/ainews/1.png',
   'learningbydoing-ai-studio': '/project-images/learningbydoing/8.png',
-  'studio-publishing-loop': '/editorial/concrete-arch.jpg',
-  'partner-brief-agent': '/editorial/gold-texture.jpg',
-  'research-memory-index': '/editorial/brushed-metal.jpg',
 }

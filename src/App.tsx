@@ -43,6 +43,11 @@ const ContactPage = lazy(() =>
     default: module.ContactPage,
   })),
 )
+const CommercialPage = lazy(() =>
+  import('./pages/CommercialPage').then((module) => ({
+    default: module.CommercialPage,
+  })),
+)
 
 function RouteFallback() {
   const { language } = useLanguage()
@@ -139,6 +144,19 @@ function App() {
               >
                 <LazyPage>
                   <AboutPage />
+                </LazyPage>
+              </SiteLayout>
+            }
+          />
+          <Route
+            path="/commercial"
+            element={
+              <SiteLayout
+                header={<SiteHeader />}
+                footer={<SiteFooter />}
+              >
+                <LazyPage>
+                  <CommercialPage />
                 </LazyPage>
               </SiteLayout>
             }
