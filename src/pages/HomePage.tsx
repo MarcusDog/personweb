@@ -27,21 +27,21 @@ const capabilities = [
   {
     title: { zh: '独立全程，一个人跟到底', en: 'Solo, all the way through' },
     description: {
-      zh: '设计、代码、部署、上线后的第一周——全是我在盯。你不需要跟三个不同的人解释同一件事，中途也不会换人。',
+      zh: '设计、代码、部署、上线头一周，都是我一个人在盯。你不用对着三拨人重复讲同一件事，中间也不会换人。',
       en: 'Design, code, deploy, first week live — all me. You explain things once. No handoffs, no new person who missed the brief.',
     },
   },
   {
     title: { zh: '交付的是能用的，不是能看的', en: 'Delivered means working, not demo-ready' },
     description: {
-      zh: '我不交 PPT，不交设计图。交付时你能打开、能输入真实数据、能看到结果——哪怕第一版还很粗糙，也是真实在跑的。',
+      zh: '我不交 PPT，也不交设计图。交付那天你能打开、能录真实数据、能看到结果，第一版就算糙，也是真在跑的。',
       en: "No slides, no mockups. When I deliver, you open it, put real data in, and see output — rough is fine, as long as it actually runs.",
     },
   },
   {
     title: { zh: '两周以内，真实在跑', en: 'Two weeks to something real' },
     description: {
-      zh: '两周不是承诺做完所有细节，是承诺你能真实用上。有了这个，才有东西可以谈——哪里要改，哪里要加，哪里其实用不上。',
+      zh: '两周不是答应把所有细节做完，是答应你能真用上。东西跑起来，才有得聊，哪儿该改、哪儿该加、哪儿其实没那么必要。',
       en: "Two weeks isn't perfect — it's usable. Once it's running, we have something real to talk about: what to change, what to add, what turns out not to matter.",
     },
   },
@@ -125,7 +125,7 @@ export function HomePage() {
 
           <motion.p className="bloom-sub" {...fadeUp(0.28)}>
             {isChinese
-              ? '我帮人把那些每天在重复、做了没人感谢、漏了才被发现的事接上 AI，让它自己跑。前端到部署，一个人全程——两周内，你能看到真实运行的版本。'
+              ? '平时帮人做一件事，把那些每天重复、做好了没人夸、出错了才被想起来的活，接上 AI 让它自己跑。从界面到上线我都一个人盯着，大概两周，你就能看到真在跑的版本。'
               : 'I connect AI to the work that repeats daily, goes unnoticed when done, and only gets noticed when missed. Frontend to deployment, solo all the way — real running version in two weeks.'}
           </motion.p>
 
@@ -290,7 +290,7 @@ export function HomePage() {
               </h2>
               <p className="ma-about-body">
                 {isChinese
-                  ? '我叫小天，独立开发者，AI 是我日常最主要的搭档。我把重复的部分给它，判断留给自己。做出来的东西也是这个逻辑——用得顺，感觉不到背后在跑什么，才叫做好了。'
+                  ? '我叫小天，独立开发者。AI 是我日常搭档，重复的活交给它，拿主意的留给我。我做东西也照这个理，用着顺、察觉不到背后在跑什么，那才是真做好了。'
                   : "I'm Tian — independent developer. AI is my main collaborator. Repetitive parts go to it, judgment stays with me. Same logic for what I build: if it feels smooth and you don't notice the machinery behind it, that's when it's actually done."}
               </p>
               <Link className="ma-about-link safe-touch" to="/about">
@@ -332,7 +332,7 @@ export function HomePage() {
           </h2>
           <p className="bloom-contact-sub">
             {isChinese
-              ? '不需要想清楚了再来聊。一个模糊的念头也行，或者那件每天都在重复、做了没人感谢的事——说出来就好。'
+              ? '不用想清楚再来找我。一个模糊的念头就够，或者那件每天在重复、做好了没人夸的事，说出来就行。'
               : "No need to have it figured out. A vague feeling works, or just that task that repeats every day and nobody notices when done right. Say it."}
           </p>
           <div className="bloom-ctas">

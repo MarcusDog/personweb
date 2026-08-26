@@ -11,28 +11,28 @@ const methodNotes = [
   {
     title: { zh: '先确认问题是不是真的', en: 'Is the problem real?' },
     body: {
-      zh: '很多时候以为需要 AI，其实只需要一个定时任务。先说清楚谁在用、每天卡在哪里、卡了之后怎么办——再决定 AI 该不该接进来。',
+      zh: '要上 AI 之前先等等，很多时候一个定时任务就能解决的事，不值得搬 AI 进来。先聊清楚谁在用、每天卡哪、卡了之后咋办，再决定要不要把 AI 请进来。',
       en: "A lot of times you think you need AI when you really just need a cron job. Tell me who uses it, where they get stuck, what happens when they do — then we decide if AI belongs here.",
     },
   },
   {
     title: { zh: '先让它跑起来', en: 'Get it running first' },
     body: {
-      zh: '原型不是截图，也不是"大概逻辑就是这样"。它得能点、能输入、能出结果——哪怕第一版丑、慢、只有三个功能，也要是真实在跑的。',
+      zh: '原型得能点、能输、能出结果。第一版丑、慢、只有仨功能都没事，但必须真在跑。',
       en: "A prototype isn't a screenshot or a rough idea sketch. It clicks, takes input, gives output — even if v1 is ugly, slow, and does only three things, it has to actually run.",
     },
   },
   {
     title: { zh: '跑了才知道要不要继续', en: 'Running first, then decide' },
     body: {
-      zh: '有时候做出来跑了，才发现不是你想要的——这比三个月后才发现好太多了。跑起来，才有真实的东西可以谈。',
+      zh: '做完一跑，常常发现东西根本不是自己要的。这总比闷头做三个月才回头强。',
       en: "Sometimes you build it, run it, and realize it's not what you wanted. That's fine — it's much better than spending three months before finding out. Running gives us something real to talk about.",
     },
   },
   {
     title: { zh: '把复杂藏在里面', en: 'Complexity belongs inside' },
     body: {
-      zh: '用的人感觉不到背后多复杂，才叫做好了。模型、重试、格式转换——这些都该消化在系统里，用户只管输入、只管看结果。',
+      zh: '用户用着感觉不到背后多复杂，那才叫做好了。模型、重试、格式转换，都该咽进系统里，用户只管输入、看结果。',
       en: "The sign of a good AI tool is that users don't feel the complexity. Models, retries, format handling — all of it disappears inside. Users put something in, something useful comes out.",
     },
   },
@@ -40,7 +40,7 @@ const methodNotes = [
 
 const values = [
   {
-    zh: 'AI 最擅长的，是那些你做了一百遍、每次都在抗拒、但又不得不做的事。需要你真正拍板的地方，它还去不了——至少现在还不行。',
+    zh: 'AI 最擅长的，是那些你做了一百遍、每次都抗拒、但又不得不做的事。真要你拍板的地方，它现在还去不了。',
     en: "AI is at its best doing the thing you've done a hundred times, always resisted doing, but had to anyway. Where you actually need to call a shot — it can't go there yet. At least not now.",
   },
   {
@@ -48,7 +48,7 @@ const values = [
     en: "You know a tool is done when you forget it's there. If you finish using it and think 'that was clever' — it's not done yet.",
   },
   {
-    zh: '有意思的想法比漂亮的代码重要得多。先让它跑，再让它好看，最后——如果真的有必要——才让它完美。大多数情况下，完美那一步永远不会来。',
+    zh: '有意思的想法比漂亮代码值钱多了。先让它跑，再让它好看，最后真有必要的话才磨到完美。多数时候，完美的那步永远不会来。',
     en: "A genuinely interesting idea is worth more than beautiful code. Get it running. Make it clean. Polish it last — if that day ever actually arrives. Usually it doesn't.",
   },
 ]
@@ -71,7 +71,7 @@ export function AboutPage() {
           ? '我叫小天，一个人做 AI 系统。'
           : "I'm Tian. I build AI systems, alone."}
         description={language === 'zh'
-          ? '有些事每天都在耗人的时间，但从来不需要人来做——找到这些，把它们交给机器，是我觉得最值得干的事。'
+          ? '有些活每天在吸人的时间，可其实并不需要人亲自干。找出这些、交给机器，是我觉得最划算的事。'
           : "Some things drain people's time every day and never actually needed a human. Finding those and handing them to machines — that's the work I find most worth doing."}
         aside={
           <div className="flex items-center gap-5">
@@ -214,11 +214,11 @@ export function AboutPage() {
             <div className="reading-copy space-y-4">
               {language === 'zh' ? (
                 <>
-                  <p>我叫小天，在家工作的独立开发者。我平时就一个人对着电脑，AI 是我最主要的搭档。</p>
-                  <p>干这行干久了，越来越觉得：真正让人感受到变化的，很少是某个厉害的新模型——更多是有人花时间把手头的工具连起来，做成一个别人真的会天天用的东西。我做的大部分项目都在这里。</p>
-                  <p>我有个习惯：有了想法就先让它跑起来。不写 PRD，不画原型图，直接找最短路径做个能跑的版本，放到真实环境里看它怎么表现，然后再决定要不要继续。我把这个叫 vibe coding——不是随便瞎搞，是有节奏地快速试错。</p>
-                  <p>AI 在里面干什么？写重复的结构、处理边缘情况、调整格式——那些我知道怎么做、但写起来没劲的事。我的时间留给真正需要想清楚的问题：这件事值不值得做？方向对不对？做出来真的有人用吗？</p>
-                  <p>这种分工让我一个人能干以前要一个团队才能干的事。不是因为 AI 无所不能，而是它刚好最擅长那些最耗人的部分。</p>
+                  <p>我叫小天，在家写代码的独立开发者。平时就一个人对着电脑，AI 算我半个搭档。</p>
+                  <p>干得久了，我越来越觉得真正让人有感的，多半是有人肯花时间把手边的工具接起来，做成一个别人真会天天用的东西。新模型很少是那个关键。</p>
+                  <p>我有个毛病，一有想法就先让它跑起来。不写 PRD，也不画原型，直接找最短的路做个能用的版本，丢到真实环境里看它怎么演，再决定要不要继续。我管这叫 vibe coding，一种有节奏的快速试错。</p>
+                  <p>AI 在我这儿干啥？写那些重复的结构、处理边角情况、调格式，就是我知道怎么做、但写起来烦死的部分。我的时间留给真要动脑子的事，这事值不值得做、方向对不对、做出来真有人用吗，都归我。</p>
+                  <p>靠这么分着工，我一个人顶得上一个团队。最磨人的重复活丢给 AI，要拿主意的留给我。</p>
                 </>
               ) : (
                 <>

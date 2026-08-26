@@ -12,7 +12,7 @@ export const projects: ProjectEntry[] = [
       en: 'A real-time workspace that turns high-volume AI news into a trackable, analyzable, and searchable system',
     },
     summary: {
-      zh: '聚合 50+ 中英文 AI 信源，结合实时推送、趋势分析、高级搜索、知识库与多样性评估，把分散信息源整理成一个更适合持续跟踪、横向比较和日常研究的产品界面。',
+      zh: '聚合 50 多个中英文信源，实时推送、趋势分析、高级搜索、知识库，再加一个多样性评分，把散在各处的资讯收成一个能持续盯、横向比、日常研究的界面。',
       en: 'A workspace that aggregates 50+ Chinese and English AI sources with real-time delivery, trend analysis, advanced search, glossary layers, and diversity scoring.',
     },
     role: {
@@ -57,15 +57,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '项目定位', en: 'Positioning' },
         paragraphs: [
           {
-            zh: 'Ainews 的出发点不是再做一个“把 RSS 堆在一起”的聚合页，而是做一个适合高频观察 AI 行业的人持续使用的工作台。它既要收得全，也要让用户更快看到哪些主题值得关注。',
+            zh: 'Ainews 一开始就不是想做个"把 RSS 堆一块"的聚合页，而是给那些天天要盯 AI 动态的人，做个能长期用下去的工作台。既要收得全，也得让你更快瞄到哪些主题值得跟。',
             en: 'Ainews was framed less as another RSS reader and more as a working desk for people who need to stay close to AI developments at high frequency.',
           },
           {
-            zh: '因此这个项目从一开始就同时关注信息密度、浏览效率和可运营性，而不是只做一个好看的前台页面。',
+            zh: '所以做的时候我一直在盯三件事，信息够不够密、翻起来顺不顺、能不能长期跑，而不是只弄个好看的前台。',
             en: 'That meant optimizing for information density, scanning speed, and operational durability instead of treating the interface as a purely visual exercise.',
           },
           {
-            zh: '对外展示时，我更希望它被理解成一个“研究入口型产品”：首页负责接住高频浏览，分析页负责帮助判断，知识库负责承接长期学习，搜索负责让历史内容可以再次被调用。',
+            zh: '我自己更愿意把它当成个"研究入口"。首页接住每天的高频浏览，分析页帮你做判断，知识库管长期学习，搜索让旧内容还能再翻出来用。',
             en: 'The more useful framing is as a research entry product, where the feed handles daily scanning, analytics supports judgment, the glossary supports learning, and search keeps older material reusable.',
           },
         ],
@@ -74,15 +74,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '系统设计', en: 'System Design' },
         paragraphs: [
           {
-            zh: '后端以 Node.js + Express 搭建，围绕 50+ RSS 源和可选 API 源做抓取调度。源配置带有优先级、超时、限流和启停状态，抓取过程中加入了请求节流、失败重试、备用 RSS 解析、文件缓存与自动恢复，避免整条链路因为单点异常而失效。',
+            zh: '后端是 Node.js + Express，围着 50 多个 RSS 源和可选的 API 源做抓取调度。每个源都带了优先级、超时、限流和启停状态，抓取时加了节流、失败重试、备用解析、文件缓存和自动恢复，免得一个点挂了整条链子跟着瘫。',
             en: 'The backend uses Node.js and Express to orchestrate 50+ RSS feeds plus optional API sources, with priorities, timeouts, throttling, retries, fallback parsing, file caching, and recovery logic built into the fetch layer.',
           },
           {
-            zh: '数据层使用 SQLite 持久化，配合 WAL 模式、批量去重与请求日志，既保证本地部署足够轻，也让新闻、来源状态、用户偏好和认证会话都能稳定落库。',
+            zh: '数据层用 SQLite 落库，配上 WAL 模式和批量去重，本机部署够轻，新闻、源状态、用户偏好和登录会话都能稳稳存住。',
             en: 'SQLite in WAL mode provides durable storage for articles, source health, user preferences, and auth sessions, while keeping deployment lightweight enough for a self-hosted tool.',
           },
           {
-            zh: '这里的工程重点不是堆砌技术栈，而是让这套链路能稳定跑起来。对这种高频抓取型产品来说，恢复能力、缓存策略和源状态可见性，比单次请求速度更重要。',
+            zh: '我在这儿花心思的不是堆技术名词，是让这套链路别断。高频抓取的玩意，恢复能力、缓存和源状态能不能看见，比单次请求快那零点几秒重要得多。',
             en: 'The engineering emphasis is durability rather than stack novelty. For a high-frequency ingestion product, recovery behavior, caching, and source visibility matter more than raw request speed.',
           },
         ],
@@ -91,15 +91,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '产品亮点', en: 'Product Highlights' },
         paragraphs: [
           {
-            zh: '前端不是单一列表页，而是围绕“持续跟踪”展开了多层入口：实时资讯流、系统状态面板、热门话题与趋势分析页、高级搜索、收藏、账户体系，以及 AI 术语知识库和架构导读页。',
+            zh: '前端不是个单列表页，而是围着"持续跟踪"铺了好几层入口，实时资讯流、系统状态面板、热门话题和趋势分析、高级搜索、收藏、账户，还有 AI 术语知识库和架构导读。',
             en: 'On the frontend, the product expands beyond a simple feed into a layered workspace with live news, system health, analytics, advanced search, favorites, accounts, and a glossary plus architecture guide.',
           },
           {
-            zh: '其中比较有意思的一点，是我把“信息茧房”这个通常停留在概念层的话题，做成了可计算的多样性评分和推荐逻辑；同时又做了一层基于关键词提取的智能趋势分析，让资讯平台不只是展示内容，还能生成判断辅助。',
+            zh: '我自己比较得意的一点是，把"信息茧房"这个老挂在嘴边的词，做成了能算的多样性评分和推荐逻辑。再叠一层靠关键词提取的趋势分析，让这个资讯站不只摆内容，还能帮你做判断。',
             en: 'One of the stronger product moves was turning “filter bubble” risk into a concrete diversity score and recommendation layer, alongside keyword-based trend analysis that helps the platform assist judgment instead of merely displaying content.',
           },
           {
-            zh: '从产品表达上看，这些模块不是彼此割裂的功能点，而是围绕同一个任务展开：让用户更快完成“发现主题、理解背景、形成判断、回查资料”这一整条链路。',
+            zh: '这些模块不是各干各的功能，都围着同一件事转，帮你更快地发现主题、搞懂背景、形成判断、回头查资料。',
             en: 'These modules are not isolated features. They all support the same user task: discover a theme, understand its context, form a view, and come back to the source material later.',
           },
         ],
@@ -108,15 +108,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '核心创新', en: 'Key Innovations' },
         paragraphs: [
           {
-            zh: '这个项目真正有辨识度的地方，不是“信源很多”，而是把资讯平台从被动浏览页做成了一个带判断辅助的工作界面。趋势分析、多样性评估和知识库这三层叠加起来，改变了用户消费信息的方式。',
+            zh: '这项目真正跟别的不一样的地方，不在"信源多"，而是把资讯站从被动刷的页面，做成了带判断辅助的工作台。趋势、多样性评分、知识库这三层叠一块，改变了看信息的方式。',
             en: 'What makes the project distinctive is not just the number of feeds, but the shift from passive reading into a workspace with analytical support layers.',
           },
           {
-            zh: '它同时覆盖“看新闻、找资料、学概念、做判断”四种使用场景，这让产品不只服务于资讯摄入，也服务于持续学习和研究型使用。',
+            zh: '看新闻、找资料、学概念、做判断，这四样它都能兜住，所以不单是个资讯入口，也能当学习和研究工具。',
             en: 'It supports reading, searching, learning, and evaluating in one system, which makes it useful as both an intelligence surface and a research-oriented learning product.',
           },
           {
-            zh: '这也是它适合放进个人网站展示的原因。比起一个单点功能 demo，它更完整地体现了我在产品定义、信息架构、系统实现和展示表达上的综合能力。',
+            zh: '这也是我愿意把它放主页展示的原因。比起一个单点功能 demo，它更能把我在产品定义、信息架构和系统实现上的综合能力摊开给人看。',
             en: 'That is also why the project works well in a portfolio: it shows product framing, information architecture, systems thinking, and presentation quality in one case.',
           },
         ],
@@ -125,11 +125,11 @@ export const projects: ProjectEntry[] = [
         title: { zh: '工程取舍', en: 'Engineering Decisions' },
         paragraphs: [
           {
-            zh: '项目里做了不少偏“系统稳定性”的细节：例如数据库为空时自动切换演示数据、WebSocket 驱动前端刷新、客户端本地缓存与防抖、服务状态面板、Docker 部署和 Nginx 反向代理预留。这些部分未必最显眼，但决定了它更像一个可持续运行的产品，而不是一次性的 demo。',
+            zh: '这项目里不少功夫花在"能不能一直跑"上。数据库空了自动切演示数据、WebSocket 推刷新、客户端本地缓存加防抖、服务状态面板，Docker 和 Nginx 反代也预留好了。这些不显眼，但决定了它是个能长期跑的产品，不是一次性 demo。',
             en: 'A large part of the work went into durability details such as demo fallbacks, WebSocket-driven refresh, client-side caching and debouncing, a live status panel, and Docker plus reverse-proxy deployment paths.',
           },
           {
-            zh: '换句话说，这个项目并不是只为截图而做。它在展示层之下，已经预留了比较完整的运行和部署思路，这也是我希望在案例页里明确讲出来的一点。',
+            zh: '说白了这项目不是做来截图的。在好看的界面底下，运行和部署的思路都留好了，这点在案例页里我特意讲清楚。',
             en: 'In other words, the product is not just screenshot-ready. Beneath the visual surface, it already carries a reasonably complete runtime and deployment model.',
           },
         ],
@@ -201,7 +201,7 @@ export const projects: ProjectEntry[] = [
           en: 'The product expands beyond the feed into structured knowledge surfaces',
         },
         description: {
-          zh: '这组页面体现的是平台的第二层能力：不是只把新闻聚合起来，而是继续把概念、结构和长内容解释组织成可学习的产品层。也就是说，用户不需要离开平台再去外部找解释和背景。',
+          zh: '这组页面是平台的第二层能力，不单把新闻聚起来，还把概念、结构和长内容解释组织成能学的产品层。用户不用离开平台去外面找解释和背景。',
           en: 'These surfaces show the second layer of the product: not just aggregation, but structured learning, concept framing, and long-form explanation.',
         },
         layout: 'feature-grid',
@@ -314,7 +314,7 @@ export const projects: ProjectEntry[] = [
       en: 'A unified learning workspace that combines lessons, coding practice, visual explanation, interview drills, and paper import',
     },
     summary: {
-      zh: '围绕“大模型从入门到专家”这条主线，把知识教学、面试模式、动手实战、AI 导师、论文学习和管理员发布流收进一套完整产品里，让学习不再停留在看课，而是进入可操作、可练习、可追踪的工作台状态。',
+      zh: '顺着「大模型从入门到专家」这条线，把上课、练面试、动手敲代码、AI 导师、读论文和管理员发课全收进一个产品里。学习在这儿不是光看课，能上手、能练、也能回看进度。',
       en: 'An integrated learning studio built around a flagship LLM curriculum, combining teaching, interview practice, hands-on coding, an AI tutor, paper study, and an admin publishing flow in one product.',
     },
     role: {
@@ -353,15 +353,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '项目定位', en: 'Positioning' },
         paragraphs: [
           {
-            zh: 'LearningByDoing AI Studio 的核心出发点，不是再做一个把课程视频或讲义排进去的学习站，而是做一个“能真正动手学”的学习工作台。学习者不只是阅读内容，而是要在同一界面里理解概念、改代码、看结果、问问题、再回到知识点。',
+            zh: 'LearningByDoing 的核心不是再做个把课程视频和讲义排进去的站点，而是个"能真动手学"的工作台。学习者不该只盯着看，得在同一界面里理解概念、改代码、看结果、问问题、再回知识点。',
             en: 'The project was framed not as another lesson site, but as a learning workspace where understanding, coding, questioning, and reviewing happen in one place.',
           },
           {
-            zh: '因此它更像一个交互式学习产品，而不是单纯的内容网站。平台真正想解决的问题，是把原本分散的学习动作压缩到一条连续路径里。',
+            zh: '所以它更像交互式学习产品，不是单纯内容站。我想解决的真问题是，把那些本来散掉的学习动作，压成一条连得起来的路径。',
             en: 'That makes it closer to an interactive product than a pure content site, with the goal of compressing fragmented learning actions into one continuous path.',
           },
           {
-            zh: '对外展示时，这个项目最值得讲的点也正在这里: 它体现的不是某一个单独功能，而是完整的学习体验设计与系统组织能力。',
+            zh: '放主页展示，这项目最值得说的也正是这个。它撑起来的不是某个单点功能，而是整套学习体验和背后的系统组织。',
             en: 'For portfolio presentation, the strongest point is not any single feature, but the coherence of the full learning experience and system structure.',
           },
         ],
@@ -370,15 +370,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '产品结构', en: 'Product Structure' },
         paragraphs: [
           {
-            zh: '平台围绕五条课程主线展开，包括大模型、机器学习、Python、计算机网络和计算机组成；其中“大模型从入门到专家”是首发主线。每条主线又拆成章节，每章同时提供知识讲解、面试模式、动手实战、可视化步骤和练习入口。',
+            zh: '平台围着五条课程主线铺开，大模型、机器学习、Python、计网、计组，首发是"大模型从入门到专家"。每条线拆成章节，每章同时给知识讲解、面试模式、动手实战、可视化步骤和练习入口。',
             en: 'The platform is organized around five curriculum tracks, with the flagship LLM course supported by chapter-level teaching, interview mode, hands-on practice, and visual explanations.',
           },
           {
-            zh: '论文学习被单独抽成一个入口，不再混在课程章节页里。这样做的好处是，平台可以把课程内容和外部论文材料接起来，让“学课程”与“读原始资料”之间形成闭环。',
+            zh: '论文学习单独抽成入口，不塞进课程章节里。好处是课程内容和外部论文能接上，学课和读原始资料之间就通了。',
             en: 'Paper study is separated into its own surface, allowing the platform to connect course learning with external source material instead of mixing everything into chapter pages.',
           },
           {
-            zh: '设置中心和学习记录也不是附属页面，而是这套产品的稳定层。它们让默认学习模式、面板布局、阅读密度和学习回放都变成可保存、可回到上次状态的长期使用能力。',
+            zh: '设置中心和学习记录也不是附属页，是这套产品的稳定层。默认模式、面板布局、阅读密度、学习回放，都能存住、能回到上次的状态。',
             en: 'Settings and learning history act as a stability layer, making mode preference, panel layout, reading density, and replay behavior persistent over time.',
           },
         ],
@@ -387,15 +387,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '核心体验', en: 'Core Experience' },
         paragraphs: [
           {
-            zh: '这个项目最有意思的地方，在于它没有把“教学”“练习”“答疑”拆成三套系统，而是把它们压进同一个工作台里。知识教学模式负责讲清概念，面试模式负责训练表达，动手实战模式负责把知识落到代码和终端结果上。',
+            zh: '这项目我最喜欢的一点，是没把"教学""练习""答疑"拆成三套系统，全压进同一个工作台。知识模式讲清概念，面试模式练表达，动手实战把知识落到代码和终端结果上。',
             en: 'One of the strongest product decisions is treating teaching, practice, and explanation as one workspace rather than three disconnected systems.',
           },
           {
-            zh: '在动手实战里，用户可以直接写 Python、运行代码、查看终端输出，并同步看到与当前代码高亮联动的结构化可视化；在需要的时候，还可以让 AI 导师基于当前上下文解释代码或知识点。这一套组合，比单纯放一个代码编辑器更像真实学习过程。',
+            zh: '动手实战里能直接写 Python、跑代码、看终端输出，还能同步看到跟代码高亮联动的结构化可视化。需要时让 AI 导师顺着当前上下文解释代码或知识点。这一套比光放个代码编辑器，更像一个真实的学习过程。',
             en: 'Hands-on mode combines Python editing, execution, terminal feedback, synchronized visualization, and contextual AI tutoring, making the experience closer to real study than a simple code editor.',
           },
           {
-            zh: '面试模式也不是简单换一套皮肤，而是明确收窄界面，把重点集中到答题、提示和调试结果上。这个切换说明产品不是在堆页面，而是在为不同学习任务设计不同工作状态。',
+            zh: '面试模式也不是换个皮，是明确把界面收窄，重点只留答题、提示和调试结果。这种切换说明产品不是堆页面，是给不同学习任务设计不同状态。',
             en: 'Interview mode is not just a visual variant; it narrows the interface to answer drafting, hints, and debug output, which reflects task-specific workspace design.',
           },
         ],
@@ -404,15 +404,15 @@ export const projects: ProjectEntry[] = [
         title: { zh: '核心创新', en: 'Key Innovations' },
         paragraphs: [
           {
-            zh: '这类项目真正难的地方，不是把课程内容列出来，而是把“抽象概念”变成“可操作学习动作”。LearningByDoing 通过知识页、可视化步骤、代码模板、终端反馈和 AI 导师，把这一层做得比普通课程产品更完整。',
+            zh: '这类项目真正难的，不是把课程内容列出来，是把"抽象概念"变成"能上手的学习动作"。LearningByDoing 用知识页、可视化步骤、代码模板、终端反馈和 AI 导师，把这一层做得比普通课程产品更扎实。',
             en: 'The distinctive move is turning abstract concepts into operational learning actions through teaching pages, visual steps, code templates, terminal feedback, and AI tutoring.',
           },
           {
-            zh: '另外一个很有辨识度的点，是它把论文导入做成了学习流的一部分。导入 PDF、Markdown 或 TXT 后，系统会抽取摘要、方法步骤、关键公式和课程映射，这让平台不只是在“教既有课程”，也开始具备承接外部知识材料的能力。',
+            zh: '另一个有辨识度的点，是把论文导入做成了学习流的一部分。导入 PDF、Markdown 或 TXT 后，系统抽摘要、方法步骤、关键公式和课程映射，平台就不只"教现有课程"，也开始能接外部知识材料。',
             en: 'Another strong differentiator is treating paper import as part of the learning flow, so external source material can be transformed into structured study surfaces inside the product.',
           },
           {
-            zh: '再往后一层，管理员草稿生成与发布流则说明这套系统已经开始考虑内容生产端，而不只是面向学生端。这使得产品更像一个可以持续扩展的学习平台，而不是一次性作品。',
+            zh: '再往外一层，管理员草稿生成和发布流，说明系统开始顾内容生产端，不只是对着学生。这让产品更像能持续扩展的学习平台，不是一次性作品。',
             en: 'The admin draft-generation and publishing flow also shows the system has started to account for content operations, not only learner-facing consumption.',
           },
         ],
@@ -421,11 +421,11 @@ export const projects: ProjectEntry[] = [
         title: { zh: '工程实现', en: 'Engineering Implementation' },
         paragraphs: [
           {
-            zh: '技术上，这个项目采用单仓前后端结构。前端使用 React 19、Vite、Tailwind、Monaco 和 Motion 来搭建多面板学习界面；后端使用 Express + TypeScript 管理课程、用户状态、管理员草稿与 AI 调用；代码运行则通过服务端 Python 沙盒承接。',
+            zh: '技术上这项目是单仓前后端。前端用 React 19、Vite、Tailwind、Monaco 和 Motion 搭多面板界面；后端 Express + TypeScript 管课程、用户状态、管理员草稿和 AI 调用；跑代码靠服务端 Python 沙盒。',
             en: 'Technically, the project uses a monorepo setup with React 19, Vite, Tailwind, Monaco, and Motion on the frontend, plus Express + TypeScript and a server-side Python sandbox on the backend.',
           },
           {
-            zh: '这里真正重要的不是技术名词本身，而是它们被组织成了一套能支撑长期学习产品的结构：用户状态可保存、布局可记忆、课程与论文可扩展、AI provider 可切换、管理员内容可发布。这些细节共同决定了它更像一款产品，而不是一张概念图。',
+            zh: '真正重要的不是这些技术名词，是它们被组织成了能撑长期学习产品的结构。用户状态能存、布局能记、课程和论文能扩、AI provider 能换、管理员内容能发。这些细节决定它更像产品，不是一张概念图。',
             en: 'What matters is not the stack itself, but how it supports persistence, extensibility, provider switching, remembered layouts, and content operations like a real product.',
           },
         ],
@@ -600,7 +600,7 @@ export const projects: ProjectEntry[] = [
       en: 'Manage multiple Codex and GPT accounts on macOS — switch in one click, monitor quota',
     },
     summary: {
-      zh: '一个轻量 macOS 桌面应用，专门为重度使用 Codex CLI 的开发者做的。你可以保存多个账号、查看每个账号的 5h / 1week 额度剩余和重置时间、一键把选中的账号写回 ~/.codex/auth.json 让 CLI 直接用。用 React + Vite + Tauri 做的，本地运行，数据存在本机。',
+      zh: '一个轻量的 macOS 小工具，给天天用 Codex CLI 的人。存多个账号、看每个号 5 小时 / 1 周的额度还剩多少、什么时候重置，一键把选中的号写回 ~/.codex/auth.json，CLI 直接就能用。React + Vite + Tauri 做的，纯本地，数据都在自己机器上。',
       en: 'A lightweight macOS desktop app for developers who run multiple Codex accounts. Save accounts, check quota remaining on 5h and 1-week windows, see reset times, and write the selected account back to ~/.codex/auth.json with one click. Built with React, Vite, and Tauri — local-only, data stays on device.',
     },
     role: {
@@ -673,7 +673,7 @@ export const projects: ProjectEntry[] = [
       en: 'Transfer text, files, and links between devices on the same network — no WeChat, no email, no middleman',
     },
     summary: {
-      zh: '手机、平板、笔记本、台式机之间临时传东西，一般人的解法是微信发给自己——但这要求所有设备都登了同一个微信，而且内容会留在服务器上。Flow Socket 让一台电脑作主机，其他设备浏览器打开就能用，局域网直连，实时同步。文字和链接走 WebSocket，文件大传走 WebRTC DataChannel。',
+      zh: '手机、平板、笔记本之间临时传个东西，多数人的解法是微信发给自己，可这得所有设备都登同一个号，内容还留在人家服务器上。Flow Socket 让一台电脑当主机，其他设备开浏览器就能用，局域网直连、实时同步。文字走 WebSocket，大文件走 WebRTC 点对点直传。',
       en: 'Sharing things between phone, tablet, laptop, desktop — the usual answer is WeChat to yourself. But that needs the same account on all devices and leaves data on their servers. Flow Socket puts one machine as host, others join via browser, LAN-direct, real-time. Text and links use WebSocket; large files use WebRTC DataChannel.',
     },
     role: {
@@ -727,7 +727,7 @@ export const projects: ProjectEntry[] = [
         title: { zh: 'WebSocket + WebRTC 的分工', en: 'How WebSocket and WebRTC split the work' },
         paragraphs: [
           {
-            zh: '文字和链接用 WebSocket，因为服务器本来就在处理连接，顺手推送就行，延迟极低。文件如果也走 WebSocket 就要经过服务器中转，带宽和速度都差。所以大文件用 WebRTC DataChannel——两端浏览器之间点对点直连，服务器只做信令协商，不碰实际数据。',
+            zh: '文字和链接用 WebSocket，因为服务器本来就在处理连接，顺手推送就行，延迟极低。文件如果也走 WebSocket 就要经过服务器中转，带宽和速度都差。所以大文件用 WebRTC DataChannel，两端浏览器之间点对点直连，服务器只做信令协商，不碰实际数据。',
             en: "Text and links use WebSocket — the server is already managing connections, so it can relay these instantly with very low latency. Files via WebSocket would route through the server, which wastes bandwidth and slows things down. So large files use WebRTC DataChannel — peer-to-peer between browsers, server only does signaling, never touches the actual bytes.",
           },
         ],
@@ -746,7 +746,7 @@ export const projects: ProjectEntry[] = [
       en: 'One-click OpenClaw install on Windows, WSL2, Linux, and macOS — with auto-repair when things go wrong',
     },
     summary: {
-      zh: '在不同平台装 OpenClaw 是一件麻烦事，特别是 Windows 上的 WSL2 环境。这个工具把安装、诊断、模型配置、渠道接入、服务管理全压到一套脚本流程里，Node.js 22+ 运行，交互式引导，出错了自动尝试修复。',
+      zh: '在不同平台装 OpenClaw 挺折腾，尤其 Windows 上的 WSL2。这个工具把安装、诊断、配模型、接渠道、管服务全塞进一套交互脚本里，Node.js 22+ 就能跑，出错了自己试着修。',
       en: "Installing OpenClaw across platforms is annoying, especially on Windows with WSL2. This tool compresses installation, diagnostics, model config, channel setup, and service management into one guided script flow. Runs on Node.js 22+, interactive throughout, auto-repairs on failure.",
     },
     role: {
