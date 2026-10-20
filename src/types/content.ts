@@ -11,10 +11,12 @@ export interface ProjectGalleryItem {
   label: LocalizedText
   description: LocalizedText
   image?: string
+  original?: string
 }
 
 export interface ProjectShowcaseItem {
   image: string
+  original?: string
   title: LocalizedText
   description: LocalizedText
 }
@@ -73,11 +75,18 @@ export interface MarkdownHeading {
 }
 
 export interface JournalEntry {
+  id?: string
   slug: string
+  status?: 'draft' | 'published'
   date: string
   category: LocalizedText
   title: LocalizedText
   standfirst: LocalizedText
   body: LocalizedText
   headings: Record<Language, MarkdownHeading[]>
+  tags: string[]
+  coverImage?: string
+  createdAt?: string
+  updatedAt?: string
+  publishedAt?: string
 }

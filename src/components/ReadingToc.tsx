@@ -20,7 +20,7 @@ export function ReadingToc({ headings, language }: ReadingTocProps) {
           {headings.map((heading) => (
             <li key={heading.id}>
               <a
-                className={`text-[var(--text-soft)] hover:text-[var(--text-strong)] ${isChinese ? 'text-[0.96rem] leading-[1.76]' : 'text-sm leading-6'}`}
+                className={`-mx-2 flex min-h-11 items-center rounded-lg px-2 text-[var(--text-soft)] transition hover:bg-[var(--surface-soft)] hover:text-[var(--text-strong)] ${isChinese ? 'text-[0.96rem] leading-[1.76]' : 'text-sm leading-6'}`}
                 href={`#${heading.id}`}
               >
                 {heading.text}

@@ -1,0 +1,332 @@
+.studio-backup-card {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  justify-content: space-between;
+  padding: 26px;
+  margin-top: 28px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+.studio-backup-card h2 {
+  font-size: 23px;
+  margin-bottom: 10px;
+}
+.studio-backup-card p {
+  font-size: 14px;
+  max-width: 640px;
+}
+.studio-backup-card .button {
+  flex-shrink: 0;
+}
+.studio-list-entry {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  gap: 18px;
+}
+.studio-list .studio-list-entry .studio-list-open {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0;
+  text-align: left;
+  border: 0;
+  width: auto;
+}
+.studio-list-open > div {
+  min-width: 0;
+}
+.studio-list-open strong {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.studio-list-open small {
+  display: block;
+  color: var(--muted);
+  margin-top: 7px;
+  font-size: 12px;
+}
+.duplicate-content {
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--accent);
+  gap: 8px;
+}
+.studio-writing-tools {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin: 18px 0;
+  background: var(--surface);
+}
+.studio-writing-tools summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 16px;
+  font-size: 14px;
+  min-height: 48px;
+}
+.studio-writing-tools summary > span {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--muted);
+}
+.writing-tools-content {
+  padding: 0 18px 18px;
+  display: grid;
+  gap: 18px;
+}
+.writing-find-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.writing-find-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  font-size: 12px;
+}
+.writing-find-actions .inline-choice {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 8px;
+  margin: 0;
+}
+.writing-find-actions input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+}
+.writing-find-actions .button {
+  font-size: 12px;
+  padding: 9px 13px;
+  min-height: 42px;
+}
+.writing-goal {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 22px;
+  align-items: center;
+}
+.writing-goal label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.writing-goal input {
+  width: 105px;
+}
+.writing-goal p,
+.writing-goal span {
+  font-size: 12px;
+}
+.writing-goal progress {
+  display: block;
+  width: 100%;
+  height: 7px;
+  accent-color: var(--accent);
+  margin-bottom: 9px;
+}
+.writing-review {
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  font-size: 13px;
+}
+.writing-review p {
+  font-size: 12px;
+  margin-top: 7px;
+}
+.writing-review p svg {
+  vertical-align: middle;
+  color: var(--sage);
+}
+.revision-dialog {
+  width: min(1080px, calc(100% - 32px));
+  max-height: 90dvh;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: 0 24px 90px #0003;
+}
+.revision-dialog::backdrop {
+  background: #211c1566;
+  backdrop-filter: blur(6px);
+}
+.revision-dialog > header {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.revision-dialog h2 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 27px;
+}
+.revision-dialog header p:not(.eyebrow) {
+  font-size: 13px;
+  margin-top: 9px;
+}
+.revision-layout {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  height: 48dvh;
+  min-height: 280px;
+}
+.revision-layout nav {
+  overflow: auto;
+  border-right: 1px solid var(--line);
+}
+.revision-layout nav > button {
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  text-align: left;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+  font-size: 13px;
+}
+.revision-layout nav > button[aria-pressed="true"] {
+  background: var(--blue-wash);
+  box-shadow: inset 3px 0 var(--gold);
+}
+.revision-layout time {
+  font-size: 12px;
+  color: var(--muted);
+}
+.revision-layout nav > button > span {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+  color: var(--soft);
+}
+.revision-layout nav > p {
+  padding: 20px;
+  font-size: 13px;
+}
+.revision-preview {
+  padding: 26px;
+  overflow: auto;
+  min-width: 0;
+}
+.revision-preview h3 {
+  margin: 12px 0 24px;
+}
+.revision-preview .prose {
+  font-size: 15px;
+}
+.revision-dialog > footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding: 18px 26px;
+  border-top: 1px solid var(--line);
+  background: var(--surface-soft);
+}
+.revision-dialog > footer > p {
+  font-size: 13px;
+  margin-right: auto;
+  flex: 1;
+  min-width: 200px;
+}
+.revision-dialog .error-message {
+  margin: 18px 24px;
+}
+@media (max-width: 800px) {
+  .studio-backup-card {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .revision-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+  .editor-header > div:last-child {
+    flex-wrap: wrap;
+  }
+  .editor-header .button {
+    font-size: 12px;
+  }
+}
+@media (max-width: 560px) {
+  .writing-find-grid,
+  .writing-goal {
+    grid-template-columns: 1fr;
+  }
+  .writing-goal {
+    gap: 12px;
+  }
+  .studio-writing-tools summary {
+    flex-wrap: wrap;
+    font-size: 13px;
+  }
+  .studio-writing-tools summary > span {
+    display: none;
+  }
+  .writing-tools-content {
+    padding-inline: 12px;
+  }
+  .studio-list-entry {
+    gap: 10px;
+  }
+  .duplicate-content > span {
+    display: none;
+  }
+  .duplicate-content {
+    width: 44px;
+    justify-content: center;
+  }
+  .studio-list-open {
+    flex-wrap: wrap;
+  }
+  .revision-dialog > header {
+    padding: 20px;
+  }
+  .revision-dialog h2 {
+    font-size: 23px;
+  }
+  .revision-layout {
+    display: flex;
+    flex-direction: column;
+    height: 56dvh;
+  }
+  .revision-layout nav {
+    height: 160px;
+    flex-shrink: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .revision-preview {
+    padding: 20px;
+    flex: 1;
+  }
+  .revision-dialog > footer {
+    padding: 16px;
+  }
+  .revision-dialog > footer .button {
+    font-size: 12px;
+  }
+  .writing-find-actions {
+    gap: 12px;
+  }
+  .studio-backup-card {
+    padding: 22px;
+  }
+}

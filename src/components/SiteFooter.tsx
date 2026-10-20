@@ -28,6 +28,7 @@ export function SiteFooter() {
           <Link className="safe-touch transition hover:text-[#111]" to="/contact">Contact</Link>
           <a className="safe-touch transition hover:text-[#111]" href="https://x.com/Marcusdoggggg" target="_blank" rel="noreferrer">X</a>
           <a className="safe-touch transition hover:text-[#111]" href="https://instagram.com/bemsdoggg" target="_blank" rel="noreferrer">Instagram</a>
+          <Link className="safe-touch opacity-40 transition hover:opacity-100 hover:text-[#111]" to="/studio">Studio</Link>
         </div>
       </div>
     </footer>

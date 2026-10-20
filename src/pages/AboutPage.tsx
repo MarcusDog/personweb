@@ -172,9 +172,8 @@ export function AboutPage() {
             return (
               <motion.figure
                 key={src}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: i * 0.06 }}
                 className="group overflow-hidden rounded-[1.4rem] border border-[var(--border-subtle)] bg-[var(--surface-muted)] shadow-[var(--shadow-soft)]"
               >
@@ -196,7 +195,7 @@ export function AboutPage() {
         <div className="mt-6 text-right">
           <Link
             to="/projects"
-            className={`inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)] ${isChinese ? 'tracking-[0.06em]' : 'uppercase tracking-[0.12em]'}`}
+            className={`safe-touch inline-flex items-center gap-2 text-sm text-[var(--text-muted)] transition hover:text-[var(--text-strong)] ${isChinese ? 'tracking-[0.06em]' : 'uppercase tracking-[0.12em]'}`}
           >
             {language === 'zh' ? '查看所有项目' : 'View all projects'}
             <ArrowRight size={14} />
@@ -267,9 +266,8 @@ export function AboutPage() {
           {methodNotes.map((area, i) => (
             <motion.article
               key={area.title.en}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              initial={false}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: i * 0.08 }}
               className="paper-panel"
             >

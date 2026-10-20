@@ -33,12 +33,19 @@ output/
 
 # Server runtime data
 server/data/
+public/uploads/*
+!public/uploads/.gitkeep
 *.db
 *.db-shm
 *.db-wal
 
 # Archives
 *.zip
+
+# Local browser QA artifacts
+.playwright-cli/
+.gstack/
+aya-content-backup-*.json
 
 # Env files
 .env

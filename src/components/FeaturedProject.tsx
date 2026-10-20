@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
@@ -17,24 +16,18 @@ export function FeaturedProject({ project, language }: FeaturedProjectProps) {
   const image = projectMediaBySlug[project.slug]
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.82, ease: [0.22, 1, 0.36, 1] }}
-      className="group overflow-hidden rounded-[2rem] border border-[var(--border-subtle)] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]"
-    >
+    <article className="group overflow-hidden rounded-[2rem] border border-[var(--border-subtle)] bg-[var(--surface-strong)] shadow-[var(--shadow-soft)]">
       <div className="grid gap-0 md:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)]">
         <div className="relative min-h-[20rem] overflow-hidden bg-[radial-gradient(circle_at_top_left,rgba(218,188,127,0.28),transparent_45%),radial-gradient(circle_at_bottom_right,rgba(98,70,38,0.38),transparent_44%),linear-gradient(160deg,#17120d_0%,#0d0b09_100%)] p-8 md:min-h-[28rem] md:p-12">
           {image ? (
             <img
               src={image}
               alt=""
-              className="absolute inset-0 h-full w-full object-cover opacity-28 saturate-[0.72]"
+              className="absolute inset-0 h-full w-full object-cover opacity-60 saturate-[0.78]"
               loading="lazy"
             />
           ) : null}
-          <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,8,6,0.62),rgba(10,8,6,0.88))]" />
+          <div className="absolute inset-0 bg-[linear-gradient(160deg,rgba(10,8,6,0.34),rgba(10,8,6,0.72))]" />
           <div className="ambient-orbit absolute inset-0 opacity-70" />
           <div className="absolute inset-x-0 bottom-0 h-px bg-[linear-gradient(90deg,transparent,rgba(224,198,145,0.55),transparent)]" />
           <div className="relative z-10 flex h-full flex-col justify-between">
@@ -96,6 +89,6 @@ export function FeaturedProject({ project, language }: FeaturedProjectProps) {
           </Link>
         </div>
       </div>
-    </motion.article>
+    </article>
   )
 }

@@ -9,9 +9,8 @@ import { trackEvent } from '../lib/analytics'
 const EASE = [0.22, 1, 0.36, 1] as const
 
 const inView = {
-  initial: { opacity: 0, y: 28 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: '-8%' },
+  initial: false,
+  animate: { opacity: 1, y: 0 },
   transition: { duration: 0.85, ease: EASE },
 }
 
@@ -121,9 +120,8 @@ export function CommercialPage() {
               <motion.div
                 key={service.title.en}
                 className="commercial-service"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.72, ease: EASE, delay: i * 0.08 }}
               >
                 <p className="commercial-service-title">
@@ -165,9 +163,8 @@ export function CommercialPage() {
               <motion.div
                 key={step.num}
                 className="commercial-step"
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                initial={false}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.68, ease: EASE, delay: i * 0.07 }}
               >
                 <div className="commercial-step-num">{step.num}</div>
@@ -213,9 +210,8 @@ export function CommercialPage() {
             {/* WeChat Auto */}
             <motion.div
               className="overflow-hidden rounded-[1.5rem] border border-[var(--bloom-border)] bg-[var(--bloom-bg)]"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={false}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.72, ease: EASE }}
             >
               <div className="aspect-video overflow-hidden">
@@ -254,9 +250,8 @@ export function CommercialPage() {
             {/* AI Closet */}
             <motion.div
               className="overflow-hidden rounded-[1.5rem] border border-[var(--bloom-border)] bg-[var(--bloom-bg)]"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              initial={false}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.72, ease: EASE, delay: 0.08 }}
             >
               <div className="aspect-video overflow-hidden ink-wash-panel" style={{ background: 'linear-gradient(135deg,#f4ece0 0%,#e8ddd0 50%,#f0e6d8 100%)' }}>
@@ -291,7 +286,7 @@ export function CommercialPage() {
                     href="https://www.aihuanai.com"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-[#111] underline underline-offset-4"
+                    className="safe-touch inline-flex items-center gap-1 text-sm text-[#111] underline underline-offset-4"
                   >
                     {isChinese ? '访问 aihuanai.com →' : 'Visit aihuanai.com →'}
                   </a>

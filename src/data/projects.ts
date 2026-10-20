@@ -1,6 +1,214 @@
 import type { ProjectEntry } from '../types/content'
 
+function compactProject(project: Omit<ProjectEntry, 'gallery' | 'showcaseGroups'>): ProjectEntry {
+  return { ...project, gallery: [], showcaseGroups: [] }
+}
+
 export const projects: ProjectEntry[] = [
+  {
+    slug: 'shizaolu',
+    featured: true,
+    year: '2026',
+    category: { zh: '微信小程序 / 烹饪工具', en: 'WeChat Mini Program / Cooking Tool' },
+    title: { zh: '食灶录', en: 'Shizaolu' },
+    subtitle: {
+      zh: '给真正站在灶台前的人做的菜谱、跟做与成长记录工具',
+      en: 'A recipe, guided-cooking, and progress journal built for people who are actually standing at the stove',
+    },
+    summary: {
+      zh: '我做食灶录，是因为普通菜谱在真正开火以后并不好用。手上有水有油，页面还在不断滚；一句“适量”，对新手也没有多少帮助。于是我把它做成微信小程序，把备料、分步跟做、计时、火候、语音播报和做完后的日记连在一起。',
+      en: 'Most recipe apps become awkward once cooking actually starts. Shizaolu links preparation, step-by-step guidance, timers, heat cues, spoken instructions, and a post-cooking journal in one WeChat mini program.',
+    },
+    role: {
+      zh: '独立完成产品定义、交互设计、微信小程序开发、云开发数据层、菜谱清洗与展示素材整理',
+      en: 'Independent product definition, interaction design, mini-program development, cloud data layer, recipe cleanup, and visual production',
+    },
+    capabilities: [
+      { zh: '沉浸式分步做菜', en: 'Guided cooking mode' },
+      { zh: '摇一摇切步与语音播报', en: 'Hands-free step control and TTS' },
+      { zh: '冰箱食材匹配', en: 'Ingredient matching' },
+      { zh: '菜谱解析与云端同步', en: 'Recipe parsing and cloud sync' },
+    ],
+    challenge: {
+      zh: '难点不在把菜谱放进列表，而在做菜过程中还能顺手使用。新手需要知道先准备什么、现在开多大火、还要等多久；双手不方便碰手机时，界面还得继续往前走。',
+      en: 'The hard part was not listing recipes. It was keeping the product usable while both hands were busy and a beginner still needed clear preparation, heat, and timing cues.',
+    },
+    approach: {
+      zh: '我把主流程收成“备料清单 → 单步跟做 → 完成记录”。每一步会从文本里找出相关食材和火候，带时间的步骤直接启动倒计时；摇一摇可以切到下一步，TTS 会读出当前说明。数据层同时支持本地存储和微信云开发，没配云环境也能完整运行。',
+      en: 'The main flow is preparation, one-step-at-a-time cooking, and a completion record. Steps surface the relevant ingredients, heat, and timer; shake gestures and TTS keep the flow moving hands-free. The data layer works locally and can switch to WeChat Cloud Development.',
+    },
+    outcome: {
+      zh: '现在它已经不是菜谱展示页，而是一套能从“今天吃什么”一路走到“这次做得怎么样”的完整工具。冰箱推荐、收藏、图鉴和成长日记也都围绕这条主线服务。',
+      en: 'It grew from a recipe browser into a complete path from deciding what to cook to recording how the attempt went, with fridge matching, favorites, a collection, and a cooking journal around that core.',
+    },
+    result: {
+      zh: '完成 v4.0 可运行版本；清洗约 5 万条原始菜谱，形成 3.9 万余条结构化数据，并把核心菜谱、图片与云端初始化链路接入小程序。',
+      en: 'Delivered a runnable v4.0 and a data pipeline that cleaned roughly 50,000 raw recipes into more than 39,000 structured records, with curated recipes and cloud seeding connected to the mini program.',
+    },
+    nextStep: {
+      zh: '下一步会把真实用户在做菜时的停顿、回退和失败点记录下来，再决定哪些提示该留下，哪些应该删掉。',
+      en: 'Next, I want to observe where real cooks pause, go back, or abandon a step, then simplify the guidance around those moments.',
+    },
+    accent: 'from-[rgba(245,112,54,0.26)] via-[rgba(239,171,79,0.11)] to-transparent',
+    detailSections: [
+      {
+        title: { zh: '先解决灶台上的使用问题', en: 'Designing for the stove, not the sofa' },
+        paragraphs: [
+          {
+            zh: '我最先做的不是首页，而是跟做模式。因为用户一旦已经开始炒菜，漂亮的推荐卡片就没用了。他需要一眼看懂这一小步，需要计时，也可能因为手上沾着东西没法触屏。摇一摇切步做了 1.5 秒防抖，并配合震动反馈；语音播报只读当前步骤，不在厨房里制造更多信息。',
+            en: 'I started with cooking mode rather than the home screen. Once the pan is hot, recommendation cards stop mattering. The user needs one clear step, a timer, and a way to move forward without touching the screen. Shake-to-advance uses a 1.5-second debounce with haptic feedback, while TTS reads only the current instruction.',
+          },
+        ],
+      },
+      {
+        title: { zh: '冰箱推荐不是“有就算匹配”', en: 'Ingredient matching needs useful penalties' },
+        paragraphs: [
+          {
+            zh: '冰箱推荐按核心食材命中、缺失核心食材、缺少调料和难度一起算分。这样番茄和鸡蛋都齐全时，番茄炒蛋会自然排在前面；只差一味调料的菜也不会被完全排除。结果页直接告诉用户“还差什么”，比给一个没有解释的百分数更实用。',
+            en: 'Recommendations score core ingredient matches, missing essentials, missing seasonings, and difficulty together. A dish with both tomato and egg rises naturally, while something missing one seasoning is not discarded. The result also says what is missing instead of leaving the user with an unexplained percentage.',
+          },
+        ],
+      },
+      {
+        title: { zh: '让录菜谱这件事没那么累', en: 'Lowering the cost of adding a recipe' },
+        paragraphs: [
+          {
+            zh: '自建菜谱支持从现有菜谱复制再改，也能把外部教程文本贴进解析器。解析器会提取菜名、食材、用量和步骤，再推断分类、耗时与难度。它不会替用户决定所有内容，但先把重复录入做掉，剩下的只需要校对。',
+            en: 'A personal recipe can start from a copy of an existing one or from pasted tutorial text. The parser extracts the title, ingredients, quantities, and steps, then suggests category, time, and difficulty. It does not make every decision; it removes the repetitive entry work and leaves the user to review.',
+          },
+        ],
+      },
+      {
+        title: { zh: '本地可用，云端可选', en: 'Local by default, cloud when useful' },
+        paragraphs: [
+          {
+            zh: '微信云开发负责菜谱、图片和跨设备图鉴，但它不是启动条件。没有配置云环境时，统一数据层会回退到本地存储，测试号也能把主要流程走完。云函数写入做了幂等和断点续传，批量导入时不需要担心重复数据。',
+            en: 'WeChat Cloud Development handles recipes, images, and cross-device collections, but it is not a startup requirement. Without cloud configuration, the shared data layer falls back to local storage so a test account can still complete the main flow. Cloud seeding is idempotent and resumable.',
+          },
+        ],
+      },
+    ],
+    gallery: [],
+    showcaseGroups: [
+      {
+        afterSection: 'summary',
+        eyebrow: { zh: '真实界面', en: 'Product UI' },
+        title: { zh: '从家里有什么，到今天能做什么', en: 'From what is in the fridge to what can be cooked' },
+        description: { zh: '真实项目里的冰箱管理与食材推荐界面。橙色承担行动提示，绿色只用来表达已有食材和可用状态。', en: 'The real fridge and recommendation screens. Orange carries actions; green is reserved for available ingredients and ready states.' },
+        layout: 'two-up',
+        items: [
+          { image: '/project-images/shizaolu/fridge.png', title: { zh: '我的冰箱', en: 'My Fridge' }, description: { zh: '管理常备食材、快速勾选库存，并直接进入推荐。', en: 'Manage staples, select current stock, and move straight into recommendations.' } },
+          { image: '/project-images/shizaolu/recommend.png', title: { zh: '食材推荐', en: 'Ingredient Recommendations' }, description: { zh: '按匹配度排序，并把缺少的食材直接写出来。', en: 'Ranked by fit, with missing ingredients shown directly.' } },
+        ],
+      },
+      {
+        afterSection: 1,
+        eyebrow: { zh: '留存与创作', en: 'Retention and creation' },
+        title: { zh: '做完以后，内容还会留下来', en: 'The work remains useful after the meal' },
+        description: { zh: '收藏、自建菜谱和成长日记把一次做菜变成可回看的个人记录。', en: 'Favorites, personal recipes, and the cooking journal turn one meal into a record worth returning to.' },
+        layout: 'feature-grid',
+        items: [
+          { image: '/project-images/shizaolu/diary.png', title: { zh: '成长日记', en: 'Cooking Journal' }, description: { zh: '按时间记录菜品、照片、心情和连续做菜天数。', en: 'A timeline of dishes, photos, moods, and cooking streaks.' } },
+          { image: '/project-images/shizaolu/recipe-create.png', title: { zh: '创建菜谱', en: 'Create Recipe' }, description: { zh: '食材、调料和步骤拆开编辑，减少长表单的压力。', en: 'Ingredients, seasonings, and steps are edited separately to keep the form manageable.' } },
+          { image: '/project-images/shizaolu/favorites.png', title: { zh: '我的收藏', en: 'Favorites' }, description: { zh: '把经常做和准备尝试的菜收在一起。', en: 'Keep repeat dishes and things to try in one place.' } },
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'voicedesk',
+    featured: true,
+    year: '2026',
+    category: { zh: 'Windows 桌面应用 / 本地 AI', en: 'Windows Desktop / Local AI' },
+    title: { zh: 'VoiceDesk', en: 'VoiceDesk' },
+    subtitle: {
+      zh: '把录音、转写、校对和文档整理收进一个本地优先的工作台',
+      en: 'A local-first workspace for recording, transcription, review, and structured documents',
+    },
+    summary: {
+      zh: 'VoiceDesk 处理的是语音转文字之后那一大段没人愿意做的工作：找低置信度片段、改名字、跳回原音频、整理章节，再把转写变成会议纪要或行动清单。音频、转写和项目数据默认留在本机。',
+      en: 'VoiceDesk focuses on the work after speech-to-text: reviewing low-confidence spans, naming speakers, jumping back to audio, organizing chapters, and turning a transcript into a meeting note or action list. Audio and project data stay local by default.',
+    },
+    role: {
+      zh: '独立完成产品蓝图、桌面端交互、React 前端、Tauri / Rust 核心、SQLite 数据层与 Python ASR sidecar',
+      en: 'Independent product blueprint, desktop UX, React frontend, Tauri/Rust core, SQLite layer, and Python ASR sidecar',
+    },
+    capabilities: [
+      { zh: '本地录音与批量导入', en: 'Local recording and batch import' },
+      { zh: 'faster-whisper 本地转写', en: 'Local faster-whisper transcription' },
+      { zh: '可追溯校对工作区', en: 'Traceable review workspace' },
+      { zh: '本地 / 在线 AI 文档', en: 'Local and hosted AI documents' },
+    ],
+    challenge: {
+      zh: '转写工具往往在输出一段文字后就结束了，但真正要交付的通常是整理好的会议纪要、访谈洞察或可继续编辑的文档。中间的校对、定位和结构化如果没有被设计好，用户还是得换回播放器和文档软件来回找。',
+      en: 'Most transcription tools stop at raw text, while the actual deliverable is usually a reviewed meeting note, interview insight, or editable document. Without a designed review flow, users still bounce between a player and a document editor.',
+    },
+    approach: {
+      zh: '桌面端用 Tauri 2 承载 React 界面，Rust 管理 SQLite、文件与可恢复任务状态；Python sidecar 跑 faster-whisper / CTranslate2。转写段落保留时间戳和置信度，点击文本能回到原音频。AI 文档既可以调用在线模型，也可以走 Qwen3 + llama.cpp 的离线备用链路。',
+      en: 'Tauri 2 hosts the React interface, while Rust manages SQLite, files, and recoverable task state. A Python sidecar runs faster-whisper/CTranslate2. Transcript segments preserve timestamps and confidence, and generated documents can use either a hosted model or a local Qwen3/llama.cpp fallback.',
+    },
+    outcome: {
+      zh: '应用已经形成“导入或录音 → 转写 → 校对 → 结构化文档 → 导出”的闭环，并打包为 Windows NSIS 安装器。界面不是把模型能力堆在一起，而是围绕一份声音材料从进入到可交付的过程来组织。',
+      en: 'The app now covers import or recording, transcription, review, structured document generation, and export, and ships as a Windows NSIS installer. The interface is organized around the life of one recording rather than a pile of model features.',
+    },
+    result: {
+      zh: '交付 v0.5.0 Windows 个人版；前端构建、Python 与 Rust 测试通过，并完成多档桌面宽度的回归检查。',
+      en: 'Delivered the v0.5.0 Windows personal edition with frontend, Python, and Rust checks passing plus multi-width desktop regression coverage.',
+    },
+    nextStep: {
+      zh: '继续用真实长录音验证说话人、低置信度校对和大文件恢复，减少只在演示数据上成立的体验。',
+      en: 'Next is more validation with long real recordings, especially speaker review, low-confidence correction, and recovery from large-file failures.',
+    },
+    accent: 'from-[rgba(51,91,132,0.24)] via-[rgba(184,151,91,0.10)] to-transparent',
+    externalLinks: [
+      { label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/VoiceDesk' },
+    ],
+    detailSections: [
+      {
+        title: { zh: '我不想再做一个“点一下等结果”的转写器', en: 'More than a one-button transcriber' },
+        paragraphs: [
+          { zh: '转写质量很重要，但校对路径同样重要。VoiceDesk 会把低置信度片段标出来，播放器、波形、时间戳和文本放在同一个工作区里。用户改完一个名字，全文查找替换可以把后面的同类错误一起处理，不必逐段重复。', en: 'Accuracy matters, but so does the correction path. VoiceDesk puts low-confidence spans, audio, waveform, timestamps, and text in one workspace. Once a name is corrected, find-and-replace can handle repeated errors across the transcript.' },
+        ],
+      },
+      {
+        title: { zh: '长任务必须能恢复', en: 'Long-running work must recover' },
+        paragraphs: [
+          { zh: '音视频导入和本地识别都可能持续很久。任务状态写入 SQLite，应用重启后能找到未完成任务；失败原因也保留在记录里，而不是让进度条突然消失。Rust 核心负责状态和文件边界，Python sidecar 只处理模型推理。', en: 'Media import and local recognition can run for a long time. Task state is persisted in SQLite so unfinished work can be recovered after restart, and failures remain visible instead of disappearing with a progress bar. Rust owns state and file boundaries; the Python sidecar stays focused on inference.' },
+        ],
+      },
+      {
+        title: { zh: 'AI 文档要能回到原文', en: 'Generated documents should remain traceable' },
+        paragraphs: [
+          { zh: '会议纪要、行动项和访谈洞察都只能使用输入的转写内容。提示词明确禁止补造人名、数字、日期、因果和行动项，输出再按 JSON Schema 校验。这样生成结果不是另一份不可检查的文本，而是一次有边界的整理。', en: 'Meeting notes, actions, and interview insights are restricted to the supplied transcript. The prompt forbids invented names, numbers, dates, causality, or actions, and the output is validated against a JSON schema. The result is bounded organization, not another uncheckable block of prose.' },
+        ],
+      },
+    ],
+    gallery: [],
+    showcaseGroups: [
+      {
+        afterSection: 'summary',
+        eyebrow: { zh: '真实界面', en: 'Product UI' },
+        title: { zh: '桌面端的完整工作流', en: 'The complete desktop workflow' },
+        description: { zh: '以下截图直接来自 VoiceDesk 项目。首页负责把入口收住，记录库和录音页处理输入，AI 文档页负责整理后的交付。', en: 'These screens come directly from VoiceDesk. Home keeps entry points focused, the library and recorder handle input, and AI Documents handles the final deliverable.' },
+        layout: 'feature-grid',
+        items: [
+          { image: '/project-images/voicedesk/home.png', title: { zh: '首页', en: 'Home' }, description: { zh: '新建转写、最近项目和运行状态集中在一个起点。', en: 'New transcription, recent work, and runtime state share one starting point.' } },
+          { image: '/project-images/voicedesk/library.png', title: { zh: '记录库', en: 'Library' }, description: { zh: '按状态管理录音、转写与文档，不把文件散落在多个入口。', en: 'Manage recordings, transcripts, and documents by state.' } },
+          { image: '/project-images/voicedesk/ai-documents.png', title: { zh: 'AI 文档', en: 'AI Documents' }, description: { zh: '从已校对转写生成会议纪要、行动清单或访谈洞察。', en: 'Generate meeting notes, actions, or interview insights from reviewed transcripts.' } },
+        ],
+      },
+      {
+        afterSection: 1,
+        title: { zh: '录音与紧凑布局', en: 'Recording and compact layout' },
+        description: { zh: '桌面窗口不是永远全屏。录音与紧凑模式都按小窗口重新排过，不是简单缩放。', en: 'Desktop windows are not always full-screen. Recording and compact modes are recomposed for smaller widths instead of merely scaled down.' },
+        layout: 'two-up',
+        items: [
+          { image: '/project-images/voicedesk/recorder.png', title: { zh: '录音', en: 'Recorder' }, description: { zh: '设备选择、波形、时长和录音状态保持在一处。', en: 'Device choice, waveform, duration, and recording state stay together.' } },
+          { image: '/project-images/voicedesk/responsive-compact.png', title: { zh: '紧凑模式', en: 'Compact mode' }, description: { zh: '在窄窗口保留主要操作，次要信息重新分层。', en: 'Primary actions remain accessible while secondary information is reprioritized.' } },
+        ],
+      },
+    ],
+  },
   {
     slug: 'ainews-platform',
     featured: true,
@@ -8,42 +216,42 @@ export const projects: ProjectEntry[] = [
     category: { zh: 'AI 资讯平台 / Research Tool', en: 'AI Intelligence Platform / Research Tool' },
     title: { zh: 'Ainews', en: 'Ainews' },
     subtitle: {
-      zh: '把高密度 AI 资讯流压缩成可跟踪、可分析、可检索的实时工作台',
-      en: 'A real-time workspace that turns high-volume AI news into a trackable, analyzable, and searchable system',
+      zh: '从新闻聚合走到热点发现、选题研究和来源核验',
+      en: 'From news aggregation to topic discovery, creator research, and source verification',
     },
     summary: {
-      zh: '聚合 50 多个中英文信源，实时推送、趋势分析、高级搜索、知识库，再加一个多样性评分，把散在各处的资讯收成一个能持续盯、横向比、日常研究的界面。',
-      en: 'A workspace that aggregates 50+ Chinese and English AI sources with real-time delivery, trend analysis, advanced search, glossary layers, and diversity scoring.',
+      zh: 'Ainews 最早只是我自己用来追 AI 新闻的站点。后来我发现，“今天发生了什么”还不够，真正费时间的是判断哪些话题正在升温、谁已经在讨论、有没有一手来源，以及这件事值不值得继续做成内容。现在它更像一张持续更新的情报桌。',
+      en: 'Ainews began as a personal AI news reader. It now focuses on the harder questions: which topics are rising, who is already discussing them, whether primary sources exist, and whether a signal is worth turning into content.',
     },
     role: {
       zh: '产品定义、信息架构、前后端实现、抓取链路与分析能力设计',
       en: 'Product framing, information architecture, full-stack implementation, ingestion pipeline design, and analytics surfaces',
     },
     capabilities: [
-      { zh: '多源 RSS / API 聚合', en: 'Multi-source RSS and API aggregation' },
-      { zh: '实时更新与自动恢复机制', en: 'Real-time updates and recovery logic' },
-      { zh: '趋势分析与信息多样性评估', en: 'Trend analysis and diversity scoring' },
-      { zh: '高级搜索与知识库设计', en: 'Advanced search and glossary design' },
+      { zh: '多源 Signal 与 Topic 聚类', en: 'Multi-source signals and topic clustering' },
+      { zh: '24 / 48 / 72 小时趋势窗口', en: '24 / 48 / 72-hour trend windows' },
+      { zh: '创作者观察与共题发现', en: 'Creator monitoring and shared-topic discovery' },
+      { zh: '证据型选题与多渠道发布', en: 'Evidence-backed topics and multi-channel publishing' },
     ],
     challenge: {
-      zh: 'AI 资讯更新极快，论文、厂商博客、技术媒体和中文站点分散在不同渠道。普通订阅工具解决了“收集”，却很难解决“筛选、判断、持续跟踪”，更难把碎片内容整理成可复用的研究入口。',
-      en: 'AI information moves across papers, company blogs, media outlets, and Chinese sources too quickly for generic feed readers to turn into usable judgment.',
+      zh: '新闻源越来越多以后，首页反而更难用。快讯、官方发布、GitHub 项目和博主帖子混在一起，热度也容易被单个平台的数字带偏。我需要的不是更长的列表，而是能回到原文、能解释来源状态的主题。',
+      en: 'As sources grew, the home feed became less useful. Briefs, official releases, GitHub projects, and creator posts needed to become traceable topics with honest source status rather than one longer list.',
     },
     approach: {
-      zh: '项目采用“采集层、存储层、实时层、分析层、知识层”五段结构：前端提供资讯流、搜索、分析和术语解释，后端负责多源抓取、限流、缓存、SQLite 持久化与 WebSocket 推送。产品表达上则按“先稳定入口，再补足知识层，最后加上判断辅助”来展开。',
-      en: 'The system is organized as ingestion, storage, realtime delivery, analytics, and knowledge layers, pairing a React workspace with a Node backend for fetch orchestration, caching, SQLite persistence, and WebSocket delivery.',
+      zh: '后端把公开来源先收成 Signal，再按时间窗口聚成 Topic。博主内容只进入人工核验过的观察名单，回填状态会区分 complete、partial、blocked 和 unconfigured，不用 0 假装“没有数据”。前台围绕热点雷达、研究页、创作者和来源健康状态来组织。',
+      en: 'Public sources become signals and then time-windowed topics. Creator history is limited to a verified watchlist, and backfill status distinguishes complete, partial, blocked, and unconfigured instead of treating unknown values as zero.',
     },
     outcome: {
-      zh: '最终交付的不只是一个 AI 新闻站，而是一套可持续更新的情报工作台。它把分散信源压缩成统一入口，也把“看新闻”升级成“追踪主题、比较信源、辅助判断、回看历史脉络”的连续动作。',
-      en: 'The result is not just a news site, but a durable intelligence workspace for tracking themes, comparing sources, and making faster judgments over time.',
+      zh: '这次改造以后，Ainews 的重点从“新闻够不够多”移到“证据够不够好”。它能给出热点，也会把缺少密钥、来源失败或历史窗口不完整这些不体面的状态如实留在页面上。',
+      en: 'The rebuild moved the product from “how much news do we have?” to “how good is the evidence?” Missing credentials, failed sources, and incomplete history remain visible instead of being smoothed over.',
     },
     result: {
-      zh: '50+ 信源统一聚合，信息检索时间从多站点跳转压缩到单一搜索入口。',
-      en: '50+ sources consolidated into one workspace, reducing research lookup from multi-site switching to a single searchable surface.',
+      zh: '完成 Signal → Topic → 创作者核验 → 证据型选题链路，并开放 REST、OpenAPI、JSON Feed、RSS、SSE 与签名 Webhook。',
+      en: 'Delivered the Signal-to-Topic-to-creator-verification pipeline with REST, OpenAPI, JSON Feed, RSS, authenticated SSE, and signed webhooks.',
     },
     nextStep: {
-      zh: '下一步会继续补强个性化订阅、信源权重机制、主题追踪订阅和正式部署后的子域名产品化包装，让它更接近一个可长期运营的独立产品。',
-      en: 'Next: add personalized subscriptions, source weighting, and a cleaner production-ready packaging layer for subdomain deployment.',
+      zh: '下一步不是再加一排来源，而是用真实创作流程检查热点是否帮人省下研究时间，再决定要不要继续做 MCP 与 A2A。',
+      en: 'Next is validating whether topic research actually saves creators time before adding planned surfaces such as MCP or A2A.',
     },
     accent: 'from-[rgba(214,183,120,0.32)] via-[rgba(90,66,34,0.18)] to-transparent',
     externalLinks: [
@@ -142,7 +350,7 @@ export const projects: ProjectEntry[] = [
           zh: '用热门话题、趋势判断、内容质量和多样性分析，把“看到了什么”进一步推进到“该怎么看”。',
           en: 'Hot topics, trend signals, quality checks, and diversity analysis shift the product from raw reading into guided interpretation.',
         },
-        image: '/project-images/ainews/analytics.png',
+        image: '/project-images/ainews/6.png',
       },
       {
         label: { zh: '架构导读', en: 'Architecture Guide' },
@@ -150,7 +358,7 @@ export const projects: ProjectEntry[] = [
           zh: '把模型架构、算法框架和训练方法做成可阅读、可对照的导读页，让资讯平台同时具备知识组织能力。',
           en: 'A long-form architecture guide gives the platform a deeper learning layer beyond daily news tracking.',
         },
-        image: '/project-images/ainews/guide.png',
+        image: '/project-images/ainews/4.png',
       },
       {
         label: { zh: '知识层', en: 'Knowledge Layer' },
@@ -158,7 +366,7 @@ export const projects: ProjectEntry[] = [
           zh: '通过术语知识库和模型架构导读，把资讯消费延伸到系统化理解，适合持续学习与对外展示。',
           en: 'A glossary and architecture guide extend the product from news consumption into structured understanding and long-term learning.',
         },
-        image: '/project-images/ainews/glossary.png',
+        image: '/project-images/ainews/3.png',
       },
       {
         label: { zh: '搜索入口', en: 'Search Surface' },
@@ -166,7 +374,7 @@ export const projects: ProjectEntry[] = [
           zh: '搜索与筛选页把新闻、术语和主题检索组织成更清晰的入口，适合高频查找与横向比对。',
           en: 'Search and filter surfaces make it easier to look up topics, compare coverage, and return to specific themes quickly.',
         },
-        image: '/project-images/ainews/search.png',
+        image: '/project-images/ainews/5.png',
       },
     ],
     showcaseGroups: [
@@ -800,4 +1008,129 @@ export const projects: ProjectEntry[] = [
     gallery: [],
     showcaseGroups: [],
   },
+  compactProject({
+    slug: 'ayanews-skill',
+    year: '2026',
+    category: { zh: 'Agent Skill / 研究工具', en: 'Agent Skill / Research Tool' },
+    title: { zh: 'AyaNewsSkill', en: 'AyaNewsSkill' },
+    subtitle: { zh: '让 Agent 带着来源读新闻，也知道证据不够时应该停下来', en: 'A source-backed news skill that tells agents when the evidence is not enough' },
+    summary: { zh: '这是 Ainews 的 Agent 入口。它不直接替用户下结论，而是先取回新闻、热点和博主公开内容，整理成带来源编号的证据包，再交给 Codex、Claude Code 或其他支持 Agent Skills 的工具继续写作。', en: 'The agent-facing layer of Ainews retrieves news, topics, and public creator posts, packages them with numbered sources, and hands the evidence to Codex, Claude Code, or another Agent Skills client.' },
+    role: { zh: 'Skill 协议设计、命令行工具、证据约束、跨环境安装与兼容层', en: 'Skill protocol, CLI, evidence constraints, cross-environment installation, and compatibility layer' },
+    capabilities: [{ zh: '零密钥默认接入', en: 'Keyless default access' }, { zh: '证据包与原文引用', en: 'Evidence packs and source links' }, { zh: '信息茧房复核', en: 'Filter-bubble review' }],
+    challenge: { zh: '让 Agent 读到新闻很容易，让它分清官方发布、媒体转述和社区讨论的证据边界更难。资料不够时，它还得愿意返回“证据不足”。', en: 'Reading news is easy for an agent. Keeping official releases, media reports, and community discussion in their proper evidence boundaries is harder, especially when the correct answer is insufficient evidence.' },
+    approach: { zh: '所有研究结果都要求保留 [S#]、发布者、日期和原文 URL。Skill 会主动拉开来源类型与地区，不够支撑结论时返回 insufficient_evidence，而不是补齐一篇看上去完整的文章。', en: 'Every research result keeps an [S#] marker, publisher, date, and original URL. The skill diversifies source types and regions, and returns insufficient_evidence instead of filling gaps with plausible prose.' },
+    outcome: { zh: '同一套命令可以查询最新资讯、热点机会、创作者内容和每日信息茧房复核，并能安装到 Codex、Claude Code 或通用 skills 目录。', en: 'One command surface now covers latest news, topic opportunities, creator signals, and daily diversity review, with installers for Codex, Claude Code, and generic skills directories.' },
+    result: { zh: '公开发布为零第三方运行依赖的 Node.js Skill，并与 Ainews 新旧接口保持兼容。', en: 'Published as a zero-runtime-dependency Node.js skill with compatibility across current and legacy Ainews APIs.' },
+    nextStep: { zh: '继续收紧事实引用，并把内容生产前的证据检查做成更清楚的失败反馈。', en: 'Continue tightening citations and make pre-writing evidence failures easier to understand.' },
+    accent: 'from-[rgba(76,116,104,0.20)] via-[rgba(190,157,94,0.08)] to-transparent',
+    externalLinks: [{ label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/AyaNewsSkill' }],
+    detailSections: [{ title: { zh: '把“会搜索”改成“会交代来源”', en: 'From search access to source accountability' }, paragraphs: [{ zh: '我不希望 Agent 把几个标题拼成一篇文章。AyaNewsSkill 先构造可检查的证据包，写作只是后一步。官方、研究、媒体和工程社区会被分别标记；来源太少时，结果会明确停在证据不足。', en: 'I did not want an agent to stitch headlines into an article. AyaNewsSkill builds an inspectable evidence pack first. Official, research, media, and engineering sources are labeled separately, and the run stops when the evidence is too thin.' }] }],
+  }),
+  compactProject({
+    slug: 'promptball',
+    year: '2026',
+    category: { zh: '桌面应用 / Prompt 工具', en: 'Desktop App / Prompt Tool' },
+    title: { zh: 'PromptBall', en: 'PromptBall' },
+    subtitle: { zh: '常驻桌面的 Prompt 工作台，把优化、版本和评估放在一起', en: 'A desktop prompt workspace for writing, versioning, optimization, and evaluation' },
+    summary: { zh: 'PromptBall 用一个可召回的桌面悬浮入口，把零散在聊天窗口和文本文件里的 Prompt 收回来。可以写结构化 Prompt、管理模板、看版本差异，也能用同一输入做 A/B 测试。', en: 'PromptBall uses a recallable desktop entry point to bring prompts out of scattered chats and text files. It supports structured writing, templates, version diffs, and A/B tests against the same input.' },
+    role: { zh: '产品设计、Tauri 桌面端、React 界面、Rust 数据与本地安全设计', en: 'Product design, Tauri desktop app, React interface, Rust data layer, and local security' },
+    capabilities: [{ zh: '悬浮入口与全局快捷键', en: 'Floating entry and global shortcuts' }, { zh: '模板、版本与 Diff', en: 'Templates, versions, and diffs' }, { zh: '盲评 A/B 测试', en: 'Blind A/B testing' }],
+    challenge: { zh: 'Prompt 很容易复制，却很难记住哪个版本真正好用。只做一个收藏夹解决不了评估、回滚和不同模型之间的差异。', en: 'Prompts are easy to copy and hard to evaluate. A bookmark list does not solve regression, rollback, or differences between models.' },
+    approach: { zh: '应用把写作、优化、评估和历史放进一条桌面流程。每次修改会留下版本，A/B 测试打乱左右顺序，尽量减少“我知道哪个是新版本”带来的偏见。', en: 'Writing, optimization, evaluation, and history share one desktop flow. Each edit creates a version, and A/B results are randomized to reduce label bias.' },
+    outcome: { zh: '现在它能作为本地 Prompt 库使用，也能接 OpenAI-compatible 或 Ollama 模型做优化与评估。', en: 'It now works as a local prompt library and can connect to OpenAI-compatible or Ollama models for optimization and evaluation.' },
+    result: { zh: '完成 Windows 桌面工作台、22 个内置模板、版本管理和盲评测试主流程。', en: 'Delivered the Windows workspace, 22 built-in templates, version management, and the core blind-test flow.' },
+    nextStep: { zh: '用真实长期使用数据校准评分，不让“100 分 Prompt”变成另一种装饰。', en: 'Calibrate scoring with long-term use so a “100-point prompt” does not become decoration.' },
+    accent: 'from-[rgba(102,82,136,0.20)] via-[rgba(190,157,94,0.08)] to-transparent',
+    externalLinks: [{ label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/promptball' }],
+    detailSections: [{ title: { zh: 'Prompt 需要版本，而不是一堆副本', en: 'Prompts need versions, not duplicate files' }, paragraphs: [{ zh: '每次改 Prompt 都另存一份，过一周就很难知道差异。PromptBall 把修改、评分和实际使用结果挂在同一条版本线上，回滚和对比都不再依赖文件名。', en: 'Saving every revision as another file makes differences impossible to follow. PromptBall keeps edits, scores, and observed outcomes on one version line, so compare and rollback no longer depend on filenames.' }] }],
+  }),
+  compactProject({
+    slug: 'qzone-history',
+    year: '2026',
+    category: { zh: '个人数据 / Go 工具', en: 'Personal Data / Go Tool' },
+    title: { zh: 'Qzone History', en: 'Qzone History' },
+    subtitle: { zh: '把自己还能访问的 QQ 空间历史备份到本地', en: 'A local backup and reconstruction tool for Qzone history you can still access' },
+    summary: { zh: '这是一个很克制的个人数据工具：二维码登录，分页读取当前账号可访问的活动记录，落到 SQLite，再重建说说和留言并导出 JSON。它不把普通抓取包装成 AI，也不碰没有权限的数据。', en: 'A deliberately narrow personal-data tool: QR login, paginated retrieval of accessible activity, local SQLite storage, reconstruction of posts and guestbook messages, and JSON export.' },
+    role: { zh: 'Go 应用架构、QQ 空间客户端、数据重建、SQLite 与本地安全边界', en: 'Go application architecture, Qzone client, data reconstruction, SQLite, and local security boundaries' },
+    capabilities: [{ zh: '二维码本地登录', en: 'Local QR login' }, { zh: '历史重建与 JSON 导出', en: 'History reconstruction and JSON export' }, { zh: '本地 SQLite 保存', en: 'Local SQLite storage' }],
+    challenge: { zh: '历史活动流并不等于可以直接阅读的说说和留言；接口也可能变化。备份工具还必须明确保护 Cookie 和导出文件。', en: 'An activity stream is not a readable archive of posts and messages, and the upstream interface can change. A backup tool also needs clear handling for cookies and exported private data.' },
+    approach: { zh: '应用层把抓取、重建和导出拆开，失败响应不会进入数据库。二维码页只监听 127.0.0.1，导出文件在系统支持时限制为当前用户读写。', en: 'Retrieval, reconstruction, and export are separated, and failed responses never enter storage. The QR page binds only to 127.0.0.1, and exported files are restricted to the current user where supported.' },
+    outcome: { zh: '当前稳定输出 SQLite 与 JSON；Excel 和 HTML 被明确标记为尚未实现。', en: 'The stable outputs are SQLite and JSON; Excel and HTML remain explicitly unimplemented.' },
+    result: { zh: '完成可运行的 Go 命令行流程、配置覆盖和安全说明，并补齐测试与 vet / race 检查入口。', en: 'Delivered the runnable Go flow, configuration overrides, security notes, and test, vet, and race-check commands.' },
+    nextStep: { zh: '跟随接口变化维护解析，并在不牺牲本地隐私的前提下增加可阅读导出。', en: 'Maintain parsing as interfaces change and add readable exports without weakening local privacy.' },
+    accent: 'from-[rgba(89,116,144,0.18)] via-[rgba(190,157,94,0.07)] to-transparent',
+    externalLinks: [{ label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/qzone-history' }],
+    detailSections: [{ title: { zh: '先把自己的数据拿回来', en: 'Bring personal history back first' }, paragraphs: [{ zh: '这个项目没有先做漂亮的时间线，而是先保证数据能稳定落地。活动记录、说说和留言之间的关系在 usecase 层重建；原始登录信息和导出结果都只留在本机。', en: 'The project started with reliable local capture rather than a polished timeline. Relationships between activity, posts, and messages are rebuilt in the use-case layer, while login state and exports remain on the machine.' }] }],
+  }),
+  compactProject({
+    slug: 'code-loop',
+    year: '2026',
+    category: { zh: 'AI 工程 / 自动化', en: 'AI Engineering / Automation' },
+    title: { zh: 'code-loop', en: 'code-loop' },
+    subtitle: { zh: '让代码 Agent 持续工作，但每一轮都有范围、记录和复查', en: 'Continuous coding-agent runs with scope, state, and review around every iteration' },
+    summary: { zh: 'code-loop 把 Claude Code、opencode 等 CLI 放进一个可恢复的迭代循环。需求先过 SPEC 和架构分析，每轮只接一个原子目标；连续失败会切换策略或引擎，Web 面板还能在运行中补充反馈。', en: 'code-loop wraps Claude Code, opencode, and other CLIs in a recoverable iteration loop. Requirements pass through spec and architecture gates, each round gets one atomic target, and repeated failures trigger a strategy or engine change.' },
+    role: { zh: 'Shell 编排、状态持久化、多引擎适配、审核周期与 Web 仪表盘', en: 'Shell orchestration, persisted state, multi-engine adapters, review cadence, and web dashboard' },
+    capabilities: [{ zh: '多引擎切换', en: 'Multi-engine switching' }, { zh: '断点恢复', en: 'Resume from state' }, { zh: '死循环检测与复查', en: 'Loop detection and review' }],
+    challenge: { zh: '“让 Agent 一直跑”很容易变成一直重复同一种错误。长任务还会遇到超时、上下文膨胀和中途反馈无法进入下一轮的问题。', en: '“Keep the agent running” can easily become repeating the same mistake. Long jobs also hit timeouts, context growth, and difficulty injecting feedback into the next iteration.' },
+    approach: { zh: '每轮限制为原子目标和少量文件，固定输出变更、验证与下一轮衔接。相似度过高会触发策略调整，每三轮换审核模型复查，所有状态可以从最近一次运行恢复。', en: 'Each round is constrained to an atomic target and a small file set, with a fixed summary of changes, verification, and handoff. Similar loops trigger strategy changes, and a review model checks every third round.' },
+    outcome: { zh: '命令行与 Web 面板共用同一份运行状态，用户可以暂停、恢复，也能在任务中途把新反馈送入下一轮。', en: 'CLI and web dashboard share one run state, allowing pause, resume, and mid-run feedback for the next iteration.' },
+    result: { zh: '完成 v2.0 多引擎循环、审核、失败恢复与实时日志主流程。', en: 'Delivered the v2.0 multi-engine loop, review, failure recovery, and live-log workflow.' },
+    nextStep: { zh: '继续减少无限循环的错觉，把完成条件和人工接管点做得更明确。', en: 'Make completion criteria and human takeover points more explicit so continuity does not masquerade as progress.' },
+    accent: 'from-[rgba(82,99,78,0.19)] via-[rgba(190,157,94,0.07)] to-transparent',
+    externalLinks: [{ label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/code_loop' }],
+    detailSections: [{ title: { zh: '持续运行不等于无人负责', en: 'Continuous does not mean unsupervised' }, paragraphs: [{ zh: '我给循环加了 SPEC 门控、定期审核和反馈注入，目的就是让人随时知道它为什么还在跑。恢复机制保存的是状态和证据，不只是把上一条命令再执行一次。', en: 'Spec gates, periodic review, and feedback injection exist so a person can still tell why the loop is running. Recovery restores state and evidence, not merely the last command.' }] }],
+  }),
+  compactProject({
+    slug: 'skill-locator',
+    year: '2026',
+    category: { zh: 'Agent 基础设施 / Python', en: 'Agent Infrastructure / Python' },
+    title: { zh: 'skill-locator', en: 'skill-locator' },
+    subtitle: { zh: '跨 Codex、项目和自定义目录找到同名 Skill 的确切位置', en: 'Find the exact location of a skill across Codex, projects, and custom roots' },
+    summary: { zh: 'Skill 装多了以后，最浪费时间的事情之一就是找它到底落在哪。这个零依赖 Python 工具会扫描用户级、项目级、Codex 和自定义目录，解析 SKILL.md 元信息，再用表格、JSON 或纯路径输出。', en: 'Once many skills are installed, locating the active copy becomes surprisingly costly. This zero-dependency Python tool scans user, project, Codex, and custom roots, parses SKILL.md metadata, and returns a table, JSON, or one clean path.' },
+    role: { zh: 'CLI 设计、跨平台路径解析、元信息读取与可组合输出', en: 'CLI design, cross-platform path resolution, metadata parsing, and composable output' },
+    capabilities: [{ zh: '零依赖跨平台扫描', en: 'Zero-dependency cross-platform scan' }, { zh: '范围与精确匹配', en: 'Scoped and exact matching' }, { zh: 'JSON / Path 输出', en: 'JSON and path output' }],
+    challenge: { zh: '同名 Skill 可能同时存在于用户目录和项目目录。只打印第一个命中会隐藏冲突，写死 HOME 路径又会让工具换台机器就失效。', en: 'The same skill may exist in user and project scopes. Returning only the first match hides conflicts, while hard-coded home paths break portability.' },
+    approach: { zh: '路径从当前工作区和用户目录动态解析，每个命中都会带范围、绝对路径和 SKILL.md 状态。退出码、JSON 和单路径模式方便 Agent 或 CI 继续处理。', en: 'Roots are resolved from the current workspace and user directory. Every match includes its scope, absolute path, and SKILL.md state; exit codes, JSON, and path-only modes remain easy to compose.' },
+    outcome: { zh: '工具可以直接作为 Skill 安装，也可以单独运行，不需要 pip install。', en: 'The tool can be installed as a skill or run directly without pip install.' },
+    result: { zh: '完成 Windows、macOS、Linux 兼容的定位器和统一输出协议。', en: 'Delivered a Windows, macOS, and Linux-compatible locator with a consistent output contract.' },
+    nextStep: { zh: '增加重复版本比较，让“找到了两个”进一步变成“应该用哪一个”。', en: 'Add duplicate-version comparison so “two copies found” can lead to a safer choice.' },
+    accent: 'from-[rgba(117,96,69,0.18)] via-[rgba(190,157,94,0.07)] to-transparent',
+    externalLinks: [{ label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/skill-locator' }],
+    detailSections: [{ title: { zh: '小工具也应该有明确协议', en: 'Small tools still need a clear contract' }, paragraphs: [{ zh: '这个项目的价值不在算法，而在输出稳定。人看表格，Agent 读 JSON，Shell 管道只要路径，三种使用方式不必互相迁就。', en: 'The value is not an algorithm; it is a stable output contract. People get a table, agents get JSON, and shell pipelines get one path without forcing those consumers into the same format.' }] }],
+  }),
+  compactProject({
+    slug: 'idea-create-everything',
+    year: '2025',
+    category: { zh: 'AI 产品 / 项目规划', en: 'AI Product / Project Planning' },
+    title: { zh: 'Idea Create Everything', en: 'Idea Create Everything' },
+    subtitle: { zh: '把一个模糊想法拆成可以编辑、搜索和导出的项目树', en: 'Turn a vague idea into an editable, researchable, exportable project tree' },
+    summary: { zh: '这个项目从“我有一个想法，但不知道先做什么”出发。AI 负责给出第一版分解，用户在树形编辑器里移动、增删和补充节点，还可以调用联网搜索给市场与竞品节点补资料。', en: 'The project starts from “I have an idea but do not know what to do first.” AI proposes an initial breakdown, the user edits it as a tree, and web search can add evidence to market or competitor nodes.' },
+    role: { zh: '产品原型、树形信息架构、FastAPI 后端与 Next.js 前端', en: 'Product prototype, tree information architecture, FastAPI backend, and Next.js frontend' },
+    capabilities: [{ zh: 'AI 创意分解', en: 'AI idea breakdown' }, { zh: '可视化树编辑', en: 'Visual tree editing' }, { zh: '搜索与多格式导出', en: 'Search and multi-format export' }],
+    challenge: { zh: 'AI 很擅长快速列提纲，但提纲常常过于完整，看不出优先级，也不方便在人做出新判断以后重排。', en: 'AI can draft outlines quickly, but those outlines often look falsely complete, hide priority, and resist reordering after a human judgment changes.' },
+    approach: { zh: '生成结果不是一篇长文，而是可拖动的多级节点。Claude 提供建议，Brave Search 给外部资料，最终结构可以导出 Markdown、JSON 或思维导图。', en: 'The output is a draggable hierarchy instead of a long document. Claude offers suggestions, Brave Search adds external material, and the final structure exports to Markdown, JSON, or a mind map.' },
+    outcome: { zh: '形成了从想法输入、结构分解、资料补充到导出的完整原型。', en: 'Completed a full prototype from initial idea through decomposition, research, and export.' },
+    result: { zh: '完成 FastAPI + Next.js 14 双端原型，并提供 Docker Compose 启动链路。', en: 'Delivered a FastAPI and Next.js 14 prototype with Docker Compose startup.' },
+    nextStep: { zh: '减少模板带来的“看起来很完整”，让依赖、风险和首个可验证结果更早出现。', en: 'Reduce template-driven false completeness and surface dependencies, risks, and the first testable result earlier.' },
+    accent: 'from-[rgba(109,82,60,0.18)] via-[rgba(190,157,94,0.07)] to-transparent',
+    externalLinks: [{ label: { zh: '查看源码', en: 'View on GitHub' }, url: 'https://github.com/MarcusDog/Idea_create_everything' }],
+    detailSections: [{ title: { zh: '树比长回答更容易继续改', en: 'A tree is easier to revise than a long answer' }, paragraphs: [{ zh: '项目结构会在调研和实现中不断变化。节点可以单独移动、补充来源或标记完成，用户不需要每次都让模型重写整篇计划。', en: 'Project structure changes throughout research and implementation. Individual nodes can move, gain sources, or be completed without asking the model to rewrite the entire plan.' }] }],
+  }),
+  compactProject({
+    slug: 'personal-publication',
+    year: '2026',
+    category: { zh: '个人网站 / 内容系统', en: 'Personal Site / Publishing System' },
+    title: { zh: '小天 Aya · 个人网站', en: 'XiaoTian Aya · Personal Publication' },
+    subtitle: { zh: '这一次不再把网站当简历，而是当作长期维护的个人出版物', en: 'A personal site rebuilt as a maintained publication rather than a frozen résumé' },
+    summary: { zh: '现在这个网站本身也是一个项目。前台负责作品、日志和个人介绍，私有 Studio 可以写 Markdown、保存草稿、上传图片、发布和检索文章；项目资料也改成可继续扩充的结构化内容。', en: 'This site is a project in its own right. The public side presents work, journal entries, and background, while a private Studio handles Markdown, drafts, image uploads, publishing, and searchable content.' },
+    role: { zh: '内容策略、视觉系统、React 前端、Express / SQLite 内容后台与部署整理', en: 'Content strategy, visual system, React frontend, Express/SQLite CMS, and deployment preparation' },
+    capabilities: [{ zh: '双语作品档案', en: 'Bilingual work archive' }, { zh: '私有写作后台', en: 'Private writing studio' }, { zh: '草稿、发布、标签与搜索', en: 'Drafts, publishing, tags, and search' }],
+    challenge: { zh: '旧网站能展示几张图，却很难持续添加项目和文章。久而久之，做过的东西比网站里看到的多很多。', en: 'The old site could show a few screenshots but made ongoing publishing difficult. Over time, the actual body of work grew much larger than what the site showed.' },
+    approach: { zh: '视觉上保留暖白、石墨和鎏金质感，内容上把“精选几个”改成“重点案例 + 完整档案”。日志由 SQLite 管理，后台使用 HttpOnly 会话，写作与最终阅读排版共用同一套 Markdown 规则。', en: 'The visual system keeps warm ivory, graphite, and restrained gold, while content moves from a few selected items to major case studies plus a complete archive. SQLite manages the journal, HttpOnly sessions protect the Studio, and editing shares Markdown rules with the reading view.' },
+    outcome: { zh: '网站变成可以继续写、继续加项目的工具，而不是一次重构后再次冻结的页面。', en: 'The site becomes a tool that can keep accepting writing and project work instead of freezing after one redesign.' },
+    result: { zh: '完成响应式前台、项目案例系统和带登录、草稿、发布、上传的 Journal Studio。', en: 'Delivered the responsive public site, project case-study system, and Journal Studio with login, drafts, publishing, and uploads.' },
+    nextStep: { zh: '继续把真实项目资料补齐，并让 AI 只做可审阅的排版与润色建议。', en: 'Continue filling the archive with real project evidence and keep AI assistance reviewable.' },
+    accent: 'from-[rgba(186,145,76,0.22)] via-[rgba(110,87,58,0.08)] to-transparent',
+    detailSections: [{ title: { zh: '网站要能跟上做事的速度', en: 'The site should keep up with the work' }, paragraphs: [{ zh: '这次重构最重要的不是换一套配色，而是降低更新成本。项目数据、截图和文章都可以按同一套结构继续加入，重点项目有完整案例，较小的工具也不会因为不够“精选”而消失。', en: 'The important change is not a new palette; it is a lower cost of maintenance. Projects, screenshots, and articles can keep joining the same structure, with full case studies for major work and a visible place for smaller tools.' }] }],
+  }),
 ]

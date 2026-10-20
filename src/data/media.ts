@@ -32,6 +32,8 @@ export const showcaseImages = [
 ]
 
 export const projectMediaBySlug: Record<string, string> = {
-  'ainews-platform': '/project-images/ainews/1.png',
+  shizaolu: '/project-images/featured/shizaolu-hero.png',
+  voicedesk: '/project-images/featured/voicedesk-hero.png',
+  'ainews-platform': '/project-images/featured/ainews-hero.png',
   'learningbydoing-ai-studio': '/project-images/learningbydoing/8.png',
 }

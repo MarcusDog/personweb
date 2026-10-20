@@ -8,10 +8,11 @@ import { Link, useParams } from 'react-router-dom'
 import { PageHero } from '../components/PageHero'
 import { ReadingToc } from '../components/ReadingToc'
 import { useLanguage } from '../hooks/useLanguage'
+import { useJournalEntries } from '../hooks/useJournal'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { trackEvent } from '../lib/analytics'
 import { copyFor } from '../lib/copy'
-import { formatDate, getJournalEntries, getJournalEntry } from '../lib/content'
+import { formatDate } from '../lib/content'
 import { makeHeadingId } from '../lib/markdown'
 
 function getNodeText(children: ReactNode): string {
@@ -28,8 +29,9 @@ export function JournalArticlePage() {
   const { slug } = useParams()
   const { language } = useLanguage()
   const isChinese = language === 'zh'
-  const entry = getJournalEntry(slug ?? '')
-  const relatedEntries = getJournalEntries()
+  const { entries } = useJournalEntries()
+  const entry = entries.find((item) => item.slug === (slug ?? ''))
+  const relatedEntries = entries
     .filter((item) => item.slug !== entry?.slug)
     .slice(0, 2)
   const [copied, setCopied] = useState(false)
@@ -81,7 +83,11 @@ export function JournalArticlePage() {
       />
 
       <section className="page-shell pb-20 md:pb-28">
-        <div className="article-atmosphere mb-12">
+        {entry.coverImage ? (
+          <figure className="mb-12 overflow-hidden rounded-[1.75rem] border border-[var(--border-subtle)] bg-[var(--surface-soft)] p-2 shadow-[var(--shadow-soft)]">
+            <img className="max-h-[36rem] w-full rounded-[1.25rem] object-cover" src={entry.coverImage} alt="" />
+          </figure>
+        ) : <div className="article-atmosphere mb-12">
           <div className="article-atmosphere-mark" />
           <div className="article-atmosphere-panel article-atmosphere-panel-primary">
             <span>{copyFor(language, entry.category)}</span>
@@ -90,6 +96,10 @@ export function JournalArticlePage() {
             <span>{formatDate(entry.date, language)}</span>
           </div>
           <div className="article-atmosphere-line" />
+        </div>}
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          {entry.tags.map((tag) => <span key={tag} className="rounded-full border border-[var(--border-subtle)] px-3 py-1.5 text-xs text-[var(--text-muted)]">#{tag}</span>)}
+          <span className="ml-auto text-xs text-[var(--text-muted)]">{isChinese ? `约 ${Math.max(1, Math.ceil(entry.body.zh.length / 450))} 分钟阅读` : `${Math.max(1, Math.ceil(entry.body.en.split(/\s+/).length / 220))} min read`}</span>
         </div>
         <div className="grid gap-12 md:grid-cols-[minmax(0,1fr)_18rem]">
           <article className="reading-prose max-w-none">
@@ -151,7 +161,7 @@ export function JournalArticlePage() {
             </p>
             <div className="mt-4 space-y-4">
               {relatedEntries.map((item) => (
-                <Link key={item.slug} className="block border-t border-[var(--border-subtle)] pt-4 first:border-t-0 first:pt-0" to={`/journal/${item.slug}`}>
+                <Link key={item.slug} className="safe-touch flex items-center border-t border-[var(--border-subtle)] pt-4 first:border-t-0 first:pt-0" to={`/journal/${item.slug}`}>
                   <p className={`text-[var(--text-strong)] ${isChinese ? 'text-[1rem] leading-7' : 'text-sm leading-6'}`}>
                     {copyFor(language, item.title)}
                   </p>

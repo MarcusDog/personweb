@@ -4,9 +4,9 @@ import { useDeferredValue, useMemo, useState } from 'react'
 import { JournalListItem } from '../components/JournalListItem'
 import { PageHero } from '../components/PageHero'
 import { useLanguage } from '../hooks/useLanguage'
+import { useJournalEntries } from '../hooks/useJournal'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { copyFor } from '../lib/copy'
-import { getJournalEntries } from '../lib/content'
 
 export function JournalPage() {
   const { language } = useLanguage()
@@ -15,7 +15,7 @@ export function JournalPage() {
       ? 'Journal | 小天Aya'
       : 'Journal | XiaoTian Aya',
   )
-  const entries = getJournalEntries()
+  const { entries, source } = useJournalEntries()
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const deferredQuery = useDeferredValue(query)
@@ -34,7 +34,9 @@ export function JournalPage() {
       const queryMatch =
         normalized.length === 0 ||
         copyFor(language, entry.title).toLowerCase().includes(normalized) ||
-        copyFor(language, entry.standfirst).toLowerCase().includes(normalized)
+        copyFor(language, entry.standfirst).toLowerCase().includes(normalized) ||
+        copyFor(language, entry.body).toLowerCase().includes(normalized) ||
+        entry.tags.some((tag) => tag.toLowerCase().includes(normalized))
       return categoryMatch && queryMatch
     })
   }, [category, deferredQuery, entries, language])
@@ -52,6 +54,10 @@ export function JournalPage() {
         }
       />
       <section className="page-shell py-8 md:py-10">
+        <div className="mb-5 flex items-center justify-between gap-4 text-xs text-[var(--text-muted)]">
+          <span>{language === 'zh' ? `共 ${entries.length} 篇公开文章` : `${entries.length} public entries`}</span>
+          <span className="inline-flex items-center gap-2"><i className={`h-1.5 w-1.5 rounded-full ${source === 'live' ? 'bg-emerald-500' : 'bg-[var(--accent-soft)]'}`} />{language === 'zh' ? (source === 'live' ? '内容已实时同步' : '正在读取内容') : source === 'live' ? 'Live archive' : 'Loading archive'}</span>
+        </div>
         <details
           className="rounded-[1.4rem] border border-[var(--border-subtle)] bg-[var(--surface-soft)] px-4 py-3 text-[var(--text-muted)]"
           data-journal-tools="secondary"
@@ -64,6 +70,7 @@ export function JournalPage() {
             <label className="safe-touch flex items-center gap-3 rounded-[1.1rem] border border-[var(--border-subtle)] bg-[var(--surface-strong)] px-4 py-3">
               <Search size={18} className="text-[var(--text-muted)]" />
               <input
+                aria-label={language === 'zh' ? '搜索文章' : 'Search journal entries'}
                 className="w-full bg-transparent text-base text-[var(--text-strong)] outline-none placeholder:text-[var(--text-muted)]"
                 type="search"
                 placeholder={language === 'zh' ? '搜索标题或摘要' : 'Search title or standfirst'}
@@ -74,6 +81,7 @@ export function JournalPage() {
             <div className="flex flex-wrap gap-2">
               {categories.map((item) => (
                 <button
+                  aria-pressed={category === item}
                   key={item}
                   type="button"
                   className={`safe-touch rounded-full border px-4 py-3 text-sm transition duration-[240ms] ${
@@ -94,6 +102,11 @@ export function JournalPage() {
         {filtered.map((entry) => (
           <JournalListItem key={entry.slug} entry={entry} language={language} />
         ))}
+        {!filtered.length && (
+          <div className="border-t border-[var(--border-subtle)] py-16 text-center text-sm text-[var(--text-muted)]">
+            {language === 'zh' ? '没有找到匹配的文章，换个关键词试试。' : 'No matching entries. Try another search.'}
+          </div>
+        )}
       </section>
     </>
   )

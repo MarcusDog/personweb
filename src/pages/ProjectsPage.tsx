@@ -13,8 +13,9 @@ export function ProjectsPage() {
       : 'Projects | XiaoTian Aya',
   )
   const projects = getProjects()
-  const featured = projects.find((item) => item.featured) ?? projects[0]
-  const archive = projects.filter((item) => item.slug !== featured.slug)
+  const featured = projects.filter((item) => item.featured)
+  const featuredSlugs = new Set(featured.map((item) => item.slug))
+  const archive = projects.filter((item) => !featuredSlugs.has(item.slug))
 
   return (
     <>
@@ -28,13 +29,29 @@ export function ProjectsPage() {
           </div>
         }
       />
-      <section className="page-shell py-12 md:py-16">
-        <FeaturedProject project={featured} language={language} />
+      <section className="page-shell space-y-8 py-12 md:space-y-12 md:py-16">
+        <div className="flex items-end justify-between gap-5 border-b border-[var(--border-subtle)] pb-5">
+          <p className={`brand-ui text-[var(--text-muted)] ${language === 'zh' ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+            {language === 'zh' ? '重点项目 · 完整案例' : 'Selected work · Full case studies'}
+          </p>
+          <span className="text-xs text-[var(--text-muted)]">{String(featured.length).padStart(2, '0')}</span>
+        </div>
+        {featured.map((project) => (
+          <FeaturedProject key={project.slug} project={project} language={language} />
+        ))}
       </section>
       <section className="page-shell pb-20 md:pb-28">
-        <p className={`brand-ui mb-6 text-[var(--text-muted)] ${language === 'zh' ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
-          {language === 'zh' ? '更多实验' : 'More Experiments'}
-        </p>
+        <div className="mb-6 flex items-end justify-between gap-5 border-b border-[var(--border-subtle)] pb-5">
+          <div>
+            <p className={`brand-ui text-[var(--text-muted)] ${language === 'zh' ? 'text-[0.82rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
+              {language === 'zh' ? '完整项目档案' : 'Complete project archive'}
+            </p>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-[var(--text-soft)]">
+              {language === 'zh' ? '没有为了显得整齐而删掉小项目。每一项都写清楚它解决什么、做到哪里，以及还欠什么。' : 'Smaller projects stay visible. Each entry explains what it solves, what is real today, and what remains unfinished.'}
+            </p>
+          </div>
+          <span className="text-xs text-[var(--text-muted)]">{String(archive.length).padStart(2, '0')}</span>
+        </div>
         <div>
           {archive.map((project) => (
             <ProjectListRow key={project.slug} project={project} language={language} />

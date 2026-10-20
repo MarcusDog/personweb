@@ -22,13 +22,13 @@ export function JournalListItem({ entry, language }: JournalListItemProps) {
       </div>
       <div>
         <Link to={`/journal/${entry.slug}`} className="group block">
-          <h3
+          <h2
             className={`brand-display text-[var(--text-strong)] transition duration-[240ms] group-hover:text-[var(--accent-strong)] ${
               isChinese ? 'text-[2rem] leading-[1.14]' : 'text-3xl leading-tight'
             }`}
           >
             {copyFor(language, entry.title)}
-          </h3>
+          </h2>
           <p className={`mt-3 max-w-2xl text-[var(--text-soft)] ${isChinese ? 'text-[1.02rem] leading-[1.9]' : 'text-base leading-7'}`}>
             {copyFor(language, entry.standfirst)}
           </p>

@@ -1,78 +1,26 @@
-# Personal Site Blog Updates
+# Journal 内容工作流
 
-## Current Workflow
+## 日常发布
 
-Blog content now lives in:
+访问 `/studio`，登录后即可：
 
-- `ai-learning-studio/src/content/journal/*.md`
+1. 新建文章；
+2. 分别填写中文与英文标题、摘要、分类和正文；
+3. 添加标签、上传图片；
+4. 使用“结构化排版”把普通段落整理成 Markdown 层级；
+5. 在右侧实时预览；
+6. 保存草稿或直接发布。
 
-The site now also provides:
+发布后的内容会立即出现在 Journal、首页最近文章和对应文章详情页中，不需要重新构建前端。
 
-- category filters plus text search on the Journal index
-- an article outline generated from Markdown headings
-- a copy-link action on each article page
+## 静态内容与容灾
 
-Each article is one Markdown file with:
+仓库中的 `src/content/journal/*.md` 是初始内容与公开站点的离线回退。当 SQLite 数据库为空时，服务会自动导入这些 Markdown 文件。日常更新应通过 `/studio` 完成，不需要再手工创建文件。
 
-1. frontmatter for metadata
-2. a `<!--lang:zh-->` block
-3. a `<!--lang:en-->` block
+## 数据位置
 
-Example:
+- SQLite：`server/data/personweb.db`
+- 首次生成的本地管理员密码：`server/data/admin-secret.txt`
+- 后台上传图片：`public/uploads/`
 
-```md
----
-slug: my-new-post
-date: 2026-03-30
-categoryZh: 笔记
-categoryEn: Note
-titleZh: 我的新文章
-titleEn: My New Post
-standfirstZh: 一句话摘要。
-standfirstEn: One-line summary.
----
-<!--lang:zh-->
-## 标题
-
-中文正文
-
-<!--lang:en-->
-## Heading
-
-English body
-```
-
-## How To Publish A New Post
-
-1. Add a new Markdown file under `ai-learning-studio/src/content/journal/`
-2. Keep the filename sortable by date, for example `2026-03-30-my-new-post.md`
-3. Run:
-   - `npm test`
-   - `npm run build`
-4. Deploy the site
-
-## What Counts As "Real-Time"
-
-### Option 1: Fast static publishing
-
-This is the current setup. You add a Markdown file, push to Git, and your host redeploys automatically.
-
-This is not truly real-time, but for a personal site it is usually the simplest and most reliable workflow.
-
-### Option 2: True real-time publishing
-
-If you want posts to appear instantly without redeploying, the site needs a runtime content source, for example:
-
-- Supabase
-- Notion API
-- Sanity
-- Contentful
-- a custom admin backend
-
-In that setup, the website fetches blog data from the database or CMS at runtime.
-
-## Recommended Path
-
-Use the current Markdown workflow first.
-
-When your writing frequency increases and you want browser-based publishing, add a small CMS or Supabase-backed editor in the next phase.
+部署时请持久化这些目录，并定期备份数据库与上传图片。

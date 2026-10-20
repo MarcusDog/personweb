@@ -38,9 +38,12 @@ export function ProjectDetailPage() {
   const showcaseGroups = project.showcaseGroups ?? []
 
   function renderShot(image: string, alt: string, featured?: boolean) {
+    const isPortrait = image.includes('/shizaolu/')
     return (
-      <div className={`project-shot-frame ${featured ? 'project-shot-frame-featured' : ''}`}>
-        <img src={image} alt={alt} className="project-shot-image" loading="lazy" />
+      <div className={`project-shot-frame ${featured ? 'project-shot-frame-featured' : ''} ${isPortrait ? 'project-shot-frame-portrait' : ''}`}>
+        <a href={image} target="_blank" rel="noopener noreferrer" aria-label={`${alt} · ${language === 'zh' ? '查看原图' : 'View full image'}`}>
+          <img src={image} alt={alt} className="project-shot-image" loading="lazy" />
+        </a>
       </div>
     )
   }

@@ -1,118 +1,133 @@
-import { afterEach, describe, expect, it } from 'vitest'
-import { createRoot } from 'react-dom/client'
-import { act } from 'react'
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { createRoot } from "react-dom/client";
+import { act } from "react";
+import App from "../App";
+import seed from "../data/project-snapshot.json";
+import { getJournalEntries } from "../lib/content";
 
-import App from '../App'
-import { getJournalEntries, getProjects } from '../lib/content'
-
+const roots: ReturnType<typeof createRoot>[] = [];
 afterEach(() => {
-  document.body.innerHTML = ''
-  localStorage.clear()
-})
-
-async function renderRoute(path: string) {
-  window.history.pushState({}, '', path)
-  localStorage.setItem('personweb-language', 'zh')
-  const container = document.createElement('div')
-  document.body.appendChild(container)
-
+  roots.forEach((root) => act(() => root.unmount()));
+  roots.length = 0;
+  document.body.innerHTML = "";
+  localStorage.clear();
+  vi.unstubAllGlobals();
+});
+async function route(path: string) {
+  window.history.pushState({}, "", path);
+  localStorage.setItem("personweb-language", "zh");
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(
+      async () =>
+        new Response(
+          JSON.stringify({
+            success: true,
+            data: { authenticated: false, username: null },
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        ),
+    ),
+  );
+  const element = document.createElement("div");
+  document.body.appendChild(element);
+  const root = createRoot(element);
+  roots.push(root);
   await act(async () => {
-    createRoot(container).render(<App />)
-  })
-  for (let index = 0; index < 5; index += 1) {
+    root.render(<App />);
+    await new Promise((resolve) => setTimeout(resolve, 5));
+  });
+  for (let i = 0; i < 50 && element.textContent === "正在打开…"; i++)
     await act(async () => {
-      await new Promise((resolve) => window.setTimeout(resolve, 0))
-    })
-  }
-
-  return container
+      await new Promise((resolve) => setTimeout(resolve, 20));
+    });
+  await act(async () => {
+    await new Promise((resolve) => setTimeout(resolve, 20));
+  });
+  return element;
 }
-
-describe('app shell', () => {
-  it('renders one public brand and a specific home positioning statement', async () => {
-    const container = await renderRoute('/')
-
-    expect(container.textContent).toContain('小天Aya')
-    expect(container.textContent).toContain('Aya')
-    expect(container.textContent).not.toContain('BemsZzz')
-    expect(container.textContent).toContain('Projects')
-    expect(container.textContent).toContain('Journal')
-    expect(container.textContent).toContain('把 AI 想法做成可用系统')
-    expect(container.textContent).toContain('真正改变日常生活')
-    expect(container.textContent).toContain('预约需求拆解')
-    expect(container.textContent).toContain('查看代表案例')
-    expect(container.textContent).toContain('Agent 系统 / 自动化工具 / 产品原型')
-    expect(container.querySelector('[data-analytics-event="hero_cta_click"]')).toBeTruthy()
-  })
-
-  it('renders project and journal counts from data without template placeholders', async () => {
-    await import('../pages/ProjectsPage')
-    const projectsPage = await renderRoute('/projects')
-
-    expect(projectsPage.textContent).toContain(`当前收录 ${getProjects().length} 个项目样例。`)
-    expect(projectsPage.textContent).not.toContain('当前收录 $ 个项目样例')
-
-    await import('../pages/JournalPage')
-    const journalPage = await renderRoute('/journal')
-
-    expect(journalPage.textContent).toContain(`当前收录 ${getJournalEntries().length} 篇文章样例。`)
-    expect(journalPage.textContent).not.toContain('当前收录 $ 篇文章样例')
-  })
-
-  it('keeps the journal search visually secondary while the archive is small', async () => {
-    const container = await renderRoute('/journal')
-
-    expect(container.querySelector('[data-journal-tools="secondary"]')).toBeTruthy()
-  })
-
-  it('renders a structured contact intake form', async () => {
-    await import('../pages/ContactPage')
-    const container = await renderRoute('/contact')
-
-    expect(container.textContent).toContain('你是谁')
-    expect(container.textContent).toContain('当前问题')
-    expect(container.textContent).toContain('期望交付')
-    expect(container.textContent).toContain('预计时间')
-    expect(container.textContent).toContain('联系方式')
-    expect(container.textContent).toContain('提交需求（24-48小时回复）')
-    expect(container.textContent).toContain('不会公开或转发你的信息')
-    expect(container.querySelector('[data-analytics-event="contact_form_submit"]')).toBeTruthy()
-  })
-
-  it('shows result fields on project surfaces', async () => {
-    await import('../pages/ProjectsPage')
-    const container = await renderRoute('/projects')
-
-    for (const project of getProjects()) {
-      expect('result' in project).toBe(true)
-    }
-    expect(container.textContent).toContain('结果')
-    expect(container.textContent).toContain('检索时间')
-    expect(container.querySelector('[data-analytics-event="project_detail_click"]')).toBeTruthy()
-  })
-
-  it('connects articles back to consultation intent', async () => {
-    await import('../pages/JournalArticlePage')
-    const container = await renderRoute('/journal/durable-agent-systems')
-
-    expect(container.textContent).toContain('如果你在做类似系统')
-    expect(container.textContent).toContain('架构评估')
-    expect(container.textContent).toContain('相关文章')
-    expect(container.querySelector('[data-analytics-event="article_cta_click"]')).toBeTruthy()
-  })
-
-  it('summarizes fit and disqualification on the about page', async () => {
-    await import('../pages/AboutPage')
-    const container = await renderRoute('/about')
-
-    expect(container.textContent).toContain('快速摘要')
-    expect(container.textContent).toContain('如何合作')
-    expect(container.textContent).toContain('不适合合作的情况')
-  })
-
-  it('renders a not found state for unknown routes', async () => {
-    const container = await renderRoute('/missing-route')
-
-    expect(container.textContent).toContain('页面不存在')
-  })
-})
+describe("editorial garden", () => {
+  it("uses the selected personal introduction and real featured projects", async () => {
+    const el = await route("/");
+    expect(el.querySelector("h1")?.textContent).toBe("你好，我是小天。");
+    for (const name of [
+      "最近写的",
+      "正在做的",
+      "我的书架",
+      "食灶录",
+      "VoiceDesk",
+      "Ainews",
+      "Flow Socket",
+    ])
+      expect(el.textContent).toContain(name);
+    expect(el.querySelectorAll(".home-projects .project-card")).toHaveLength(4);
+    expect(el.textContent).not.toContain('最近的随想');
+    expect(el.querySelector('a[href="/studio"]')).toBeTruthy();
+  });
+  it("retains every project and uses image or explicit concept covers", async () => {
+    const el = await route("/projects");
+    expect(el.querySelectorAll(".project-card")).toHaveLength(seed.length);
+    for (const p of seed) expect(el.textContent).toContain(p.title.zh);
+    expect(el.textContent).toContain("概念封面");
+  });
+  it("shows featured articles and persistent query filters", async () => {
+    const el = await route("/journal");
+    expect(el.querySelector("h1")?.textContent).toBe("写给时间的笔记。");
+    expect(el.querySelectorAll(".featured-article")).toHaveLength(3);
+    expect(el.querySelectorAll(".article-row")).toHaveLength(
+      getJournalEntries().length,
+    );
+    const filtered = await route("/journal?q=没有这篇文章");
+    expect(filtered.textContent).toContain("没有匹配的文章");
+  });
+  it("keeps about personal without a screenshot wall", async () => {
+    const el = await route("/about");
+    expect(el.textContent).toContain("我叫小天。");
+    expect(el.querySelectorAll("img")).toHaveLength(1);
+    expect(el.textContent).toContain("现在关注的事");
+  });
+  it("provides honest empty states instead of invented reading records", async () => {
+    const el = await route("/reading");
+    expect(el.textContent).toContain("书架还在整理");
+    expect(el.querySelectorAll(".reading-book")).toHaveLength(0);
+  });
+  it("simplifies contact while preserving required message fields", async () => {
+    const el = await route("/contact");
+    expect(el.querySelector('input[name="contact"][required]')).toBeTruthy();
+    expect(el.querySelector('textarea[name="problem"][required]')).toBeTruthy();
+  });
+  it("protects all management functions behind login", async () => {
+    const el = await route("/studio");
+    expect(el.textContent).toContain("登录写作台");
+    expect(el.querySelector('input[type="password"]')).toBeTruthy();
+    expect(el.querySelector(".studio-nav")).toBeNull();
+  });
+  it("renders a deliberate not-found page", async () => {
+    const el = await route("/missing-route");
+    expect(el.textContent).toContain("这一页暂时找不到");
+  });
+  it('uses the supplied original avatar and readable, labelled footer links', async () => {
+    const el = await route('/about');
+    expect(el.querySelector('.about-intro img')?.getAttribute('src')).toContain('aya-avatar-choice');
+    expect(el.querySelectorAll('.focus-card')).toHaveLength(0);
+    expect(el.querySelector('.editorial-now')).toBeTruthy();
+    expect(el.querySelector('.prominent-actions')?.textContent).toContain('聊聊你的想法');
+    const footer = el.querySelector('footer');
+    expect(footer?.textContent).toContain('GitHub');
+    expect(footer?.querySelectorAll('a[href^="mailto:"]')).toHaveLength(1);
+    expect(footer?.querySelector('a[href="/subscribe"]')).toBeTruthy();
+  });
+  it('explains the three available subscription feeds', async () => {
+    const el = await route('/subscribe');
+    expect(el.querySelectorAll('.feed-card')).toHaveLength(3);
+    expect(el.textContent).toContain('读书与书目');
+    expect(el.querySelector('a[href="/feeds/reading.xml"]')).toBeTruthy();
+  });
+  it('offers six private message topics and optional project context', async () => {
+    const el = await route('/contact');
+    expect(el.querySelectorAll('input[name="purpose"]')).toHaveLength(6);
+    expect(el.textContent).toContain('书籍推荐');
+    expect(el.querySelectorAll('select[name="project"] option')).toHaveLength(seed.length + 1);
+    expect(el.textContent).toContain('不会公开展示');
+  });
+});

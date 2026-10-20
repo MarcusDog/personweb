@@ -184,7 +184,7 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
               data-analytics-event="contact_form_submit"
             >
               {submitting
-                ? (isChinese ? '提交中...' : 'Submitting...')
+                ? (isChinese ? '提交中…' : 'Submitting…')
                 : (language === 'zh' ? '提交需求（24-48小时回复）' : 'Submit brief (24-48h reply)')
               }
             </button>
@@ -198,7 +198,7 @@ export function ContactPanel({ language, showForm = false }: ContactPanelProps) 
           ) : null}
         </form>
       ) : null}
-      <div className="mt-10 grid grid-cols-2 gap-6 md:grid-cols-3">
+      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
         <div>
           <p className={`brand-ui text-[var(--text-muted)] ${isChinese ? 'text-[0.8rem] tracking-[0.08em]' : 'text-xs uppercase tracking-[0.12em]'}`}>
             Email

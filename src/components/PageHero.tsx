@@ -21,9 +21,8 @@ export function PageHero({ eyebrow, title, description, aside }: PageHeroProps) 
     <section className="page-shell pt-28 md:pt-34">
       <div className={shellClassName}>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           className={aside ? undefined : 'max-w-4xl'}
         >
@@ -39,10 +38,10 @@ export function PageHero({ eyebrow, title, description, aside }: PageHeroProps) 
             </p>
           ) : null}
           <h1
-            className={`brand-display balance max-w-4xl text-[var(--text-strong)] ${
+            className={`brand-display balance max-w-4xl break-words text-[var(--text-strong)] ${
               isChinese
                 ? 'text-[2.9rem] leading-[1.02] md:text-[5rem]'
-                : 'text-5xl leading-[0.94] md:text-7xl'
+                : 'text-[2.55rem] leading-[0.98] md:text-7xl md:leading-[0.94]'
             }`}
           >
             {title}
@@ -59,9 +58,8 @@ export function PageHero({ eyebrow, title, description, aside }: PageHeroProps) 
         </motion.div>
         {aside ? (
           <motion.aside
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.4 }}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
             className="paper-panel h-fit"
           >

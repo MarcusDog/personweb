@@ -44,6 +44,7 @@ export function getJournalEntries(): JournalEntry[] {
           zh: extractMarkdownHeadings(parsed.zh),
           en: extractMarkdownHeadings(parsed.en),
         },
+        tags: [parsed.frontmatter.categoryZh, parsed.frontmatter.categoryEn],
       } satisfies JournalEntry
     })
     .toSorted((a, b) => b.date.localeCompare(a.date))
@@ -54,9 +55,11 @@ export function getJournalEntry(slug: string) {
 }
 
 export function formatDate(date: string, language: Language) {
+  const parsed = new Date(date)
+  if (Number.isNaN(parsed.getTime())) return date
   return new Intl.DateTimeFormat(language === 'zh' ? 'zh-CN' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  }).format(new Date(date))
+  }).format(parsed)
 }
